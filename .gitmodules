@@ -1,0 +1,3 @@
+[submodule "Libft"]
+	path = Libft
+	url = https://github.com/flo-12/Libft.git
