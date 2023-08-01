@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/01 15:41:14 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/01 18:36:06 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ typedef struct s_ambient
 
 typedef struct s_object
 {
-	e_types	identifier;
+	enum e_types	identifier;
 	union object	// check difference "union struct" and simply "union"
 	{
-		t_cylinder	*cylinder;
-		t_plane		*plane;
-		t_sphere	*sphere;
-	} obj;
+		t_cylinder	cylinder;
+		t_plane		plane;
+		t_sphere	sphere;
+	} u_obj;
 	struct s_object	*next;
 } t_object;
 
