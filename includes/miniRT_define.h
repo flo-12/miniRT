@@ -13,6 +13,27 @@
 #ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
 
+/**************************************************************************
+*                                MACROS                                   *
+**************************************************************************/
+
+# define STR_ERR_ARG "error: a scene in format *.rt mus be entered \
+(exactly one arg)"
+
+/**************************************************************************
+*                                 ENUMS                                   *
+**************************************************************************/
+
+enum e_types {
+	SPHERE,
+	PLANE,
+	CYLINDER
+};
+
+/**************************************************************************
+*                               STRUCTURES                                *
+**************************************************************************/
+
 typedef struct s_coordinates
 {
 	float	x;	// maybe double, but float b/c faster
@@ -26,15 +47,6 @@ typedef struct s_colors // Q: include t value for put-pixel?
 	int	g;
 	int	b;
 } t_color;
-
-enum e_types {
-	AMBIENT = 1,
-	CAMERA,
-	LIGHT,
-	SPHERE,
-	PLANE,
-	CYLINDER
-};
 
 typedef struct s_cylinder
 {
@@ -64,6 +76,7 @@ typedef struct s_light
 	t_coordinates	point;
 	float			brightness;
 	t_color			color;
+	struct s_light	*next;
 } t_light;
 
 typedef struct s_camera
@@ -88,11 +101,18 @@ typedef struct s_object
 		t_cylinder	*cylinder;
 		t_plane		*plane;
 		t_sphere	*sphere;
-		t_light		*light;
-		t_camera	*camera;
-		t_ambient	*ambient;
 	} obj;
-	t_object	*next;
+	struct s_object	*next;
 } t_object;
+
+typedef struct s_global
+{
+	// mlx_data -> to be added
+	t_light		*light;
+	t_camera	*camera;
+	t_ambient	*ambient;
+	t_object	*objects;
+} t_global;
+
 
 #endif
