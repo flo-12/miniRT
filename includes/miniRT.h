@@ -14,8 +14,13 @@
 # define MINIRT_H
 
 /************* HEADERS *************/
-# include <...>
-
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
 # include "miniRT_define.h"
 
 /************* FUNCTIONS *************/
