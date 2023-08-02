@@ -20,6 +20,8 @@
 *                                MACROS                                   *
 **************************************************************************/
 
+# define THRESH_FLOAT 1e-6
+
 # define STR_ERR_ARG "error: a scene in format *.rt mus be entered \
 (exactly one arg)"
 
@@ -35,9 +37,10 @@ enum e_types {
 
 typedef enum e_exit_code {
 	SUCCESS,
-	PARSE_ERROR,
+	OPENFILE_ERROR,
 	MLX_ERROR,
 	MALLOC_ERROR,
+	INPUT_ERROR
 } t_exit_code;
 
 /**************************************************************************
@@ -98,7 +101,7 @@ typedef struct s_camera
 
 typedef struct s_ambient
 {
-	t_coordinates	center;
+	//t_coordinates	center;
 	float			ratio;
 	t_color			color;
 } t_ambient;
