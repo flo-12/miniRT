@@ -6,12 +6,15 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/01 15:41:14 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/01 19:01:11 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
+
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
 
 /**************************************************************************
 *                                MACROS                                   *
@@ -29,6 +32,13 @@ enum e_types {
 	PLANE,
 	CYLINDER
 };
+
+typedef enum e_exit_code {
+	SUCCESS,
+	PARSE_ERROR,
+	MLX_ERROR,
+	MALLOC_ERROR,
+} t_exit_code;
 
 /**************************************************************************
 *                               STRUCTURES                                *
@@ -95,19 +105,29 @@ typedef struct s_ambient
 
 typedef struct s_object
 {
-	e_types	identifier;
-	union object	// check difference "union struct" and simply "union"
+	enum e_types	identifier;
+	union object
 	{
-		t_cylinder	*cylinder;
-		t_plane		*plane;
-		t_sphere	*sphere;
-	} obj;
+		t_cylinder	cylinder;
+		t_plane		plane;
+		t_sphere	sphere;
+	} u_obj;
 	struct s_object	*next;
 } t_object;
 
+typedef struct s__img {
+	void	*ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_img;
+
 typedef struct s_global
 {
-	// mlx_data -> to be added
+	void		*mlx;
+	void		*win;
+	t_img		img;
 	t_light		*light;
 	t_camera	*camera;
 	t_ambient	*ambient;
