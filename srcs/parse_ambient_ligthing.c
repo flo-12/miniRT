@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_ambient_ligthning.c                          :+:      :+:    :+:   */
+/*   parse_ambient_ligthing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,10 +12,23 @@
 
 #include "miniRT.h"
 
-/* parse_ambient_ligthning:
+/* parse_ambient_ligthing:
+*	Stores the values of each string in split in
+*	the structs. The format of split must be the
+*	following:
+*		split[0] -> identifier 		=> not used
+*		split[1] -> lighting ratio 	=> ambient->ratio
+*		split[2] -> RGB-colors		=> ambient->color
+*	The format of split is checked and also the
+*	format of the numbers in the str and the amount
+*	of numbers provided.
+*	It also has to be the first initialization b/c
+*	only one ambient lighting is allowed.
 *
+*	Return: SUCCESS in case of success and otherwise
+*		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_ambient_ligthning(char **split, t_ambient **ambient)
+int	parse_ambient_ligthing(char **split, t_ambient **ambient)
 {
 	if (*ambient)
 		return (INPUT_ERROR);
@@ -24,8 +37,11 @@ int	parse_ambient_ligthning(char **split, t_ambient **ambient)
 	*ambient = malloc(sizeof(t_ambient));
 	if (!(*ambient))
 		return (MALLOC_ERROR);
-	if (!store_nbr(split[1], 0, 1, &(*ambient)->ratio)
-		|| !store_color(split[2], &(*ambient)->color))
+	*ambient->color = malloc(sizeof(t_color));
+	if (!(*ambient)->color)
+		return (MALLOC_ERROR);
+	if (store_nbr(split[1], -1, 1, &(*ambient)->ratio) != SUCCESS
+		|| store_color(split[2], &(*ambient)->color) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }

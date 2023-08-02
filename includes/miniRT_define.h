@@ -63,25 +63,25 @@ typedef struct s_colors // Q: include t value for put-pixel?
 
 typedef struct s_cylinder
 {
-	t_coordinates	center;
-	t_coordinates	v_norm;
+	t_coordinates	*center;
+	t_coordinates	*v_norm;
 	float			d;
 	float			h;
-	t_color			color;
+	t_color			*color;
 } t_cylinder;
 
 typedef struct s_plane
 {
-	t_coordinates	point;
-	t_coordinates	v_norm;
-	t_color			color;
+	t_coordinates	*point;
+	t_coordinates	*v_norm;
+	t_color			*color;
 } t_plane;
 
 typedef struct s_sphere
 {
-	t_coordinates	center;
+	t_coordinates	*center;
 	float			d;
-	t_color			color;
+	t_color			*color;
 } t_sphere;
 
 typedef struct s_light
@@ -94,8 +94,8 @@ typedef struct s_light
 
 typedef struct s_camera
 {
-	t_coordinates	point;
-	t_coordinates	v_norm;
+	t_coordinates	*point;
+	t_coordinates	*v_norm;
 	float			fov;
 } t_camera;
 
@@ -103,7 +103,7 @@ typedef struct s_ambient
 {
 	//t_coordinates	center;
 	float			ratio;
-	t_color			color;
+	t_color			*color;
 } t_ambient;
 
 typedef struct s_object
