@@ -85,6 +85,7 @@ int	store_color(char *str, t_color *color)
 	char	*g;
 	char	*b;
 
+	printf("after\n");
 	r = str;
 	g = ft_strchr(r, ',');
 	if (!g)
@@ -96,9 +97,9 @@ int	store_color(char *str, t_color *color)
 		return (INPUT_ERROR);
 	*b = '\0';
 	b++;
-	if (!store_nbr_int(r, 0, 255, &color->r)
-		|| !store_nbr_int(g, 0, 255, &color->g)
-		|| !store_nbr_int(b, 0, 255, &color->b))
+	if (store_nbr_int(r, 0, 255, &color->r) != SUCCESS
+		|| store_nbr_int(g, 0, 255, &color->g) != SUCCESS
+		|| store_nbr_int(b, 0, 255, &color->b) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }

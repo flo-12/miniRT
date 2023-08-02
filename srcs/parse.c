@@ -64,7 +64,7 @@ int	add_element(char **split, t_global *global)
 	return (e);
 }
 
-/* parser:
+/* parse:
 *	Reads the input file line by line, splits each line
 *	by spaces and stores the value in the belonging
 *	(depending on the identifier) struct.
@@ -75,7 +75,7 @@ int	add_element(char **split, t_global *global)
 *
 *	Return: Error-code and 0 in case of success.
 */
-int	parser(char *filename, t_global *global)
+int	parse(char *filename, t_global *global)
 {
 	int		fd;
 	char	*line;

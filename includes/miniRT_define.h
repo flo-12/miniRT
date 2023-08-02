@@ -86,9 +86,9 @@ typedef struct s_sphere
 
 typedef struct s_light
 {
-	t_coordinates	point;
+	t_coordinates	*point;
 	float			brightness;
-	t_color			color;
+	t_color			*color;
 	struct s_light	*next;
 } t_light;
 

@@ -24,13 +24,19 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
+# include <math.h>
 # include "miniRT_define.h"
+# include "libft.h"
 
 /**************************************************************************
 *                               FUNCTIONS                                 *
 **************************************************************************/
 
 // parser.c
+int	store_coordinates(char *str, t_coordinates *coordinates);
+int	store_nbr_float(char *str, float min, float max, float *nbr);
+int	store_color(char *str, t_color *color);
 
 #endif

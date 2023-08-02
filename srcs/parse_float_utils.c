@@ -50,7 +50,7 @@ static bool	valid_float(char *str)
 	{
 		if (!ft_isdigit(*str))
 		{
-			if (*str == '.' && dec = false)
+			if (*str == '.' && dec == false)
 				dec = true;
 			else
 				return (false);
@@ -91,7 +91,7 @@ static float	str_to_float(char *str)
 *	Return: SUCCESS (0) in case all checks are passed and 
 *		otherwise INPUT_ERROR.
 */
-static int	store_nbr_float(char *str, float min, float max, float *nbr)
+int	store_nbr_float(char *str, float min, float max, float *nbr)
 {
 	if (!valid_float(str))
 		return (INPUT_ERROR);
@@ -110,7 +110,7 @@ static int	store_nbr_float(char *str, float min, float max, float *nbr)
 *	Return: SUCCESS (0) in case of success and INPUT_ERROR
 *		otherwise (a check failed).
 */
-int	store_coordinates(char *str, float min, float max, t_coordinates *coordinates)
+int	store_coordinates(char *str, t_coordinates *coordinates)
 {
 	char	*x;
 	char	*y;
@@ -127,9 +127,9 @@ int	store_coordinates(char *str, float min, float max, t_coordinates *coordinate
 		return (INPUT_ERROR);
 	*z = '\0';
 	z++;
-	if (!store_nbr_float(x, -99, -99, &coordinates->x)
-		|| !store_nbr_float(y, -99, -99, &coordinates->y)
-		|| !store_nbr_float(z, -99, -99, &coordinates->z))
+	if (store_nbr_float(x, -99, -99, &coordinates->x) != SUCCESS
+		|| store_nbr_float(y, -99, -99, &coordinates->y) != SUCCESS
+		|| store_nbr_float(z, -99, -99, &coordinates->z) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }
