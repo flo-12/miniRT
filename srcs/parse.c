@@ -42,28 +42,25 @@ char	**split_line(char *line)
 */
 int	add_element(char **split, t_global *global)
 {
-	// identifier: A C L sp pl cy
 	int	e;
 
-	// argument to parse function: &global->ambient or global->ambient ??
-	// Q: is ambient already initialized?
 	e = 0;
 	if (!(split + 1))
-		e = 25;	// errro: wrong input in file
+		e = INPUT_ERROR;
 	else if (ft_strncmp(split[0], "A", 2) != 0)
-		e = parse_ambient_ligthning(split, global->ambient);
+		e = parse_ambient_ligthning(split, &global->ambient);
 	else if (ft_strncmp(split[0], "C", 2) != 0)
-		e = parse_camera(split, global->camera);
+		e = parse_camera(split, &global->camera);
 	else if (ft_strncmp(split[0], "L", 2) != 0)
-		e = parse_light(split, global->light);
+		e = parse_light(split, &global->light);
 	else if (ft_strncmp(split[0], "sp", 3) != 0)
-		e = parse_sphere(split, global->objects);
+		e = parse_sphere(split, &global->objects);
 	else if (ft_strncmp(split[0], "pl", 3) != 0)
-		e = parse_plane(split, global->objects);
+		e = parse_plane(split, &global->objects);
 	else if (ft_strncmp(split[0], "cy", 3) != 0)
-		e = parse_cylinder(split, global->objects);
+		e = parse_cylinder(split, &global->objects);
 	else
-		e = 25;	// errro: wrong input in file
+		e = INPUT_ERROR;
 	return (e);
 }
 
@@ -87,14 +84,14 @@ int	parser(char *filename, t_global *global)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (1);	// error: failed to open file
+		return (OPENFILE_ERROR);
 	line = get_next_line(fd);
 	while (line)
 	{
 		split = split_line(line);
 		free(line);
 		if (!split)
-			return (2);	// error: malloc fail
+			return (MALLOC_ERROR);
 		e = add_element(split, global);
 		free_ptr(split);
 		if (e)

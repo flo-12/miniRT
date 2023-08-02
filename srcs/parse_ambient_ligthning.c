@@ -15,7 +15,17 @@
 /* parse_ambient_ligthning:
 *
 */
-int	parse_ambient_ligthning(char **split, t_ambient *ambient)
+int	parse_ambient_ligthning(char **split, t_ambient **ambient)
 {
-
+	if (*ambient)
+		return (INPUT_ERROR);
+	if (ptr_len(split) != 3)
+		return (INPUT_ERROR);
+	*ambient = malloc(sizeof(t_ambient));
+	if (!(*ambient))
+		return (MALLOC_ERROR);
+	if (!store_nbr(split[1], 0, 1, &(*ambient)->ratio)
+		|| !store_color(split[2], &(*ambient)->color))
+		return (INPUT_ERROR);
+	return (SUCCESS);
 }

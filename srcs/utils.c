@@ -49,3 +49,18 @@ void	replace(char *str, char search, char repl)
 		}
 	}
 }
+
+/* ptr_len:
+*	Calculates the length of the pointer.
+*
+*	Return: length of the pointer.
+*/
+int	ptr_len(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+		i++;
+	return (i);
+}
