@@ -38,15 +38,15 @@ int	parse_camera(char **split, t_camera **camera)
 	*camera = malloc(sizeof(t_camera));
 	if (!(*camera))
 		return (MALLOC_ERROR);
-	*camera->point = malloc(sizeof(t_coordinates));
+	(*camera)->point = malloc(sizeof(t_coordinates));
 	if (!(*camera)->point)
 		return (MALLOC_ERROR);
-	*camera->v_norm = malloc(sizeof(t_coordinates));
+	(*camera)->v_norm = malloc(sizeof(t_coordinates));
 	if (!(*camera)->v_norm)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, &(*camera)->point) != SUCCESS
-		|| store_coordinates(split[2], -1, 1, &(*camera)->v_norm != SUCCESS)
-		|| store_nbr_float(split[3], 0, 180, &(*camera)->fov))
+		|| store_coordinates(split[2], -1, 1, &(*camera)->v_norm) != SUCCESS
+		|| store_nbr_float(split[3], 0, 180, &(*camera)->fov) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }

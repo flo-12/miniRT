@@ -37,7 +37,7 @@ int	parse_ambient_ligthing(char **split, t_ambient **ambient)
 	*ambient = malloc(sizeof(t_ambient));
 	if (!(*ambient))
 		return (MALLOC_ERROR);
-	*ambient->color = malloc(sizeof(t_color));
+	(*ambient)->color = malloc(sizeof(t_color));
 	if (!(*ambient)->color)
 		return (MALLOC_ERROR);
 	if (store_nbr(split[1], -1, 1, &(*ambient)->ratio) != SUCCESS
