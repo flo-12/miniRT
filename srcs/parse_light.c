@@ -40,9 +40,9 @@ int	parse_light(char **split, t_light **light)
 	(*light)->color = malloc(sizeof(t_color));
 	if (!(*light)->color)
 		return (MALLOC_ERROR);
-	if (store_coordinates(split[1], -99, -99, &(*light)->point) != SUCCESS
+	if (store_coordinates(split[1], -99, -99, (*light)->point) != SUCCESS
 		|| store_nbr_float(split[2], 0, 1, &(*light)->brightness) != SUCCESS
-		|| store_color(split[3], &(*light)->color) != SUCCESS)
+		|| store_color(split[3], (*light)->color) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }

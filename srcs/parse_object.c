@@ -31,18 +31,89 @@ int	parse_sphere(char **split, t_sphere *sphere)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
-	/* *sphere = malloc(sizeof(t_sphere));
-	if (!(*sphere))
-		return (MALLOC_ERROR); */
-	(*sphere)->center = malloc(sizeof(t_coordinates));
-	if (!(*sphere)->center)
+	sphere->center = malloc(sizeof(t_coordinates));
+	if (!sphere->center)
 		return (MALLOC_ERROR);
-	(*sphere)->color = malloc(sizeof(t_color));
-	if (!(*sphere)->color)
+	sphere->color = malloc(sizeof(t_color));
+	if (!sphere->color)
 		return (MALLOC_ERROR);
-	if (store_coordinates(split[1], -99, -99, &(*sphere)->center) != SUCCESS
-		|| store_nbr_float(split[2], -99, -99, &(*sphere)->d) != SUCCESS
-		|| store_color(split[3], &(*sphere)->color) != SUCCESS)
+	if (store_coordinates(split[1], -99, -99, sphere->center) != SUCCESS
+		|| store_nbr_float(split[2], -99, -99, &sphere->d) != SUCCESS
+		|| store_color(split[3], sphere->color) != SUCCESS)
+		return (INPUT_ERROR);
+	return (SUCCESS);
+}
+
+/* parse_plane:
+*	Stores the values of each string in split in 
+*	the structs. The format of split must be the 
+*	following:
+*		split[0] -> identifier 		=> not used
+*		split[1] -> point in plane	=> plane->point
+*		split[2] -> normalized vetor=> plane->v_norm
+*		split[3] -> RGB colors		=> plane->color
+*	The format of split is checked and also the
+*	format of the numbers in the str and the amount
+*	of numbers provided.
+*
+*	Return: SUCCESS in case of success and otherwise
+*		the belonging error (INPUT_ERROR or MALLOC_ERROR).
+*/
+int	parse_plane(char **split, t_plane *plane)
+{
+	if (ptr_len(split) != 4)
+		return (INPUT_ERROR);
+	plane->point = malloc(sizeof(t_coordinates));
+	if (!plane->point)
+		return (MALLOC_ERROR);
+	plane->v_norm = malloc(sizeof(t_coordinates));
+	if (!plane->v_norm)
+		return (MALLOC_ERROR);
+	plane->color = malloc(sizeof(t_color));
+	if (!plane->color)
+		return (MALLOC_ERROR);
+	if (store_coordinates(split[1], -99, -99, plane->point) != SUCCESS
+		|| store_coordinates(split[2], -1, 1, plane->v_norm) != SUCCESS
+		|| store_color(split[3], plane->color) != SUCCESS)
+		return (INPUT_ERROR);
+	return (SUCCESS);
+}
+
+/* parse_cylinder:
+*	Stores the values of each string in split in 
+*	the structs. The format of split must be the 
+*	following:
+*		split[0] -> identifier 		=> not used
+*		split[1] -> center			=> cylinder->center
+*		split[2] -> normalized vetor=> cylinder->v_norm
+*		split[3] -> diameter		=> cylinder->d
+*		split[4] -> height			=> cylinder->h
+*		split[5] -> RGB colors		=> cylinder->color
+*	The format of split is checked and also the
+*	format of the numbers in the str and the amount
+*	of numbers provided.
+*
+*	Return: SUCCESS in case of success and otherwise
+*		the belonging error (INPUT_ERROR or MALLOC_ERROR).
+*/
+int	parse_cylinder(char **split, t_cylinder *cylinder)
+{
+	if (ptr_len(split) != 6)
+		return (INPUT_ERROR);
+	cylinder->center = malloc(sizeof(t_coordinates));
+	if (!cylinder->center)
+		return (MALLOC_ERROR);
+	cylinder->v_norm = malloc(sizeof(t_coordinates));
+	if (!cylinder->v_norm)
+		return (MALLOC_ERROR);
+	cylinder->color = malloc(sizeof(t_color));
+	if (!cylinder->color)
+		return (MALLOC_ERROR);
+	if (store_coordinates(split[1], -99, -99, cylinder->center) != SUCCESS
+		|| store_coordinates(split[2], -1, 1, cylinder->v_norm) != SUCCESS
+		|| store_nbr_float(split[3], -99, -99, &cylinder->d) != SUCCESS
+		|| store_nbr_float(split[4], -99, -99, &cylinder->h) != SUCCESS
+		|| store_color(split[5], cylinder->color) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }
@@ -55,13 +126,16 @@ int	parse_sphere(char **split, t_sphere *sphere)
 */
 void	ft_lstadd_back_obj(t_object **objects, t_object *new)
 {
+	t_object	*tmp;
+
 	if (!objects || !new)
 		return ;
 	if (*objects)
 	{
-		while ((*objects)->next)
-			(*objects) = (*objects)->next;
-		(*objects)->next = new;
+		tmp = *objects;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
 	else
 		*objects = new;
@@ -85,10 +159,13 @@ int	parse_object(char **split, t_object **objects, int id)
 		return (MALLOC_ERROR);
 	obj->identifier = id;
 	obj->next = NULL;
+	e = 0;
 	if (id == SPHERE)
 		e = parse_sphere(split, &(obj->u_obj.sphere));
-	// else if(id == PLANE)
-	//		...
+	else if(id == PLANE)
+		e = parse_plane(split, &(obj->u_obj.plane));
+	else if(id == CYLINDER)
+		e = parse_cylinder(split, &(obj->u_obj.cylinder));
 	ft_lstadd_back_obj(objects, obj);
 	return (e);
 }

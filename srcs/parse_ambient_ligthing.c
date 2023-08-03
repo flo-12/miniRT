@@ -40,8 +40,8 @@ int	parse_ambient_ligthing(char **split, t_ambient **ambient)
 	(*ambient)->color = malloc(sizeof(t_color));
 	if (!(*ambient)->color)
 		return (MALLOC_ERROR);
-	if (store_nbr(split[1], -1, 1, &(*ambient)->ratio) != SUCCESS
-		|| store_color(split[2], &(*ambient)->color) != SUCCESS)
+	if (store_nbr_float(split[1], -1, 1, &(*ambient)->ratio) != SUCCESS
+		|| store_color(split[2], (*ambient)->color) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }

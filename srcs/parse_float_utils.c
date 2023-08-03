@@ -74,7 +74,7 @@ static float	str_to_float(char *str)
 	str = ft_strchr(str, '.');
 	if (str && *(str + 1))
 	{
-		if (nbr > 0)
+		if (nbr >= 0)
 			nbr += (float)ft_atoi(str + 1) / (float)pow(10, ft_strlen(str + 1));
 		else
 			nbr -= (float)ft_atoi(str + 1) / (float)pow(10, ft_strlen(str + 1));
@@ -117,7 +117,7 @@ int	store_coordinates(char *str, float min, float max, t_coordinates *coordinate
 	char	*z;
 
 	x = str;
-	y = ft_strchr(y, ',');
+	y = ft_strchr(x, ',');
 	if (!y)
 		return (INPUT_ERROR);
 	*y = '\0';

@@ -85,7 +85,6 @@ int	store_color(char *str, t_color *color)
 	char	*g;
 	char	*b;
 
-	printf("after\n");
 	r = str;
 	g = ft_strchr(r, ',');
 	if (!g)
