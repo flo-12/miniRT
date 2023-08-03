@@ -31,25 +31,6 @@ void	free_ptr(char **ptr)
 	free(tmp);
 }
 
-/* replace:
-*	Searches for the first occurance of the char "search" in
-*	"str" and replaces it by the char "repl". If "search"
-*	is not found, nothing is done.
-*	
-*	Return: nothing.
-*/
-void	replace(char *str, char search, char repl)
-{
-	while (*str)
-	{
-		if (*str == search)
-		{
-			*str = repl;
-			return ;
-		}
-	}
-}
-
 /* ptr_len:
 *	Calculates the length of the pointer.
 *
