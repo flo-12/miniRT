@@ -42,7 +42,7 @@ typedef enum e_exit_code {
 	MALLOC_ERROR,
 	INPUT_ERROR,
 	USER_ERROR
-} t_exit_code;
+}	t_exit_code;
 
 /**************************************************************************
 *                               STRUCTURES                                *
@@ -50,17 +50,17 @@ typedef enum e_exit_code {
 
 typedef struct s_coordinates
 {
-	float	x;	// maybe double, but float b/c faster
+	float	x;
 	float	y;
 	float	z;
-} t_coordinates;
+}	t_coordinates;
 
 typedef struct s_colors // Q: include t value for put-pixel?
 {
-	int	r;	// float or int?
+	int	r;
 	int	g;
 	int	b;
-} t_color;
+}	t_color;
 
 typedef struct s_cylinder
 {
@@ -69,21 +69,21 @@ typedef struct s_cylinder
 	float			d;
 	float			h;
 	t_color			*color;
-} t_cylinder;
+}	t_cylinder;
 
 typedef struct s_plane
 {
 	t_coordinates	*point;
 	t_coordinates	*v_norm;
 	t_color			*color;
-} t_plane;
+}	t_plane;
 
 typedef struct s_sphere
 {
 	t_coordinates	*center;
 	float			d;
 	t_color			*color;
-} t_sphere;
+}	t_sphere;
 
 typedef struct s_light
 {
@@ -91,33 +91,32 @@ typedef struct s_light
 	float			brightness;
 	t_color			*color;
 	struct s_light	*next;
-} t_light;
+}	t_light;
 
 typedef struct s_camera
 {
 	t_coordinates	*point;
 	t_coordinates	*v_norm;
 	float			fov;
-} t_camera;
+}	t_camera;
 
 typedef struct s_ambient
 {
-	//t_coordinates	center;
 	float			ratio;
 	t_color			*color;
-} t_ambient;
+}	t_ambient;
 
 typedef struct s_object
 {
 	enum e_types	identifier;
-	union object
+	union
 	{
 		t_cylinder	cylinder;
 		t_plane		plane;
 		t_sphere	sphere;
 	} u_obj;
 	struct s_object	*next;
-} t_object;
+}	t_object;
 
 typedef struct s__img {
 	void	*ptr;
@@ -125,7 +124,7 @@ typedef struct s__img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-} t_img;
+}	t_img;
 
 typedef struct s_global
 {
@@ -136,7 +135,6 @@ typedef struct s_global
 	t_camera	*camera;
 	t_ambient	*ambient;
 	t_object	*objects;
-} t_global;
-
+}	t_global;
 
 #endif

@@ -162,9 +162,9 @@ int	parse_object(char **split, t_object **objects, int id)
 	e = 0;
 	if (id == SPHERE)
 		e = parse_sphere(split, &(obj->u_obj.sphere));
-	else if(id == PLANE)
+	else if (id == PLANE)
 		e = parse_plane(split, &(obj->u_obj.plane));
-	else if(id == CYLINDER)
+	else if (id == CYLINDER)
 		e = parse_cylinder(split, &(obj->u_obj.cylinder));
 	ft_lstadd_back_obj(objects, obj);
 	return (e);

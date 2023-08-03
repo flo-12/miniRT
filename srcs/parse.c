@@ -24,7 +24,7 @@ char	**split_line(char *line)
 {
 	char	**split;
 	char	*tmp;
-	
+
 	tmp = ft_strchr(line, '\n');
 	if (tmp != NULL)
 		*tmp = '\0';
@@ -104,7 +104,7 @@ int	parse(char *filename, t_global *global)
 	int		e;
 
 	if (ft_strncmp(ft_strrchr(filename, '.'), ".rt", 4) != 0)
-		return (INPUT_ERROR);	
+		return (INPUT_ERROR);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (OPENFILE_ERROR);

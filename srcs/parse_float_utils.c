@@ -110,7 +110,8 @@ int	store_nbr_float(char *str, float min, float max, float *nbr)
 *	Return: SUCCESS (0) in case of success and INPUT_ERROR
 *		otherwise (a check failed).
 */
-int	store_coordinates(char *str, float min, float max, t_coordinates *coordinates)
+int	store_coordinates(char *str, float min, float max,
+	t_coordinates *coordinates)
 {
 	char	*x;
 	char	*y;
