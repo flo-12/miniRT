@@ -40,7 +40,8 @@ typedef enum e_exit_code {
 	OPENFILE_ERROR,
 	MLX_ERROR,
 	MALLOC_ERROR,
-	INPUT_ERROR
+	INPUT_ERROR,
+	USER_ERROR
 } t_exit_code;
 
 /**************************************************************************
