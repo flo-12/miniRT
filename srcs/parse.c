@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:30 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/01 15:41:32 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/03 17:01:27 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ int	parse(char *filename, t_global *global)
 	char	**split;
 	int		e;
 
-	if (ft_strncmp(ft_strrchr(filename, '.'), ".rt", 4) != 0)
-		return (INPUT_ERROR);
+	if (!ft_strrchr(filename, '.') || ft_strncmp(ft_strrchr(filename, '.'), 
+		".rt", 4) != 0)
+		return (FILETYPE_ERROR);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (OPENFILE_ERROR);
@@ -123,6 +124,6 @@ int	parse(char *filename, t_global *global)
 	}
 	close(fd);
 	if (!check_input_complete(global))
-		return (INPUT_ERROR);
+		return (INPUT_INCOMPLETE);
 	return (0);
 }

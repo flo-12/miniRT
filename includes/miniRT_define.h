@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/01 19:01:11 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/03 16:39:50 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef enum e_exit_code {
 	MLX_ERROR,
 	MALLOC_ERROR,
 	INPUT_ERROR,
-	USER_ERROR
+	ARG_ERROR,
+	INPUT_INCOMPLETE,
+	FILETYPE_ERROR
 }	t_exit_code;
 
 /**************************************************************************

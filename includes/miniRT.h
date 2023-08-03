@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/01 15:41:08 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/03 15:48:47 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int		store_coordinates(char *str, float min, float max,
 			t_coordinates *coordinates);
 int		store_nbr_float(char *str, float min, float max, float *nbr);
 int		store_color(char *str, t_color *color);
+
+void    print_parse(t_global *data, t_exit_code e);
 
 // utils.c
 int		ptr_len(char **ptr);

@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/01 15:51:51 by fbecht           ###   ########.fr        #
+#    Updated: 2023/08/03 15:44:44 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC			=	main.c \
 				parse_object.c \
 				parse_int_utils.c \
 				parse_float_utils.c \
-				utils.c
+				utils.c \
+				parser_test.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects
