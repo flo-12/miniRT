@@ -35,7 +35,14 @@ INC			=	-I ./includes/ \
 # Sources
 SRC_PATH	=	srcs/
 SRC			=	main.c \
-				parser.c
+				parse.c \
+				parse_light.c \
+				parse_camera.c \
+				parse_ambient_ligthing.c \
+				parse_object.c \
+				parse_int_utils.c \
+				parse_float_utils.c \
+				utils.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects
@@ -48,7 +55,7 @@ all: $(LIBFT) $(MLX) $(OBJ_PATH) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "Compiling $(NAME)..."
-	@-$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(INC)
+	@-$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(INC) -lm
 	@echo "\n\t\033[33;1;3m$(NAME) ready\033[0m\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
