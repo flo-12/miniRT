@@ -36,9 +36,7 @@ INC			=	-I ./includes/ \
 SRC_PATH	=	srcs/
 SRC			=	main.c \
 				parse.c \
-				parse_light.c \
-				parse_camera.c \
-				parse_ambient_ligthing.c \
+				parse_light_ambient_camera.c \
 				parse_object.c \
 				parse_int_utils.c \
 				parse_float_utils.c \
