@@ -50,4 +50,26 @@ void    print_parse(t_global *data, t_exit_code e);
 int		ptr_len(char **ptr);
 void	free_ptr(char **ptr);
 
+// render
+
+// BIG
+t_exit_code render_routine (t_global global);
+t_vector	compute_primary_ray (t_global global, t_pixel pixel);
+
+// SHADOW RAY (not mandatory)
+void	render_shadow_ray(t_global global, t_object obj_close, t_coordinates pHit, t_pixel pixel);
+
+// HELPER
+t_coordinates	vector_normalize(t_coordinates direction);
+float			vector_dot_product(t_coordinates p1, t_coordinates p2);
+float			distance_points(t_coordinates p1, t_coordinates p2);
+t_coordinates	get_vector_direction(t_coordinates p1, t_coordinates p2);
+
+// INTERSECT
+t_hit	intersect(t_obj obj, t_vector ray);
+	// calls intersect_sphere, intersect_plane, intersect_cylinder
+
+// COLOR (not mandatory)
+// ...
+
 #endif

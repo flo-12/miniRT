@@ -13,14 +13,16 @@
 #ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+
 
 /**************************************************************************
 *                                MACROS                                   *
 **************************************************************************/
 
 # define THRESH_FLOAT 1e-6
+
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
 
 # define STR_ERR_ARG "error: a scene in format *.rt mus be entered \
 (exactly one arg)"
@@ -50,12 +52,30 @@ typedef enum e_exit_code {
 *                               STRUCTURES                                *
 **************************************************************************/
 
+typedef struct s_pixel
+{
+	int	x;
+	int	y;
+}	t_pixel;
+
 typedef struct s_coordinates
 {
 	float	x;
 	float	y;
 	float	z;
 }	t_coordinates;
+
+typedef struct s_vector
+{
+	t_coordinates	origin;
+	t_coordinates	v_norm;
+}	t_vector;
+
+typedef struct s_hit
+{
+	t_coordinates	p1;
+	t_coordinates	p2;
+}	t_hit;
 
 typedef struct s_colors // Q: include t value for put-pixel?
 {
@@ -100,6 +120,7 @@ typedef struct s_camera
 	t_coordinates	*point;
 	t_coordinates	*v_norm;
 	float			fov;
+	float 			focal_len; // to be initialized
 }	t_camera;
 
 typedef struct s_ambient
