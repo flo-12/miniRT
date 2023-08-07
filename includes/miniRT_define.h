@@ -120,7 +120,7 @@ typedef struct s_camera
 	t_coordinates	*point;
 	t_coordinates	*v_norm;
 	float			fov;
-	float 			focal_len; // to be initialized
+	float 			focal_len;
 }	t_camera;
 
 typedef struct s_ambient

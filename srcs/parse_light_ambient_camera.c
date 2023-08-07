@@ -117,5 +117,6 @@ int	parse_camera(char **split, t_camera **camera)
 		|| store_coordinates(split[2], -1, 1, (*camera)->v_norm) != SUCCESS
 		|| store_nbr_float(split[3], 1, 179, &(*camera)->fov) != SUCCESS)
 		return (INPUT_ERROR);
+	(*camera)->focal_len = (0.5 * WIN_WIDTH) / tanf((*camera)->fov / 2);
 	return (SUCCESS);
 }
