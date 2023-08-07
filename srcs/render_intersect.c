@@ -15,7 +15,7 @@
 //void	intersect_sphere(float *E, float *D, float I[2][3])
 t_hit	intersect_sphere(t_sphere sphere, t_vector ray)
 {
-	// aktueller Stand: nur Einheits-Kugel (c(0,0,0), r=2)
+	// aktueller Stand: nur Kugel  mit c(0,0,0)
 	t_hit	hit;
 	float	a;
 	float	b;
@@ -27,7 +27,7 @@ t_hit	intersect_sphere(t_sphere sphere, t_vector ray)
 	b = 2 * (ray.origin.x * ray.v_norm.x + ray.origin.y * ray.v_norm.y 
 			+ ray.origin.z * ray.v_norm.z);
 	c = powf(ray.origin.x 2) + powf(ray.origin.y, 2) 
-			+ powf(ray.origin.z, 2) - 1;
+			+ powf(ray.origin.z, 2) - powf((sphere.d / 2), 2);
 	t[0] = (-b + sqrtf(pow(b, 2) - 4 * a * c)) / (2 * a);
 	t[1] = (-b - sqrtf(pow(b, 2) - 4 * a * c)) / (2 * a);
 	
