@@ -10,18 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "miniRT.h"
-
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <string.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include <math.h>
-# include "../includes/miniRT_define.h"
+#include "miniRT.h"
 
 /* vector_normalize:
 *	Normalizes the direction vector in the arguments.
@@ -59,16 +48,21 @@ float	vector_dot_product(t_coordinates p1, t_coordinates p2)
 */
 float	distance_points(t_coordinates p1, t_coordinates p2)
 {
-
+	return (sqrtf(powf(p1.x - p2.x, 2) + powf(p1.y - p2.y, 2) 
+			+ powf(p1.z - p2.z, 2)));
 }
 
-int	main()
+/* get_vector_direction:
+*	Calculates the direction vector between p1 and p2.
+*
+*	Return: direction vector from p1 to p2.
+*/
+t_coordinates	get_vector_direction(t_coordinates p1, t_coordinates p2)
 {
 	t_coordinates	v;
-	t_coordinates	v_norm;
 
-	v.x = 3; v.y = 4; v.z = 5;
-	v_norm = vector_normalize(v);
-	printf("v_norm=(%f, %f, %f)\n", v_norm.x, v_norm.y, v_norm.z);
-	return (0);
+	v.x = p2.x - p1.x;
+	v.y = p2.y - p1.y;
+	v.z = p2.z - p1.z;
+	return (v);
 }
