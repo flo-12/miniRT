@@ -40,6 +40,22 @@ float	vector_dot_product(t_coordinates p1, t_coordinates p2)
 	return (p1.x * p2.x + p1.y * p2.y + p1.z * p2.z);
 }
 
+/* vector_cross:
+*	Calculates the cross product between two vectors
+*	to find the vector which is orthogonal to p1 and p2.
+*
+*	Return: The orthogonal vector.
+*/
+t_coordinates	vector_cross(t_coordinates p1, t_coordinates p2)
+{
+	t_coordinates	v;
+
+	v.x = p1.y * p2.z - p1.z * p2.y;
+	v.y = p1.y * p2.x - p1.x * p2.z;
+	v.z = p1.x * p2.y - p1.y * p2.x;
+	return (v);
+}
+
 /* distance_points:
 *	Calculates the distance between the two points
 *	p1 and p2.
