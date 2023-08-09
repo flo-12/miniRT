@@ -74,7 +74,7 @@ float	vec3_dot(t_coordinates p1, t_coordinates p2);
 bool	equal(float nbr, float comp);
 
 // INTERSECT
-t_hit	intersect(t_obj obj, t_vector ray);
+bool	render_intersect(t_object obj, t_vector ray, t_hit *hit);
 	// calls intersect_sphere, intersect_plane, intersect_cylinder
 
 // COLOR (not mandatory)
