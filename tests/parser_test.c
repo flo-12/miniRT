@@ -81,6 +81,21 @@ void	print_objects(t_object *objs, int e)
 	printf("exit code = %d\n", e);
 }
 
+void	print_parse(t_global *global, t_exit_code e)
+{
+	if (e)
+		return ;
+	if (global->light)
+		print_light(*global->light, e);
+	if (global->camera)	
+		print_camera(*global->camera, e);
+	if (global->ambient)	
+		print_ambient(*global->ambient, e);
+	if (global->objects)	
+		print_objects(global->objects, e);
+}
+
+/*
 int	main(int argc, char **argv)
 {
 	int			e;
@@ -103,32 +118,7 @@ int	main(int argc, char **argv)
 		print_ambient(*global->ambient, e);
 		print_objects(global->objects, e);
 	}
-
-	/* split = split_line(strdup("L -40.0,50.0,0.0 0.6 10,0,255"));
-	e = parse_light(split, &global->light);
-	print_light(*global->light, e);
-
-	split = split_line(ft_strdup("C -50.0,0,20 0,0,1 70"));
-	e = parse_camera(split, &global->camera);
-	print_camera(*global->camera, e);
-
-	split = split_line(ft_strdup("A 0.2 255,255,255"));
-	e = parse_ambient_ligthing(split, &global->ambient);
-	print_ambient(*global->ambient, e);
-
-	split = split_line(ft_strdup("sp 0.0,0.0,20.6 12.6 10,0,255"));
-	e = parse_object(split, &global->objects, SPHERE);
-	if (e != SUCCESS)
-		printf("error objects (exit-code %d)\n", e);
-	split = split_line(ft_strdup("pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225"));
-	e = parse_object(split, &global->objects, PLANE);
-	if (e != SUCCESS)
-		printf("error objects (exit-code %d)\n", e);
-	split = split_line(ft_strdup("cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255"));
-	e = parse_object(split, &global->objects, CYLINDER);
-	if (e != SUCCESS)
-		printf("error objects (exit-code %d)\n", e);
-	print_objects(global->objects, e); */
 	
 	return (0);
 }
+*/
