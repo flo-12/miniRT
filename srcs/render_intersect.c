@@ -26,6 +26,8 @@
 # include <stdbool.h>
 # include <math.h>
 
+void	tests_cylinder();
+
 /* equal:
 *	Checks if two float numbers (nbr and comp) are equal,
 *	whereas nbr lies in a range of comp+-THRESH_FLOAT.
@@ -54,6 +56,12 @@ float	vec3_dot(t_coordinates p1, t_coordinates p2)
 	return (p1.x * p2.x + p1.y * p2.y + p1.z * p2.z);
 }
 
+/* vec3_sub:
+*	Calculate the difference of the tuple of the x, y and 
+*	z values of p1 and p2.
+*
+*	Return: the calculated point.
+*/
 t_coordinates	vec3_sub(t_coordinates p1, t_coordinates p2)
 {
 	t_coordinates	p;
@@ -64,6 +72,12 @@ t_coordinates	vec3_sub(t_coordinates p1, t_coordinates p2)
 	return (p);
 }
 
+/* vec3_add:
+*	Calculate the sum of the tuple of the x, y and 
+*	z values of p1 and p2.
+*
+*	Return: the calculated point.
+*/
 t_coordinates	vec3_add(t_coordinates p1, t_coordinates p2)
 {
 	t_coordinates	p;
@@ -74,6 +88,12 @@ t_coordinates	vec3_add(t_coordinates p1, t_coordinates p2)
 	return (p);
 }
 
+/* vec3_multiply_const:
+*	Multiply a point p1 by a const nbr to shift
+*	the point.
+*
+*	Return: the new shifted point.
+*/
 t_coordinates	vec3_multiply_const(t_coordinates p1, float nbr)
 {
 	t_coordinates	p;
@@ -95,11 +115,16 @@ t_coordinates	vec3_cross(t_coordinates p1, t_coordinates p2)
 	t_coordinates	v;
 
 	v.x = p1.y * p2.z - p1.z * p2.y;
-	v.y = p1.y * p2.x - p1.x * p2.z;
+	v.y = p1.z * p2.x - p1.x * p2.z;
 	v.z = p1.x * p2.y - p1.y * p2.x;
 	return (v);
 }
 
+/* vec3_get_pt:
+*	Calculates the point on the line v(d).
+*
+*	Return: the point v(d).
+*/
 t_coordinates	vec3_get_pt(t_vector v, float d)
 {
 	t_coordinates	p;
@@ -108,6 +133,37 @@ t_coordinates	vec3_get_pt(t_vector v, float d)
 	p.y = v.origin.y + d * v.v_norm.y;
 	p.z = v.origin.z + d * v.v_norm.z;
 	return (p);
+}
+
+/* vec3_dist_pts:
+*	Calculates the distance between two points.
+*
+*	Return: distance between the points.
+*/
+float	vec3_dist_pts(t_coordinates p1, t_coordinates p2)
+{
+	return (sqrtf(powf(p1.x - p2.x, 2) + powf(p1.y - p2.y, 2) + powf(p1.z - p2.z, 2)));
+}
+
+/* vec3_pt_on_line:
+*	Checks if the point p lies behind the origin 
+*	of v, concerning to the v_norm of v.
+*
+*	Return: TRUE if p lies on the line of v and
+*		otherwise FALSE.
+*/
+int	vec3_pt_on_line(t_vector v, t_coordinates p)
+{
+	if ((p.x - v.origin.x > 0 && v.v_norm.x < 0) 
+		|| (p.x - v.origin.x < 0 && v.v_norm.x > 0))
+		return (false);
+	if ((p.y - v.origin.y > 0 && v.v_norm.y < 0) 
+		|| (p.y - v.origin.y < 0 && v.v_norm.y > 0))
+		return (false);
+	if ((p.z - v.origin.z > 0 && v.v_norm.z < 0) 
+		|| (p.z - v.origin.z < 0 && v.v_norm.z > 0))
+		return (false);
+	return (true);
 }
 
 /* intersect_sphere:
@@ -206,6 +262,8 @@ bool	intersect_plane(t_plane plane, t_vector ray, t_hit *hit)
 			return (false);
 	}
 	d = numer / denom;
+	if (!vec3_pt_on_line(ray, vec3_get_pt(ray, d)))
+		return (false);
 	hit->p1 = vec3_get_pt(ray, d);
 	hit->p2 = hit->p1;
 	return (true);
@@ -213,6 +271,11 @@ bool	intersect_plane(t_plane plane, t_vector ray, t_hit *hit)
 
 /* intersect_tube_inter:
 *
+*
+*	Return: 0 if both points are out-of-range of the height,
+*		1 if only p1 is in the range of the height,
+*		2 if only p2 is in the range of the height and
+*		3 if both points are in the range of the height.
 */
 int	intersect_tube_inter(float h[2], t_cylinder cyl, float (*t)[2])
 {
@@ -221,7 +284,7 @@ int	intersect_tube_inter(float h[2], t_cylinder cyl, float (*t)[2])
 	else if (h[0] > cyl.h || h[0] < 0)
 	{
 		(*t)[0] = (*t)[1];
-		return (1);
+		return (2);
 	}
 	else if (h[1] > cyl.h || h[1] < 0)
 	{
@@ -229,7 +292,7 @@ int	intersect_tube_inter(float h[2], t_cylinder cyl, float (*t)[2])
 		return (1);
 	}
 	else
-		return (2);
+		return (3);
 }
 
 /* intersect_tube:
@@ -261,11 +324,45 @@ int	intersect_tube(t_cylinder cyl, t_vector ray, t_hit *hit)
 			vec3_multiply_const(ray.v_norm, t[0])), *cyl.center), *cyl.v_norm);
 	h[1] = vec3_dot(vec3_sub(vec3_add(ray.origin, 
 			vec3_multiply_const(ray.v_norm, t[1])), *cyl.center), *cyl.v_norm);
-	nbr_inter = intersect_tube_inter(h, cyl, &t);
-	if (!nbr_inter)
-		return (nbr_inter);
-	hit->p1 = vec3_get_pt(ray, t[0]);
-	hit->p2 = vec3_get_pt(ray, t[1]);
+	nbr_inter = 0;
+	if (intersect_tube_inter(h, cyl, &t) == 1 
+		&& vec3_pt_on_line(ray, vec3_get_pt(ray, t[0])))
+	{
+		hit->p1 = vec3_get_pt(ray, t[0]);
+		hit->p2 = hit->p1;
+		nbr_inter = 1;
+	}
+	else if (intersect_tube_inter(h, cyl, &t) == 2  
+		&& vec3_pt_on_line(ray, vec3_get_pt(ray, t[1])))
+	{
+		hit->p2 = vec3_get_pt(ray, t[1]);
+		hit->p1 = hit->p2;
+		nbr_inter = 1;
+	}
+	else if (intersect_tube_inter(h, cyl, &t) == 3 
+		&& vec3_pt_on_line(ray, vec3_get_pt(ray, t[0])) 
+		&& vec3_pt_on_line(ray, vec3_get_pt(ray, t[1])))
+	{
+		hit->p1 = vec3_get_pt(ray, t[0]);
+		hit->p2 = vec3_get_pt(ray, t[1]);
+		nbr_inter = 2;
+	}
+	else if (intersect_tube_inter(h, cyl, &t) == 3 
+		&& vec3_pt_on_line(ray, vec3_get_pt(ray, t[0])) 
+		&& !vec3_pt_on_line(ray, vec3_get_pt(ray, t[1])))
+	{
+		hit->p1 = vec3_get_pt(ray, t[0]);
+		hit->p2 = hit->p1;
+		nbr_inter = 1;
+	}
+	else if (intersect_tube_inter(h, cyl, &t) == 3 
+		&& !vec3_pt_on_line(ray, vec3_get_pt(ray, t[0])) 
+		&& vec3_pt_on_line(ray, vec3_get_pt(ray, t[1])))
+	{
+		hit->p2 = vec3_get_pt(ray, t[1]);
+		hit->p1 = hit->p2;
+		nbr_inter = 1;
+	}
 	return (nbr_inter);
 }
 
@@ -282,40 +379,39 @@ int	intersect_tube(t_cylinder cyl, t_vector ray, t_hit *hit)
 bool	intersect_cylinder(t_cylinder cyl, t_vector ray, t_hit *hit)
 {
 	int		nbr_inter;
-	t_hit	*hit_tmp;
+	t_hit	hit_tmp;
 
 	nbr_inter = intersect_tube(cyl, ray, hit);
 	if (nbr_inter == 2)
 		return (true);
-	hit_tmp = hit;
-
-	/* t_plane	pl1;
-	pl1.point = cyl.center;
-	t_coordinates	pl2_v_norm = vec3_sub(*pl1.point, vec3_multiply_const(*cyl.v_norm, vec3_dot(*pl1.point, *cyl.v_norm)));
-	t_plane	pl2;
-	t_coordinates	pl2_point = vec3_add(vec3_multiply_const(*cyl.v_norm, cyl.h), *cyl.center);
-	t_coordinates	pl2_v_norm = vec3_sub(*pl2.point, vec3_multiply_const(*cyl.v_norm, vec3_dot(*pl2.point, *cyl.v_norm)));
-
 	
-	(t_plane){a.x + b.x, a.y + b.y, a.z + b.z} */
-
-	if (intersect_plane((t_plane){cyl.center, cyl.v_norm, cyl.color}, ray, hit))
+	if (intersect_plane((t_plane){cyl.center, cyl.v_norm, cyl.color}, ray, &hit_tmp) 
+		&& vec3_dist_pts(hit_tmp.p1, *cyl.center) <= cyl.d / 2)
 	{
 		nbr_inter++;
 		if (nbr_inter == 2)
 		{
-			hit->p1 = hit_tmp->p1;
+			hit->p1 = hit_tmp.p1;
 			return (true);
 		}
 		else
-			hit_tmp = hit;
+			hit->p1 = hit_tmp.p1;
 	}
+
 	t_coordinates	p = vec3_add(vec3_multiply_const(*cyl.v_norm, cyl.h), *cyl.center);
-	if (intersect_plane((t_plane){&p, cyl.v_norm, cyl.color}, ray, hit))
+	if (intersect_plane((t_plane){&p, cyl.v_norm, cyl.color}, ray, &hit_tmp) 
+		&& vec3_dist_pts(hit_tmp.p1, p) <= cyl.d / 2)
 	{
 		nbr_inter++;
-		hit->p1 = hit_tmp->p1;
+		if (nbr_inter == 1)
+		{
+			hit->p1 = hit_tmp.p1;
+			hit->p2 = hit_tmp.p1;
+		}
+		else if (nbr_inter == 2)
+			hit->p2 = hit_tmp.p1;
 	}
+
 	if (nbr_inter > 0)
 		return (true);
 	else
@@ -333,10 +429,17 @@ bool	intersect_cylinder(t_cylinder cyl, t_vector ray, t_hit *hit)
 *		between the ray and the object and FALSE
 *		otherwise.
 */
-/* int	render_intersect(t_object obj, t_vector ray, t_hit *hit)
+bool	render_intersect(t_object obj, t_vector ray, t_hit *hit)
 {
-
-} */
+	if (obj.identifier == SPHERE)
+		return (intersect_sphere(obj.u_obj.sphere, ray, hit));
+	else if (obj.identifier == PLANE)
+		return (intersect_plane(obj.u_obj.plane, ray, hit));
+	else if (obj.identifier == CYLINDER)
+		return (intersect_cylinder(obj.u_obj.cylinder, ray, hit));
+	else
+		return (false);
+}
 
 int	main()
 {
@@ -346,7 +449,7 @@ int	main()
 	t_vector	ray;
 	t_hit		hit;
 
-	printf("\n**** SPHERE ****\n");
+	/* printf("\n**** SPHERE ****\n");
 	sphere.center->x = 0; sphere.center->y = 0; sphere.center->z = 0;
 	sphere.d = 1;
 	ray.origin.x = 10; ray.origin.y = 10; ray.origin.z = 10;
@@ -355,7 +458,7 @@ int	main()
 		printf("Intersection Points P1=(%f, %f, %f) and P2=(%f, %f, %f)\n", 
 			hit.p1.x, hit.p1.y, hit.p1.z, hit.p2.x, hit.p2.y, hit.p2.z);
 	else
-		printf("No intersection...\n");
+		printf("No intersection...\n"); */
 
 	/* printf("\n**** PLANE (intersection) ****\n");
 	plane.point->x = 0; plane.point->y = 0; plane.point->z = 0;
@@ -389,20 +492,22 @@ int	main()
 			hit.p1.x, hit.p1.y, hit.p1.z, hit.p2.x, hit.p2.y, hit.p2.z);
 	else
 		printf("No intersection...\n"); */
-	
-	printf("\n**** CYLINDER (intersection) ****\n");
+
+	/* printf("\n**** CYLINDER (intersection) ****\n");
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
-	cylinder.d = 4;
+	cylinder.d = 2;
 	cylinder.h = 2;
 	cylinder.v_norm->x = 0; cylinder.v_norm->y = 0; cylinder.v_norm->z = 1;
-	ray.origin.x = 1; ray.origin.y = 1; ray.origin.z = -2;
+	ray.origin.x = -1.5; ray.origin.y = 0; ray.origin.z = 0.5;
 	ray.v_norm.x = 0; ray.v_norm.y = 0; ray.v_norm.z = 1;
 	int	nbr_inter = intersect_cylinder(cylinder, ray, &hit);
 	if (nbr_inter)
 		printf("Intersection Points P1=(%f, %f, %f) and P2=(%f, %f, %f) and %d intersection(s).\n", 
 			hit.p1.x, hit.p1.y, hit.p1.z, hit.p2.x, hit.p2.y, hit.p2.z, nbr_inter);
 	else
-		printf("No intersection...\n");
+		printf("No intersection...\n"); */
+
+	tests_cylinder();
 
 	printf("\n");
 	return (0);
