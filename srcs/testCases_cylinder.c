@@ -12,6 +12,7 @@
 # include <math.h>
 
 bool	intersect_cylinder(t_cylinder cyl, t_vector ray, t_hit *hit);
+t_coordinates	vector_normalize(t_coordinates v);
 
 /*
 THE FOLLOWING TESTS ARE EXECUTED IN THE FILE:
@@ -25,28 +26,11 @@ THE FOLLOWING TESTS ARE EXECUTED IN THE FILE:
 8) no intersection (different v_norm)
 9) no intersection (v_norm ray == v_norm tube)
 10) no intersection (v_norm ray orthogonal v_norm tube)
-		11) infinite intersections -> ray lies on tube (origin out of range of tube)
-	12) infinite intersections -> ray lies on tube (origin on tube)
-		13) infinite intersections -> ray lies on cap (origin out of range of cap)
-	14) infinite intersections -> ray lies on cap (origin on cap)
+11) infinite intersections -> ray lies on tube (origin out of range of tube)
+12) infinite intersections -> ray lies on tube (origin on tube)
+13) infinite intersections -> ray lies on cap (origin out of range of cap)
+14) infinite intersections -> ray lies on cap (origin on cap)
 */
-
-/* vector_normalize:
-*	Normalizes the direction vector in the arguments.
-*
-*	Return: the normalized vector.
-*/
-t_coordinates	vector_normalize(t_coordinates v)
-{
-	t_coordinates	v_norm;
-	float			magnitude;
-
-	magnitude = sqrtf(powf(v.x, 2) + powf(v.y, 2) + powf(v.z, 2));
-	v_norm.x = v.x / magnitude;
-	v_norm.y = v.y / magnitude;
-	v_norm.z = v.z / magnitude;
-	return (v_norm);
-}
 
 // 1) two intersections with tube - none with caps
 void	twoInter_tube(t_cylinder cylinder, t_vector ray, t_hit hit)
@@ -261,7 +245,7 @@ void	infInter_tubeEqlRay_out(t_cylinder cylinder, t_vector ray, t_hit hit)
 void	infInter_tubeEqlRay_in(t_cylinder cylinder, t_vector ray, t_hit hit)
 {
 	printf("\n---- TEST 12 (Infinite intersections -> ray lies on tube (origin on tube)) ----\n");
-	printf("expected: P1(-1,0,0) & P2(-1,0,0)\n");
+	printf("expected: P1/P2(-1,0,0) OR P1/P2(-1,0,1)\n");
 
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
 	cylinder.d = 2;
@@ -299,7 +283,7 @@ void	infInter_capEqlRay_out(t_cylinder cylinder, t_vector ray, t_hit hit)
 void	infInter_capEqlRay_in(t_cylinder cylinder, t_vector ray, t_hit hit)
 {
 	printf("\n---- TEST 14 (Infinite intersections -> ray lies on cap (origin on cap)) ----\n");
-	printf("expected: P1(0,0,1) & P2(0,0,1)\n");
+	printf("expected: P1/P2(0,0,1) OR P1/P2(1,0,1)\n");
 
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
 	cylinder.d = 2;
