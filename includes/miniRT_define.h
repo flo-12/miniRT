@@ -24,6 +24,8 @@
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
 
+# define COLOR_WHITE 0x00FFFFFF
+
 # define STR_ERR_ARG "error: a scene in format *.rt mus be entered \
 (exactly one arg)"
 
@@ -121,6 +123,7 @@ typedef struct s_camera
 	t_coordinates	*v_norm;
 	float			fov;
 	float 			focal_len;
+	float			m[3][3];
 }	t_camera;
 
 typedef struct s_ambient
@@ -144,8 +147,8 @@ typedef struct s_object
 typedef struct s__img {
 	void	*ptr;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		size_line;
 	int		endian;
 }	t_img;
 

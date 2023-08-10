@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/03 15:48:47 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/10 20:40:36 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <math.h>
 # include "miniRT_define.h"
 # include "libft.h"
+# include "mlx.h"
 
 /**************************************************************************
 *                               FUNCTIONS                                 *
@@ -51,10 +52,15 @@ int				ptr_len(char **ptr);
 void			free_ptr(char **ptr);
 
 // render
+void		calc_camera_matrix(t_camera *camera);
+
+// mlx_utils.c
+void	mlx_put_pixel(t_img *img, int x, int y, int color);
+t_exit_code create_mlx(t_global *d);
 
 // BIG
 t_exit_code 	render_routine (t_global global);
-t_vector		compute_primary_ray (t_global global, t_pixel pixel);
+t_vector	compute_primary_ray (t_camera camera, t_pixel pixel);
 
 // SHADOW RAY (not mandatory)
 void			render_shadow_ray(t_global global, t_object obj_close, t_coordinates pHit, t_pixel pixel);

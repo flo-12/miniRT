@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/03 15:44:44 by lwidmer          ###   ########.fr        #
+#    Updated: 2023/08/10 20:51:35 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 # MiniLibX
 MINILIBX = libmlx_Linux.a
 MINILIBX_PATH = ./minilibx_linux/
+MINILIBXFLAGS = -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 MLX	= $(MINILIBX_PATH)$(MINILIBX)
 
 # includes
@@ -40,7 +41,10 @@ SRC			=	main.c \
 				parse_object.c \
 				parse_int_utils.c \
 				parse_float_utils.c \
+				parser_test.c \
 				utils.c \
+				mlx_utils.c \
+				render_routine.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \
 				vec3_utils.c \
@@ -57,7 +61,7 @@ all: $(LIBFT) $(MLX) $(OBJ_PATH) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "Compiling $(NAME)..."
-	@-$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(INC) -lm
+	@-$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(INC) ${MLX} ${MINILIBXFLAGS}
 	@echo "\n\t\033[33;1;3m$(NAME) ready\033[0m\n"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
