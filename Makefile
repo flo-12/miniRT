@@ -42,6 +42,7 @@ SRC			=	main.c \
 				parse_float_utils.c \
 				utils.c \
 				render_intersect.c \
+				render_inter_cyl_utils.c \
 				vec3_utils.c \
 				math_utils.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))

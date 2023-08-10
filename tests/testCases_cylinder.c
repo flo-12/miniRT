@@ -36,7 +36,7 @@ THE FOLLOWING TESTS ARE EXECUTED IN THE FILE:
 void	twoInter_tube(t_cylinder cylinder, t_vector ray, t_hit hit)
 {
 	printf("\n---- TEST 1 (2 intersections with tube - none with cap) ----\n");
-	printf("expected: P1(-1,0,0) & P2(1,0,0)\n");
+	printf("expected: P1(1,0,0) & P2(-1,0,0)\n");
 
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
 	cylinder.d = 2;
@@ -226,7 +226,7 @@ void	noInter_dirOrth(t_cylinder cylinder, t_vector ray, t_hit hit)
 void	infInter_tubeEqlRay_out(t_cylinder cylinder, t_vector ray, t_hit hit)
 {
 	printf("\n---- TEST 11 (Infinite intersections -> ray lies on tube (origin out of range of tube)) ----\n");
-	printf("expected: P1(-1,0,-1) & P2(-1,0,-1)\n");
+	printf("expected: P1(-1,0,-1) & P2(-1,0,1)\n");
 
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
 	cylinder.d = 2;
@@ -245,7 +245,7 @@ void	infInter_tubeEqlRay_out(t_cylinder cylinder, t_vector ray, t_hit hit)
 void	infInter_tubeEqlRay_in(t_cylinder cylinder, t_vector ray, t_hit hit)
 {
 	printf("\n---- TEST 12 (Infinite intersections -> ray lies on tube (origin on tube)) ----\n");
-	printf("expected: P1/P2(-1,0,0) OR P1/P2(-1,0,1)\n");
+	printf("expected: P1/P2(-1,0,1) OR P1/P2(-1,0,1)\n");
 
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
 	cylinder.d = 2;
@@ -264,7 +264,7 @@ void	infInter_tubeEqlRay_in(t_cylinder cylinder, t_vector ray, t_hit hit)
 void	infInter_capEqlRay_out(t_cylinder cylinder, t_vector ray, t_hit hit)
 {
 	printf("\n---- TEST 13 (Infinite intersections -> ray lies on cap (origin out of range of cap)) ----\n");
-	printf("expected: P1(-1,0,1) & P2(-1,0,1)\n");
+	printf("expected: P1(1,0,1) & P2(-1,0,1)\n");
 
 	cylinder.center->x = 0; cylinder.center->y = 0; cylinder.center->z = -1;
 	cylinder.d = 2;

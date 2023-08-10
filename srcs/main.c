@@ -62,6 +62,6 @@ int	main(int argc, char **argv)
 	print_exit(e);
 	if (e != SUCCESS)
 		return (e);
-	print_parse(global, e);
+	//print_parse(global, e);
 	return (EXIT_SUCCESS);
 }

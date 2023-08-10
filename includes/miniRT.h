@@ -47,35 +47,35 @@ int		store_color(char *str, t_color *color);
 void    print_parse(t_global *data, t_exit_code e);
 
 // utils.c
-int		ptr_len(char **ptr);
-void	free_ptr(char **ptr);
+int				ptr_len(char **ptr);
+void			free_ptr(char **ptr);
 
 // render
 
 // BIG
-t_exit_code render_routine (t_global global);
-t_vector	compute_primary_ray (t_global global, t_pixel pixel);
+t_exit_code 	render_routine (t_global global);
+t_vector		compute_primary_ray (t_global global, t_pixel pixel);
 
 // SHADOW RAY (not mandatory)
-void	render_shadow_ray(t_global global, t_object obj_close, t_coordinates pHit, t_pixel pixel);
+void			render_shadow_ray(t_global global, t_object obj_close, t_coordinates pHit, t_pixel pixel);
 
 // HELPER
 t_coordinates	vec3_get_dir(t_coordinates p1, t_coordinates p2);
 t_coordinates	vec3_norm(t_coordinates v);
-int	vec3_pt_on_line(t_vector v, t_coordinates p);
-float	vec3_dist_pts(t_coordinates p1, t_coordinates p2);
+int				vec3_pt_on_line(t_vector v, t_coordinates p);
+float			vec3_dist_pts(t_coordinates p1, t_coordinates p2);
 t_coordinates	vec3_get_pt(t_vector v, float d);
 t_coordinates	vec3_cross(t_coordinates p1, t_coordinates p2);
 t_coordinates	vec3_multiply_const(t_coordinates p1, float nbr);
 t_coordinates	vec3_add(t_coordinates p1, t_coordinates p2);
 t_coordinates	vec3_sub(t_coordinates p1, t_coordinates p2);
-float	vec3_dot(t_coordinates p1, t_coordinates p2);
+float			vec3_dot(t_coordinates p1, t_coordinates p2);
 
-bool	equal(float nbr, float comp);
+bool			equal(float nbr, float comp);
 
 // INTERSECT
-bool	render_intersect(t_object obj, t_vector ray, t_hit *hit);
-	// calls intersect_sphere, intersect_plane, intersect_cylinder
+bool			render_intersect(t_object obj, t_vector ray, t_hit *hit);
+int				tube_check_valid_points(t_vector ray, float (*t)[2], t_cylinder cyl);
 
 // COLOR (not mandatory)
 // ...

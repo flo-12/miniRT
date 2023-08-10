@@ -59,7 +59,7 @@ void	oneInter_diffDir(t_plane plane, t_vector ray, t_hit hit)
 // 3) no intersection - parallel & ray not on sphere
 void	noInter_parallel_out(t_plane plane, t_vector ray, t_hit hit)
 {
-	printf("\n---- TEST 3 (No intersections -> neither orthogonal nor parallel) ----\n");
+	printf("\n---- TEST 3 (No intersections -> parallel & ray not on sphere) ----\n");
 	printf("expected: no intersection...\n");
 
 	plane.point->x = 0; plane.point->y = 0; plane.point->z = 0;
