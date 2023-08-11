@@ -31,13 +31,13 @@ int	parse_light(char **split, t_light **light)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
-	*light = malloc(sizeof(t_light));
+	*light = ft_calloc(1, sizeof(t_light));
 	if (!(*light))
 		return (MALLOC_ERROR);
-	(*light)->point = malloc(sizeof(t_coordinates));
+	(*light)->point = ft_calloc(1, sizeof(t_coordinates));
 	if (!(*light)->point)
 		return (MALLOC_ERROR);
-	(*light)->color = malloc(sizeof(t_color));
+	(*light)->color = ft_calloc(1, sizeof(t_color));
 	if (!(*light)->color)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, (*light)->point) != SUCCESS
@@ -69,10 +69,10 @@ int	parse_ambient_ligthing(char **split, t_ambient **ambient)
 		return (INPUT_ERROR);
 	if (ptr_len(split) != 3)
 		return (INPUT_ERROR);
-	*ambient = malloc(sizeof(t_ambient));
+	*ambient = ft_calloc(1, sizeof(t_ambient));
 	if (!(*ambient))
 		return (MALLOC_ERROR);
-	(*ambient)->color = malloc(sizeof(t_color));
+	(*ambient)->color = ft_calloc(1, sizeof(t_color));
 	if (!(*ambient)->color)
 		return (MALLOC_ERROR);
 	if (store_nbr_float(split[1], -1, 1, &(*ambient)->ratio) != SUCCESS
@@ -104,13 +104,13 @@ int	parse_camera(char **split, t_camera **camera)
 		return (INPUT_ERROR);
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
-	*camera = malloc(sizeof(t_camera));
+	*camera = ft_calloc(1, sizeof(t_camera));
 	if (!(*camera))
 		return (MALLOC_ERROR);
-	(*camera)->point = malloc(sizeof(t_coordinates));
+	(*camera)->point = ft_calloc(1, sizeof(t_coordinates));
 	if (!(*camera)->point)
 		return (MALLOC_ERROR);
-	(*camera)->v_norm = malloc(sizeof(t_coordinates));
+	(*camera)->v_norm = ft_calloc(1, sizeof(t_coordinates));
 	if (!(*camera)->v_norm)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, (*camera)->point) != SUCCESS

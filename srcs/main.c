@@ -20,7 +20,7 @@
 */
 int	initialize_global(t_global **global)
 {
-	*global = malloc(sizeof(t_global));
+	*global = ft_calloc(1, sizeof(t_global));
 	if (!(*global))
 		return (MALLOC_ERROR);
 	(*global)->light = NULL;
@@ -29,24 +29,6 @@ int	initialize_global(t_global **global)
 	(*global)->objects = NULL;
 	return (SUCCESS);
 }
-
-/* void	print_exit(t_exit_code e)
-{
-	if (e)
-	{
-		printf("Error:\n");
-		if (e == OPENFILE_ERROR)
-			printf("Cannot open file\n");
-		if (e == INPUT_ERROR)
-			printf("Incorrect formatting of arguments in file\n");
-		if (e == ARG_ERROR)
-			printf("Incorrect number of arguments\n");
-		if (e == INPUT_INCOMPLETE)
-			printf("One parameter for A, C & L required\n");
-		if (e == FILETYPE_ERROR)
-			printf("Wrong filetype, use *.rt\n");
-	}
-} */
 
 int	main(int argc, char **argv)
 {
@@ -63,14 +45,14 @@ int	main(int argc, char **argv)
 	//print_exit(e);
 	if (e != SUCCESS)
 		return (exit_free(global, e));
-	/* print_parse(global, e);
+	print_parse(global, e);
 	if (e != SUCCESS)
-		return (e);	
+		return (exit_free(global, e));	
 	e = create_mlx(global);
 	printf("exit is %i",  e);
 	calc_camera_matrix(global->camera);
 	render_routine(*global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.ptr, 0, 0);
-	mlx_loop(global->mlx); */
+	mlx_loop(global->mlx);
 	return (exit_free(global, e));
 }

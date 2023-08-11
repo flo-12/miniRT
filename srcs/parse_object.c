@@ -31,10 +31,10 @@ int	parse_sphere(char **split, t_sphere *sphere)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
-	sphere->center = malloc(sizeof(t_coordinates));
+	sphere->center = ft_calloc(1, sizeof(t_coordinates));
 	if (!sphere->center)
 		return (MALLOC_ERROR);
-	sphere->color = malloc(sizeof(t_color));
+	sphere->color = ft_calloc(1, sizeof(t_color));
 	if (!sphere->color)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, sphere->center) != SUCCESS
@@ -63,13 +63,13 @@ int	parse_plane(char **split, t_plane *plane)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
-	plane->point = malloc(sizeof(t_coordinates));
+	plane->point = ft_calloc(1, sizeof(t_coordinates));
 	if (!plane->point)
 		return (MALLOC_ERROR);
-	plane->v_norm = malloc(sizeof(t_coordinates));
+	plane->v_norm = ft_calloc(1, sizeof(t_coordinates));
 	if (!plane->v_norm)
 		return (MALLOC_ERROR);
-	plane->color = malloc(sizeof(t_color));
+	plane->color = ft_calloc(1, sizeof(t_color));
 	if (!plane->color)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, plane->point) != SUCCESS
@@ -100,13 +100,13 @@ int	parse_cylinder(char **split, t_cylinder *cylinder)
 {
 	if (ptr_len(split) != 6)
 		return (INPUT_ERROR);
-	cylinder->center = malloc(sizeof(t_coordinates));
+	cylinder->center = ft_calloc(1, sizeof(t_coordinates));
 	if (!cylinder->center)
 		return (MALLOC_ERROR);
-	cylinder->v_norm = malloc(sizeof(t_coordinates));
+	cylinder->v_norm = ft_calloc(1, sizeof(t_coordinates));
 	if (!cylinder->v_norm)
 		return (MALLOC_ERROR);
-	cylinder->color = malloc(sizeof(t_color));
+	cylinder->color = ft_calloc(1, sizeof(t_color));
 	if (!cylinder->color)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, cylinder->center) != SUCCESS
@@ -154,7 +154,7 @@ int	parse_object(char **split, t_object **objects, int id)
 	t_object	*obj;
 	int			e;
 
-	obj = malloc(sizeof(t_object));
+	obj = ft_calloc(1, sizeof(t_object));
 	if (!obj)
 		return (MALLOC_ERROR);
 	obj->identifier = id;
