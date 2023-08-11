@@ -18,7 +18,7 @@
 *	Return: exit code in case of error and
 *		otherwise success.
 */
-int	initialize_global(t_global **global)
+t_exit_code	initialize_global(t_global **global)
 {
 	*global = ft_calloc(1, sizeof(t_global));
 	if (!(*global))

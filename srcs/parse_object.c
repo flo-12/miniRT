@@ -27,7 +27,7 @@
 *	Return: SUCCESS in case of success and otherwise
 *		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_sphere(char **split, t_sphere *sphere)
+t_exit_code	parse_sphere(char **split, t_sphere *sphere)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
@@ -59,7 +59,7 @@ int	parse_sphere(char **split, t_sphere *sphere)
 *	Return: SUCCESS in case of success and otherwise
 *		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_plane(char **split, t_plane *plane)
+t_exit_code	parse_plane(char **split, t_plane *plane)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
@@ -96,7 +96,7 @@ int	parse_plane(char **split, t_plane *plane)
 *	Return: SUCCESS in case of success and otherwise
 *		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_cylinder(char **split, t_cylinder *cylinder)
+t_exit_code	parse_cylinder(char **split, t_cylinder *cylinder)
 {
 	if (ptr_len(split) != 6)
 		return (INPUT_ERROR);
@@ -149,7 +149,7 @@ void	ft_lstadd_back_obj(t_object **objects, t_object *new)
 *	Return: SUCCESS in case of success and
 *		(MALLOC_/INPUT_)ERROR in case of failure.
 */
-int	parse_object(char **split, t_object **objects, int id)
+t_exit_code	parse_object(char **split, t_object **objects, int id)
 {
 	t_object	*obj;
 	int			e;

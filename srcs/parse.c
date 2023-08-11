@@ -59,7 +59,7 @@ bool	check_input_complete(t_global *global)
 *		by malloc and syntax error) and 0 in case of
 *		success.
 */
-int	add_element(char **split, t_global *global)
+t_exit_code	add_element(char **split, t_global *global)
 {
 	int	e;
 
@@ -96,7 +96,7 @@ int	add_element(char **split, t_global *global)
 *
 *	Return: Exit-code and 0 in case of success.
 */
-int	parse(char *filename, t_global *global)
+t_exit_code	parse(char *filename, t_global *global)
 {
 	int		fd;
 	char	*line;
@@ -131,5 +131,5 @@ int	parse(char *filename, t_global *global)
 	close(fd);
 	if (!check_input_complete(global))
 		return (INPUT_INCOMPLETE);
-	return (0);
+	return (SUCCESS);
 }

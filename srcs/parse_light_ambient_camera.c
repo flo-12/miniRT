@@ -27,7 +27,7 @@
 *	Return: SUCCESS in case of success and otherwise
 *		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_light(char **split, t_light **light)
+t_exit_code	parse_light(char **split, t_light **light)
 {
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
@@ -63,7 +63,7 @@ int	parse_light(char **split, t_light **light)
 *	Return: SUCCESS in case of success and otherwise
 *		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_ambient_ligthing(char **split, t_ambient **ambient)
+t_exit_code	parse_ambient_ligthing(char **split, t_ambient **ambient)
 {
 	if (*ambient)
 		return (INPUT_ERROR);
@@ -98,7 +98,7 @@ int	parse_ambient_ligthing(char **split, t_ambient **ambient)
 *	Return: SUCCESS in case of success and otherwise
 *		the belonging error (INPUT_ERROR or MALLOC_ERROR).
 */
-int	parse_camera(char **split, t_camera **camera)
+t_exit_code	parse_camera(char **split, t_camera **camera)
 {
 	if (*camera)
 		return (INPUT_ERROR);
