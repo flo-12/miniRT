@@ -96,7 +96,7 @@ void	print_exit(t_exit_code e)
 *	Frees all heap allocated memory, exits mlx correct
 *	and prints the corresponding exit code.
 */
-void	exit_free(t_global *global, t_exit_code e)
+t_exit_code	exit_free(t_global *global, t_exit_code e)
 {
 	free_ambient_camera_light(global->ambient, global->camera, global->light);
 	free_objects(global->objects);
@@ -104,4 +104,5 @@ void	exit_free(t_global *global, t_exit_code e)
 
 	free_if(global);
 	print_exit(e);
+	return (e);
 }

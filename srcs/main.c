@@ -53,16 +53,16 @@ int	main(int argc, char **argv)
 	int			e;
 	t_global	*global;
 
+	global = NULL;
 	if (argc != 2)
-		return (ARG_ERROR);
+		return (exit_free(global, ARG_ERROR));
 	e = initialize_global(&global);
 	if (e != SUCCESS)
-		return (e); 
+		return (exit_free(global, e));
 	e = parse(argv[1], global);
 	//print_exit(e);
 	if (e != SUCCESS)
-		return (e);
-	exit_free(global, e);
+		return (exit_free(global, e));
 	/* print_parse(global, e);
 	if (e != SUCCESS)
 		return (e);	
@@ -72,5 +72,5 @@ int	main(int argc, char **argv)
 	render_routine(*global);
 	mlx_put_image_to_window(global->mlx, global->win, global->img.ptr, 0, 0);
 	mlx_loop(global->mlx); */
-	return (EXIT_SUCCESS);
+	return (exit_free(global, e));
 }

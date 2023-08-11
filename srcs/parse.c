@@ -94,7 +94,7 @@ int	add_element(char **split, t_global *global)
 *	Stops if an error in the input occurs (e.g. str when
 *	number is expected or wrong identifier).
 *
-*	Return: Error-code and 0 in case of success.
+*	Return: Exit-code and 0 in case of success.
 */
 int	parse(char *filename, t_global *global)
 {
@@ -104,7 +104,7 @@ int	parse(char *filename, t_global *global)
 	int		e;
 
 	if (!ft_strrchr(filename, '.') || ft_strncmp(ft_strrchr(filename, '.'), 
-		".rt", 4) != 0)
+			".rt", 4) != 0)
 		return (FILETYPE_ERROR);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
