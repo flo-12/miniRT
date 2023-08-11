@@ -86,4 +86,7 @@ int				tube_check_valid_points(t_vector ray, float (*t)[2], t_cylinder cyl);
 // COLOR (not mandatory)
 // ...
 
+// Exit and Print error code
+void	exit_free(t_global *global, t_exit_code e);
+
 #endif

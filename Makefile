@@ -48,7 +48,8 @@ SRC			=	main.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \
 				vec3_utils.c \
-				math_utils.c
+				math_utils.c \
+				exit_free.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects

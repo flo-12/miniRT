@@ -68,7 +68,7 @@ int	add_element(char **split, t_global *global)
 		return (e);
 	if (!(*(split + 1)))
 		e = INPUT_ERROR;
-	else if (ft_strncmp(split[0], strdup("A"), 2) == 0)
+	else if (ft_strncmp(split[0], "A", 2) == 0)
 		e = parse_ambient_ligthing(split, &global->ambient);
 	else if (ft_strncmp(split[0], "C", 2) == 0)
 		e = parse_camera(split, &global->camera);
@@ -115,11 +115,17 @@ int	parse(char *filename, t_global *global)
 		split = split_line(line);
 		free(line);
 		if (!split)
+		{
+			close(fd);
 			return (MALLOC_ERROR);
+		}
 		e = add_element(split, global);
 		free_ptr(split);
 		if (e)
+		{
+			close(fd);
 			return (e);
+		}
 		line = get_next_line(fd);
 	}
 	close(fd);
