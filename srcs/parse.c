@@ -61,7 +61,7 @@ bool	check_input_complete(t_global *global)
 */
 t_exit_code	add_element(char **split, t_global *global)
 {
-	int	e;
+	t_exit_code	e;
 
 	e = 0;
 	if (!(*split))
@@ -98,10 +98,10 @@ t_exit_code	add_element(char **split, t_global *global)
 */
 t_exit_code	parse(char *filename, t_global *global)
 {
-	int		fd;
-	char	*line;
-	char	**split;
-	int		e;
+	int			fd;
+	char		*line;
+	char		**split;
+	t_exit_code	e;
 
 	if (!ft_strrchr(filename, '.') || ft_strncmp(ft_strrchr(filename, '.'), 
 			".rt", 4) != 0)
