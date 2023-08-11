@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/10 20:51:35 by lwidmer          ###   ########.fr        #
+#    Updated: 2023/08/11 12:32:30 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC			=	main.c \
 				parse_object.c \
 				parse_int_utils.c \
 				parse_float_utils.c \
+				test_utils.c \
 				parser_test.c \
 				utils.c \
 				mlx_utils.c \
@@ -48,7 +49,8 @@ SRC			=	main.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \
 				vec3_utils.c \
-				math_utils.c
+				math_utils.c \
+				render_test.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects

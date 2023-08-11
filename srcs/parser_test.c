@@ -1,23 +1,6 @@
 
 #include "miniRT.h"
 
-void	print_color(t_color color)
-{
-	printf("[COLOR] r=%d | g=%d | b=%d\n", 
-		color.r, color.g, color.b);
-}
-
-void	print_coord(t_coordinates coord)
-{
-	printf("[COORDINATES] x=%f | y=%f | z=%f\n", 
-		coord.x, coord.y, coord.z);
-}
-
-void	print_nbr(float p)
-{
-	printf("[NBR] p=%f\n", p);
-}
-
 void	print_light(t_light light, int e)
 {
 	printf("\n****** PRINT_LIGHT ******\n");

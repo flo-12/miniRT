@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:38:01 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/09 17:38:03 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:53:16 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@
 float	vec3_dot(t_coordinates p1, t_coordinates p2)
 {
 	return (p1.x * p2.x + p1.y * p2.y + p1.z * p2.z);
+}
+
+/* vec3_angle
+returns the angle between two vectors.
+
+Return: the angle in rad
+*/
+float	vec3_angle_rad(t_coordinates v1, t_coordinates v2)
+{
+	return (acosf(vec3_dot(v1, v2)));
+}
+
+float	vec3_angle_deg(t_coordinates v1, t_coordinates v2)
+{
+	return (vec3_angle_rad(v1, v2) * 180 / M_PI);
 }
 
 /* vec3_sub:

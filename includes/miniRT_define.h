@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/03 16:39:50 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/11 12:38:37 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 
 # define STR_ERR_ARG "error: a scene in format *.rt mus be entered \
 (exactly one arg)"
+
+# ifndef DEBUG_RENDER
+#  define DEBUG_RENDER 1
+# endif
 
 /**************************************************************************
 *                                 ENUMS                                   *

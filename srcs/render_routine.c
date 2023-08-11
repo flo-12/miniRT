@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/10 20:54:06 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/11 12:42:42 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,6 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 }
 
 */
-
-void	print_vector(t_vector v)
-{
-	printf("origin:		x[%f]	y[%f]	z[%f]\n", v.origin.x, v.origin.y, v.origin.z);
-	printf("direction:	x[%f]	y[%f]	z[%f]\n", v.v_norm.x, v.v_norm.y, v.v_norm.z);
-}
-
-void	print_point(t_coordinates p)
-{
-	printf("point:		x[%f]	y[%f]	z[%f]\n", p.x, p.y, p.z);
-}
 
 /*
 give the primary ray, I check whether there is an intersection for each object
@@ -137,7 +126,6 @@ t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 	return (primary_ray);
 }
 
-
 void	calc_camera_matrix(t_camera *camera)
 {
 	t_coordinates	forward;
@@ -162,55 +150,16 @@ void	calc_camera_matrix(t_camera *camera)
 	printf("dot_product %f\n", vec3_dot(forward, up));
 }
 
-void	print_camera_matrix(t_camera c)
-{
-	printf("forward:	x[%f]	y[%f]	z[%f]\n", c.m[2][0], c.m[2][1], c.m[2][2]);
-	printf("right:		x[%f]	y[%f]	z[%f]\n", c.m[0][0], c.m[0][1], c.m[0][2]);
-	printf("up:		x[%f]	y[%f]	z[%f]\n", c.m[1][0], c.m[1][1], c.m[1][2]);
-
-}
-
 t_exit_code	render_routine(t_global global)
 {
 	t_vector	primary_ray;
 	t_pixel		pixel;
 
-
-	//print_camera_matrix(*global.camera);
-	//print_point(*global.camera->point);
-	/*
-	printf("\n");
-	pixel.x = 0;
-	pixel.y = 0;
-	primary_ray = compute_primary_ray(*(global.camera), pixel);
-	print_vector(primary_ray);
-	*/
-	/*
-	printf("angle between rays is %f\n", 
-			acosf(vec3_dot(primary_ray.v_norm, primary_ray2.v_norm) / 
-				( fabs(vec3_dist_pts(primary_ray.origin, primary_ray.v_norm)) * 
-				fabs(vec3_dist_pts(primary_ray2.origin, primary_ray2.v_norm)))));
-	*/
-	/*
-	pixel.x = 899;
-	pixel.y = 0;
-	primary_ray2 = compute_primary_ray(*(global.camera), pixel);
-	print_vector(primary_ray2);
-	printf("angle is %f \n", acosf(vec3_dot(primary_ray.v_norm, primary_ray2.v_norm)));
-	printf("\n");
-	*/
-	/*
-	pixel.x = 899;
-	pixel.y = 899;
-	primary_ray2 = compute_primary_ray(*(global.camera), pixel);
-	print_vector(primary_ray);
-	printf("\n");
-	pixel.x = 449;
-	pixel.y = 449;
-	primary_ray = compute_primary_ray(*(global.camera), pixel);
-	*/
-	//render_primary_ray(global, primary_ray, pixel);
-	
+	if (DEBUG_RENDER)
+	{
+		print_camera_matrix(*global.camera);
+		print_image_plane_corners(global);
+	}
 	pixel.y = 0;
 	while (pixel.y < WIN_HEIGHT)
 	{
