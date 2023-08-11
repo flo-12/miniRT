@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/11 12:42:42 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/11 13:21:52 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ if so it returns true and updates the closest intersection for our render
 primary_ray function
 */
 
-/*
 bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates 
 		*closest_intersect)
 {
@@ -32,8 +31,8 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 	float			distance_p1;
 	float			distance_p2;
 
-	distance_p1 = distance_points(vp, p_hit.p1);
-	distance_p2 = distance_points(vp, p_hit.p2);
+	distance_p1 = vec3_dist_pts(vp, p_hit.p1);
+	distance_p2 = vec3_dist_pts(vp, p_hit.p2);
 	if (min_distance == 0 || distance_p1 < min_distance || distance_p2 
 		< min_distance)
 	{
@@ -47,8 +46,6 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 		return (false);
 }
 
-*/
-
 /*
 give the primary ray, I check whether there is an intersection for each object
 given the direction of the intersection and the distance of it I can update it
@@ -58,7 +55,7 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 {
 	t_object		*object;
 	t_hit			p_hit;
-	//t_coordinates	closest_intersect;
+	t_coordinates	closest_intersect;
 	t_object		*closest_object;
 
 	object = global.objects;
@@ -67,20 +64,22 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 	{
 		if (render_intersect(*object, primary_ray, &p_hit) == true)
 		{
-			/*
 			if (check_p_hit(*global.camera->point, p_hit, 
 				&closest_intersect))
 				closest_object = object;
-			*/
-			//printf("hit at:!");
-			//print_point(p_hit.p1);
-			//printf("\n");
-			closest_object = object;
 		}
 		object = object->next;
 	}
 	if (closest_object)
-		mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_WHITE);
+	{
+		if (closest_object->identifier == SPHERE)
+			mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_BLUE);
+		if (closest_object->identifier == CYLINDER)
+			mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_RED);
+		//if (closest_object->identifier == PLANE)
+		//	mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_WHITE);
+
+	}
 }
 
 t_coordinates	point(float x, float y, float z)
