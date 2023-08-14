@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:36 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/11 11:39:35 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 11:24:22 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 *	Return: exit code in case of error and
 *		otherwise success.
 */
-int	initialize_global(t_global **global)
+t_exit_code	initialize_global(t_global **global)
 {
-	*global = malloc(sizeof(t_global));
+	*global = ft_calloc(1, sizeof(t_global));
 	if (!(*global))
 		return (MALLOC_ERROR);
 	(*global)->light = NULL;
@@ -30,41 +30,24 @@ int	initialize_global(t_global **global)
 	return (SUCCESS);
 }
 
-void	print_exit(t_exit_code e)
-{
-	if (e)
-	{
-		printf("Error:\n");
-		if (e == OPENFILE_ERROR)
-			printf("Cannot open file\n");
-		if (e == INPUT_ERROR)
-			printf("Incorrect formatting of arguments in file\n");
-		if (e == ARG_ERROR)
-			printf("Incorrect number of arguments\n");
-		if (e == INPUT_INCOMPLETE)
-			printf("One parameter for A, C & L required\n");
-		if (e == FILETYPE_ERROR)
-			printf("Wrong filetype, use *.rt\n");
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	int			e;
 	t_global	*global;
 
+	global = NULL;
 	if (argc != 2)
-		return (ARG_ERROR);
+		return (exit_free(global, ARG_ERROR));
 	e = initialize_global(&global);
 	if (e != SUCCESS)
-		return (e); 
+		return (exit_free(global, e));
 	e = parse(argv[1], global);
-	print_exit(e);
+	//print_exit(e);
 	if (e != SUCCESS)
-		return (e);
+		return (exit_free(global, e));
 	print_parse(global, e);
 	if (e != SUCCESS)
-		return (e);	
+		return (exit_free(global, e));	
 	e = create_mlx(global);
 	printf("exit is %i",  e);
 	calc_camera_matrix(global->camera);
@@ -73,4 +56,5 @@ int	main(int argc, char **argv)
 	mlx_loop(global->mlx);
 	free_mlx(global);
 	return (EXIT_SUCCESS);
+	return (exit_free(global, e));
 }

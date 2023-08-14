@@ -35,11 +35,11 @@
 **************************************************************************/
 
 // parser
-int		parse(char *filename, t_global *global);
-int		parse_light(char **split, t_light **light);
-int		parse_camera(char **split, t_camera **camera);
-int		parse_ambient_ligthing(char **split, t_ambient **ambient);
-int		parse_object(char **split, t_object **objects, int id);
+t_exit_code		parse(char *filename, t_global *global);
+t_exit_code		parse_light(char **split, t_light **light);
+t_exit_code		parse_camera(char **split, t_camera **camera);
+t_exit_code		parse_ambient_ligthing(char **split, t_ambient **ambient);
+t_exit_code		parse_object(char **split, t_object **objects, int id);
 int		store_coordinates(char *str, float min, float max, 
 			t_coordinates *coordinates);
 int		store_nbr_float(char *str, float min, float max, float *nbr);
@@ -99,5 +99,8 @@ int				tube_check_valid_points(t_vector ray, float (*t)[2], t_cylinder cyl);
 
 // COLOR (not mandatory)
 // ...
+
+// Exit and Print error code
+t_exit_code		exit_free(t_global *global, t_exit_code e);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/11 12:32:30 by lwidmer          ###   ########.fr        #
+#    Updated: 2023/08/14 11:24:10 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRC			=	main.c \
 				render_inter_cyl_utils.c \
 				vec3_utils.c \
 				math_utils.c \
-				render_test.c
+				render_test.c \
+				exit_free.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects

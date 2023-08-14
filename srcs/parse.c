@@ -59,16 +59,16 @@ bool	check_input_complete(t_global *global)
 *		by malloc and syntax error) and 0 in case of
 *		success.
 */
-int	add_element(char **split, t_global *global)
+t_exit_code	add_element(char **split, t_global *global)
 {
-	int	e;
+	t_exit_code	e;
 
 	e = 0;
 	if (!(*split))
 		return (e);
 	if (!(*(split + 1)))
 		e = INPUT_ERROR;
-	else if (ft_strncmp(split[0], strdup("A"), 2) == 0)
+	else if (ft_strncmp(split[0], "A", 2) == 0)
 		e = parse_ambient_ligthing(split, &global->ambient);
 	else if (ft_strncmp(split[0], "C", 2) == 0)
 		e = parse_camera(split, &global->camera);
@@ -94,17 +94,17 @@ int	add_element(char **split, t_global *global)
 *	Stops if an error in the input occurs (e.g. str when
 *	number is expected or wrong identifier).
 *
-*	Return: Error-code and 0 in case of success.
+*	Return: Exit-code and 0 in case of success.
 */
-int	parse(char *filename, t_global *global)
+t_exit_code	parse(char *filename, t_global *global)
 {
-	int		fd;
-	char	*line;
-	char	**split;
-	int		e;
+	int			fd;
+	char		*line;
+	char		**split;
+	t_exit_code	e;
 
 	if (!ft_strrchr(filename, '.') || ft_strncmp(ft_strrchr(filename, '.'), 
-		".rt", 4) != 0)
+			".rt", 4) != 0)
 		return (FILETYPE_ERROR);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -115,15 +115,21 @@ int	parse(char *filename, t_global *global)
 		split = split_line(line);
 		free(line);
 		if (!split)
+		{
+			close(fd);
 			return (MALLOC_ERROR);
+		}
 		e = add_element(split, global);
 		free_ptr(split);
 		if (e)
+		{
+			close(fd);
 			return (e);
+		}
 		line = get_next_line(fd);
 	}
 	close(fd);
 	if (!check_input_complete(global))
 		return (INPUT_INCOMPLETE);
-	return (0);
+	return (SUCCESS);
 }

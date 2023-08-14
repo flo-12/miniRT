@@ -26,8 +26,14 @@
 
 # define COLOR_WHITE 0x00FFFFFF
 
-# define STR_ERR_ARG "error: a scene in format *.rt mus be entered \
-(exactly one arg)"
+# define MSG_OPENFILE_ERROR "Cannot open file\n"
+# define MSG_MLX_ERROR "MLX usage...\n"
+# define MSG_MALLOC_ERROR "Malloc failed\n"
+# define MSG_INPUT_ERROR "Syntax in file wrong - a line is missing information\n"
+# define MSG_ARG_ERROR "Incorrect number of arguments - usage: \"./miniRT <inputFile>\"\n"
+# define MSG_INPUT_INCOMPLETE "Input in file incomplete - ambient light, camera & light are required\n"
+# define MSG_FILETYPE_ERROR "Wrong filetype - \"*.rt\" file required\n"
+
 
 # ifndef DEBUG_RENDER
 #  define DEBUG_RENDER 1
