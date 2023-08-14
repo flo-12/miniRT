@@ -33,9 +33,9 @@ t_color	get_intensity(float intensity, t_color c_obj, t_color c_light)
 	}
 	else
 	{
-		color.r = c_obj.r * (intensity * 1);
-		color.g = c_obj.g * (intensity * 1);
-		color.b = c_obj.b * (intensity * 1);
+		color.r = (int)((float)c_obj.r * (intensity * 1));
+		color.g = (int)((float)c_obj.g * (intensity * 1));
+		color.b = (int)((float)c_obj.b * (intensity * 1));
 	}
 	return (color);
 }
@@ -110,7 +110,7 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow)
 {
 	t_color			color_obj;
 	t_coordinates	norm_obj;
-	float			n_dot_L;
+	float			alpha;
 
 	color_obj = get_obj_color(obj);
 	if (obj.identifier == PLANE)
@@ -119,10 +119,15 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow)
 		norm_obj = vec3_norm(vec3_sub(shadow.origin, *obj.u_obj.sphere.center));
 	else// if (obj.identifier == CYLINDER)
 		norm_obj =  get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
-	n_dot_L = vec3_dot(norm_obj, shadow.v_norm);
-	if (n_dot_L > 0)
-		return (get_intensity(n_dot_L / (vec3_dist_pts(norm_obj, norm_obj) 
+	alpha = vec3_dot(norm_obj, shadow.v_norm);
+	if (alpha > 0)
+		/* return (get_intensity(alpha / (vec3_dist_pts(norm_obj, norm_obj) 
 				* vec3_dist_pts(shadow.v_norm, shadow.v_norm)), 
+				color_obj, *light.color)); */
+		/* return (get_intensity(alpha / (vec3_dist_pts(shadow.origin, *obj.u_obj.cylinder.center) 
+				* vec3_dist_pts(shadow.origin, *light.point)), 
+				color_obj, *light.color)); */
+		return (get_intensity(alpha, 
 				color_obj, *light.color));
 	else
 		return (get_intensity(0, color_obj, *light.color));

@@ -12,16 +12,6 @@
 
 #include "miniRT.h"
 
-t_color	color(int r, int g, int b)
-{
-	t_color	color;
-
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return (color);
-}
-
 t_coordinates	point(float x, float y, float z)
 {
 	t_coordinates	tmp;

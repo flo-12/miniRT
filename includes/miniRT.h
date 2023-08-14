@@ -90,15 +90,17 @@ t_coordinates	vec3_multiply_const(t_coordinates p1, float nbr);
 t_coordinates	vec3_add(t_coordinates p1, t_coordinates p2);
 t_coordinates	vec3_sub(t_coordinates p1, t_coordinates p2);
 float			vec3_dot(t_coordinates p1, t_coordinates p2);
-float   vec3_angle_rad(t_coordinates v1, t_coordinates v2);
-float   vec3_angle_deg(t_coordinates v1, t_coordinates v2);
+float  			vec3_angle_rad(t_coordinates v1, t_coordinates v2);
+float 			vec3_angle_deg(t_coordinates v1, t_coordinates v2);
 
 
 // color_utils.c
-int color_to_int(t_color color);
+int 			color_to_int(t_color color);
+t_color			add_color(t_color c1, t_color c2);
+t_color 		color(int r, int g, int b);
+t_color			color_range(t_color color);
 
 // render_utils.c
-t_color color(int r, int g, int b);
 t_coordinates   point(float x, float y, float z);
 
 bool			equal(float nbr, float comp);

@@ -46,21 +46,6 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 		return (false);
 }
 
-/* add_color:
-*	Adds the RGB values of two colors
-*	
-*	Return: the calculated color.
-*/
-t_color	add_color(t_color c1, t_color c2)
-{
-	t_color	c_ret;
-
-	c_ret.r = c1.r + c2.r;
-	c_ret.g = c1.g + c2.g;
-	c_ret.b = c1.b + c2.b;
-	return (c_ret);
-}
-
 void	render_shadow_ray(t_global global, t_object obj_close, 
 							t_coordinates p_hit, t_pixel pixel)
 {
@@ -85,6 +70,17 @@ void	render_shadow_ray(t_global global, t_object obj_close,
 			render_light(obj_close, global.light, shadow_ray); */
 		global.light = global.light->next;
 	}
+	/* if (diffuse_color.b > 255)
+		diffuse_color.b = 255;
+	if (diffuse_color.g > 255)
+		diffuse_color.g = 255;
+	if (diffuse_color.r > 255)
+		diffuse_color.r = 255; */
+	diffuse_color = color_range(diffuse_color);
+	if (pixel.x < 1024 / 2 + 35 && pixel.x > 1024 / 2 + 25 && pixel.y == WIN_HEIGHT / 2)
+			printf("color=(%d,%d,%d), v_norm=(%f,%f,%f)\n", 
+				diffuse_color.r, diffuse_color.g, diffuse_color.b,
+				shadow_ray.v_norm.x, shadow_ray.v_norm.y, shadow_ray.v_norm.z);
 	final_color = color_to_int(diffuse_color);
 	//final_color = color_to_int(*(global.ambient->color));
 	//ambient_color = mul_color(*(global.ambient->color), global.ambient.ratio);
