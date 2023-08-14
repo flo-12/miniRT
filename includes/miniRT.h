@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/14 12:43:10 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:19:39 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void    	free_mlx(t_global *global);
 // render_routine.c
 t_exit_code 	render_routine (t_global global);
 t_vector		compute_primary_ray (t_camera camera, t_pixel pixel);
-void			render_shadow_ray(t_global global, t_object obj_close, 
-					t_coordinates pHit, t_pixel pixel);
+//void			render_shadow_ray(t_global global, t_object obj_close, 
+//					t_coordinates pHit, t_pixel pixel);
 
 // render_light.c
 t_color			get_obj_color(t_object obj);
