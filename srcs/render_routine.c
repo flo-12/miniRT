@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/14 13:05:51 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:35:09 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,33 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 		return (false);
 }
 
-void	render_shadow_ray(t_global global, t_object obj_close, 
+void	render_shadow_ray(t_global global, t_object *obj_close, 
 							t_coordinates p_hit, t_pixel pixel)
 {
 	t_vector	shadow_ray;
 	//t_color		ambient_color;
 	t_color		diffuse_color;
 	int			final_color;
+	t_object	*object;
+	t_hit		dummy;
 
-	//diffuse_color = color(0,0,0);
-	//(void)obj_close;
 	diffuse_color = get_intensity(global.ambient->ratio, 
-		get_obj_color(obj_close), *global.ambient->color); // check colored ambient light without bonus
+		get_obj_color(*obj_close), *global.ambient->color); // check colored ambient light without bonus
 	while (global.light)
 	{
-		// check if there is in other object in between the obj_close and the light
 		shadow_ray.origin = p_hit;
 		shadow_ray.v_norm = vec3_norm(vec3_get_dir(p_hit, *(global.light->point)));
+		object = global.objects;
+		while (object)
+		{
+			if (object != obj_close && render_intersect(*object, shadow_ray, &dummy) == true)
+				break;
+			object = object->next;
+		}
 		// check if first all intensities and RGB-colors of light should be summed up and at the end it's multiuplied with the obj_close color???
-		diffuse_color = add_color(diffuse_color, 
-			render_light(obj_close, *global.light, shadow_ray));
+		if (!object)
+			diffuse_color = add_color(diffuse_color, 
+				 render_light(*obj_close, *global.light, shadow_ray));
 		/* diffuse_color = diffuse_color +
 			render_light(obj_close, global.light, shadow_ray); */
 		global.light = global.light->next;
@@ -114,7 +121,7 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 	}
 	if (closest_object)
 	{
-		render_shadow_ray(global, *closest_object, closest_intersect, pixel);
+		render_shadow_ray(global, closest_object, closest_intersect, pixel);
 		/*
 		if (closest_object->identifier == SPHERE)
 			color = color_to_int(*closest_object->u_obj.sphere.color);
