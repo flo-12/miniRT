@@ -19,6 +19,10 @@
 *                                MACROS                                   *
 **************************************************************************/
 
+# ifndef BONUS
+# define BONUS = 0
+# endif
+
 # define THRESH_FLOAT 1e-6
 
 # define WIN_WIDTH 1024
