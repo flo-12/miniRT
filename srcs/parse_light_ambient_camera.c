@@ -12,6 +12,15 @@
 
 #include "miniRT.h"
 
+t_light	*ft_lstlast_light(t_light *light)
+{
+	if (!light)
+		return (NULL);
+	while (light->next)
+		light = light->next;
+	return (light);
+}
+
 /* parse_light:
 *	Stores the values of each string in split in 
 *	the structs. The format of split must be the 
@@ -29,20 +38,27 @@
 */
 t_exit_code	parse_light(char **split, t_light **light)
 {
+	t_light	*tmp;
+
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
-	*light = ft_calloc(1, sizeof(t_light));
-	if (!(*light))
+	tmp = ft_calloc(1, sizeof(t_light));
+	if (!tmp)
 		return (MALLOC_ERROR);
-	(*light)->point = ft_calloc(1, sizeof(t_coordinates));
-	if (!(*light)->point)
+	if (ft_lstlast_light(*light))
+		ft_lstlast_light(*light)->next = tmp;
+	else
+		*light = tmp;
+	tmp->next = NULL;
+	tmp->point = ft_calloc(1, sizeof(t_coordinates));
+	if (!tmp->point)
 		return (MALLOC_ERROR);
-	(*light)->color = ft_calloc(1, sizeof(t_color));
-	if (!(*light)->color)
+	tmp->color = ft_calloc(1, sizeof(t_color));
+	if (!tmp->color)
 		return (MALLOC_ERROR);
-	if (store_coordinates(split[1], -99, -99, (*light)->point) != SUCCESS
-		|| store_nbr_float(split[2], 0, 1, &(*light)->brightness) != SUCCESS
-		|| store_color(split[3], (*light)->color) != SUCCESS)
+	if (store_coordinates(split[1], -99, -99, tmp->point) != SUCCESS
+		|| store_nbr_float(split[2], 0, 1, &tmp->brightness) != SUCCESS
+		|| store_color(split[3], tmp->color) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }
