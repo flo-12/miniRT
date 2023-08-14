@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/11 12:51:07 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 11:19:42 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ float			vec3_dot(t_coordinates p1, t_coordinates p2);
 float   vec3_angle_rad(t_coordinates v1, t_coordinates v2);
 float   vec3_angle_deg(t_coordinates v1, t_coordinates v2);
 
+
+// color_utils.c
+int color_to_int(t_color color);
 
 bool			equal(float nbr, float comp);
 

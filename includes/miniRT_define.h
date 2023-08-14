@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/11 12:38:37 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/11 13:17:26 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define WIN_HEIGHT 768
 
 # define COLOR_WHITE 0x00FFFFFF
+# define COLOR_RED 0x00FF0000
+# define COLOR_GREEN 0x0000FF00
+# define COLOR_BLUE 0x000000FF
+
 
 # define MSG_OPENFILE_ERROR "Cannot open file\n"
 # define MSG_MLX_ERROR "MLX usage...\n"
