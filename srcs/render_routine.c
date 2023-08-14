@@ -6,15 +6,11 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/10 20:54:06 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:05:51 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-/*
-ipp = image plane point
-*/
 
 /*
 to know whther or not the min distance should be updated we have to check 
@@ -23,85 +19,100 @@ camera viewpoint (vp) is closer than a prior one (if there has been any)
 if so it returns true and updates the closest intersection for our render
 primary_ray function
 */
-
-/*
 bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates 
-		*closest_intersect)
+		*closest_intersect, float *min_distance)
 {
-	static float	min_distance;
 	float			distance_p1;
 	float			distance_p2;
 
-	distance_p1 = distance_points(vp, p_hit.p1);
-	distance_p2 = distance_points(vp, p_hit.p2);
-	if (min_distance == 0 || distance_p1 < min_distance || distance_p2 
-		< min_distance)
+	distance_p1 = vec3_dist_pts(vp, p_hit.p1);
+	distance_p2 = vec3_dist_pts(vp, p_hit.p2);
+	if (*min_distance == 0 || distance_p1 < *min_distance || distance_p2 
+		< *min_distance)
 	{
 		if (distance_p1 <= distance_p2)
+		{
+			*min_distance = distance_p1;
 			*closest_intersect = p_hit.p1;
-		else	
+		}
+		else
+		{
+			*min_distance = distance_p2;
 			*closest_intersect = p_hit.p2;
+		}
 		return (true);
 	}
 	else
 		return (false);
 }
 
-*/
-
-void	print_vector(t_vector v)
+void	render_shadow_ray(t_global global, t_object obj_close, 
+							t_coordinates p_hit, t_pixel pixel)
 {
-	printf("origin:		x[%f]	y[%f]	z[%f]\n", v.origin.x, v.origin.y, v.origin.z);
-	printf("direction:	x[%f]	y[%f]	z[%f]\n", v.v_norm.x, v.v_norm.y, v.v_norm.z);
-}
+	t_vector	shadow_ray;
+	//t_color		ambient_color;
+	//t_color		diffuse_color;
+	int			final_color;
 
-void	print_point(t_coordinates p)
-{
-	printf("point:		x[%f]	y[%f]	z[%f]\n", p.x, p.y, p.z);
+	//diffuse_color = color(0,0,0);
+	(void)obj_close;
+	while (global.light)
+	{
+		shadow_ray.origin = p_hit;
+		shadow_ray.v_norm = vec3_norm(vec3_get_dir(p_hit, *(global.light->point)));
+		//diffuse_color = diffuse_color +
+		//	render_light(obj_close, global.light, shadow_ray);
+		global.light = global.light->next;
+	}
+	final_color = color_to_int(*(global.ambient->color));
+	//ambient_color = mul_color(*(global.ambient->color), global.ambient.ratio);
+	//final_color = add_color(ambient_color, diffuse_color);
+	mlx_put_pixel(&global.img, pixel.x, pixel.y, final_color);
 }
 
 /*
-give the primary ray, I check whether there is an intersection for each object
-given the direction of the intersection and the distance of it I can update it
-*/
+give the primary ray, the intersections function is called to check whether
+there is an intersection with any object in the scene. It looks through all the
+objects in the scene, saving the hit point (p_hit) with the closest
+intersection.
 
+RETURN: void
+*/
 void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 {
 	t_object		*object;
 	t_hit			p_hit;
-	//t_coordinates	closest_intersect;
+	t_coordinates	closest_intersect;
 	t_object		*closest_object;
+	float			min_distance;
+	//int				color;
 
 	object = global.objects;
 	closest_object = NULL;
+	min_distance = 0;
 	while (object)
 	{
 		if (render_intersect(*object, primary_ray, &p_hit) == true)
 		{
-			/*
 			if (check_p_hit(*global.camera->point, p_hit, 
-				&closest_intersect))
+									&closest_intersect, &min_distance))
 				closest_object = object;
-			*/
-			//printf("hit at:!");
-			//print_point(p_hit.p1);
-			//printf("\n");
-			closest_object = object;
 		}
 		object = object->next;
 	}
 	if (closest_object)
-		mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_WHITE);
-}
-
-t_coordinates	point(float x, float y, float z)
-{
-	t_coordinates	tmp;
-
-	tmp.x = x;
-	tmp.y = y;
-	tmp.z = z;
-	return (tmp);
+	{
+		render_shadow_ray(global, *closest_object, closest_intersect, pixel);
+		/*
+		if (closest_object->identifier == SPHERE)
+			color = color_to_int(*closest_object->u_obj.sphere.color);
+		if (closest_object->identifier == CYLINDER)
+			color = color_to_int(*closest_object->u_obj.cylinder.color);
+		if (closest_object->identifier == PLANE)
+			color = color_to_int(*closest_object->u_obj.plane.color);
+		mlx_put_pixel(&global.img, pixel.x, pixel.y, color);
+		*/
+	}
 }
 
 t_coordinates camera_to_world(float m[3][3], t_coordinates v)
@@ -114,7 +125,6 @@ t_coordinates camera_to_world(float m[3][3], t_coordinates v)
 	return (dir);
 }
 
-
 t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 {
 	t_vector		primary_ray;	
@@ -122,8 +132,6 @@ t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 	float			camera_y;
 	float			camera_z;
 	float			scale;
-	//float			cos_theta;
-	//float			sin_theta;
 
 	scale = tanf(((camera.fov / 2) * M_PI) / 180);
 	camera_x = (2 * (pixel.x + 0.5) / WIN_WIDTH - 1) * scale;
@@ -136,7 +144,6 @@ t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 							point(camera_x, camera_y, camera_z)));
 	return (primary_ray);
 }
-
 
 void	calc_camera_matrix(t_camera *camera)
 {
@@ -162,55 +169,16 @@ void	calc_camera_matrix(t_camera *camera)
 	printf("dot_product %f\n", vec3_dot(forward, up));
 }
 
-void	print_camera_matrix(t_camera c)
-{
-	printf("forward:	x[%f]	y[%f]	z[%f]\n", c.m[2][0], c.m[2][1], c.m[2][2]);
-	printf("right:		x[%f]	y[%f]	z[%f]\n", c.m[0][0], c.m[0][1], c.m[0][2]);
-	printf("up:		x[%f]	y[%f]	z[%f]\n", c.m[1][0], c.m[1][1], c.m[1][2]);
-
-}
-
 t_exit_code	render_routine(t_global global)
 {
 	t_vector	primary_ray;
 	t_pixel		pixel;
 
-
-	//print_camera_matrix(*global.camera);
-	//print_point(*global.camera->point);
-	/*
-	printf("\n");
-	pixel.x = 0;
-	pixel.y = 0;
-	primary_ray = compute_primary_ray(*(global.camera), pixel);
-	print_vector(primary_ray);
-	*/
-	/*
-	printf("angle between rays is %f\n", 
-			acosf(vec3_dot(primary_ray.v_norm, primary_ray2.v_norm) / 
-				( fabs(vec3_dist_pts(primary_ray.origin, primary_ray.v_norm)) * 
-				fabs(vec3_dist_pts(primary_ray2.origin, primary_ray2.v_norm)))));
-	*/
-	/*
-	pixel.x = 899;
-	pixel.y = 0;
-	primary_ray2 = compute_primary_ray(*(global.camera), pixel);
-	print_vector(primary_ray2);
-	printf("angle is %f \n", acosf(vec3_dot(primary_ray.v_norm, primary_ray2.v_norm)));
-	printf("\n");
-	*/
-	/*
-	pixel.x = 899;
-	pixel.y = 899;
-	primary_ray2 = compute_primary_ray(*(global.camera), pixel);
-	print_vector(primary_ray);
-	printf("\n");
-	pixel.x = 449;
-	pixel.y = 449;
-	primary_ray = compute_primary_ray(*(global.camera), pixel);
-	*/
-	//render_primary_ray(global, primary_ray, pixel);
-	
+	if (DEBUG_RENDER)
+	{
+		print_camera_matrix(*global.camera);
+		print_image_plane_corners(global);
+	}
 	pixel.y = 0;
 	while (pixel.y < WIN_HEIGHT)
 	{

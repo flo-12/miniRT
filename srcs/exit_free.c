@@ -100,7 +100,7 @@ t_exit_code	exit_free(t_global *global, t_exit_code e)
 {
 	free_ambient_camera_light(global->ambient, global->camera, global->light);
 	free_objects(global->objects);
-	//free_mlx();
+	free_mlx(global);
 
 	free_if(global);
 	print_exit(e);

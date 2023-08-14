@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:36 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/10 20:39:56 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 12:33:59 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,19 @@ int	main(int argc, char **argv)
 	if (e != SUCCESS)
 		return (exit_free(global, e));
 	e = parse(argv[1], global);
-	//print_exit(e);
 	if (e != SUCCESS)
 		return (exit_free(global, e));
+	if (DEBUG_PARSER)
 	print_parse(global, e);
 	if (e != SUCCESS)
 		return (exit_free(global, e));	
 	e = create_mlx(global);
-	printf("exit is %i",  e);
-	calc_camera_matrix(global->camera);
-	render_routine(*global);
-	mlx_put_image_to_window(global->mlx, global->win, global->img.ptr, 0, 0);
-	mlx_loop(global->mlx);
+	if (!e)
+	{
+		calc_camera_matrix(global->camera);
+		render_routine(*global);
+		mlx_put_image_to_window(global->mlx, global->win, global->img.ptr, 0, 0);
+		mlx_loop(global->mlx);
+	}
 	return (exit_free(global, e));
 }
