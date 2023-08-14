@@ -35,5 +35,6 @@ Realizing this project requires a deeper understanding of the raytracing algorit
 | Topic								| Link                                                        	|
 |----------------------------------:|:--------------------------------------------------------------|
 | Linear Algebra					| [3Blue1Browns Playlist on Linear Algebra](https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B) |
-| Raytracing technique				| - [Scratchapixel](https://www.scratchapixel.com/index.html)		
-									  - [Computer Graphics From Scratch](https://www.gabrielgambetta.com/computer-graphics-from-scratch/)]																	|
+| Raytracing technique				| [Scratchapixel](https://www.scratchapixel.com/index.html)	|
+| Raytracing technique				| [Computer Graphics From Scratch](https://www.gabrielgambetta.com/computer-graphics-from-scratch/)]	|
+| | |
