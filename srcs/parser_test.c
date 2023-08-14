@@ -1,12 +1,18 @@
 
 #include "miniRT.h"
 
-void	print_light(t_light light, int e)
+void	print_light(t_light *light, int e)
 {
 	printf("\n****** PRINT_LIGHT ******\n");
-	print_coord(*light.point);
-	print_nbr(light.brightness);
-	print_color(*light.color);
+	if (!light)
+		printf("No light initialized\n");
+	while (light)
+	{
+		print_coord(*light->point);
+		print_nbr(light->brightness);
+		print_color(*light->color);
+		light = light->next;
+	}
 	printf("exit code = %d\n", e);
 }
 
@@ -69,7 +75,7 @@ void	print_parse(t_global *global, t_exit_code e)
 	if (e)
 		return ;
 	if (global->light)
-		print_light(*global->light, e);
+		print_light(global->light, e);
 	if (global->camera)	
 		print_camera(*global->camera, e);
 	if (global->ambient)	
