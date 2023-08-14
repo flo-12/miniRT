@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/14 19:26:42 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:57:35 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_coordinates camera_to_world(float m[3][3], t_coordinates v)
 t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 {
 	t_vector		primary_ray;	
-	float			aspect_ratio;
+	//float			aspect_ratio;
 	float			camera_x;
 	float			camera_y;
 	float			camera_z;
