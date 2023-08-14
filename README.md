@@ -34,6 +34,6 @@ To enable colored diffuse light sources add .. to the environment variables
 Realizing this project requires a deeper understanding of the raytracing algorithm as well as some literacy in linear algebra. The following list is a recommendation of sources for anyone who wants to know more about the topic:
 | Topic								| Link                                                        	|
 |----------------------------------:|:--------------------------------------------------------------|
-| Linear Algebra					| [3Blue1Browns Playlist on Linear Algebra] (https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B) |
-| Raytracing technique				| - [Scratchapixel] (https://www.scratchapixel.com/index.html)		
-									  - [Computer Graphics From Scratch] (https://www.gabrielgambetta.com/computer-graphics-from-scratch/)]																	|
+| Linear Algebra					| [3Blue1Browns Playlist on Linear Algebra](https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B) |
+| Raytracing technique				| - [Scratchapixel](https://www.scratchapixel.com/index.html)		
+									  - [Computer Graphics From Scratch](https://www.gabrielgambetta.com/computer-graphics-from-scratch/)]																	|
