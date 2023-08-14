@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_utils.c                                      :+:      :+:    :+:   */
+/*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 11:18:36 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/14 12:01:42 by lwidmer          ###   ########.fr       */
+/*   Created: 2023/08/14 12:41:14 by lwidmer           #+#    #+#             */
+/*   Updated: 2023/08/14 12:41:49 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	color_to_int(t_color c)
+t_color	color(int r, int g, int b)
 {
-	int	color;
+	t_color	color;
 
-	color = (c.r << 16) | (c.g << 8) | c.b;
+	color.r = r;
+	color.g = g;
+	color.b = b;
 	return (color);
+}
+
+t_coordinates	point(float x, float y, float z)
+{
+	t_coordinates	tmp;
+
+	tmp.x = x;
+	tmp.y = y;
+	tmp.z = z;
+	return (tmp);
 }
