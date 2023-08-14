@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/14 18:35:09 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:26:42 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,18 +120,7 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 		object = object->next;
 	}
 	if (closest_object)
-	{
 		render_shadow_ray(global, closest_object, closest_intersect, pixel);
-		/*
-		if (closest_object->identifier == SPHERE)
-			color = color_to_int(*closest_object->u_obj.sphere.color);
-		if (closest_object->identifier == CYLINDER)
-			color = color_to_int(*closest_object->u_obj.cylinder.color);
-		if (closest_object->identifier == PLANE)
-			color = color_to_int(*closest_object->u_obj.plane.color);
-		mlx_put_pixel(&global.img, pixel.x, pixel.y, color);
-		*/
-	}
 }
 
 t_coordinates camera_to_world(float m[3][3], t_coordinates v)
@@ -147,6 +136,7 @@ t_coordinates camera_to_world(float m[3][3], t_coordinates v)
 t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 {
 	t_vector		primary_ray;	
+	float			aspect_ratio;
 	float			camera_x;
 	float			camera_y;
 	float			camera_z;
