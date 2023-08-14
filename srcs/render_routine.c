@@ -46,25 +46,47 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 		return (false);
 }
 
+/* add_color:
+*	Adds the RGB values of two colors
+*	
+*	Return: the calculated color.
+*/
+t_color	add_color(t_color c1, t_color c2)
+{
+	t_color	c_ret;
+
+	c_ret.r = c1.r + c2.r;
+	c_ret.g = c1.g + c2.g;
+	c_ret.b = c1.b + c2.b;
+	return (c_ret);
+}
+
 void	render_shadow_ray(t_global global, t_object obj_close, 
 							t_coordinates p_hit, t_pixel pixel)
 {
 	t_vector	shadow_ray;
 	//t_color		ambient_color;
-	//t_color		diffuse_color;
+	t_color		diffuse_color;
 	int			final_color;
 
 	//diffuse_color = color(0,0,0);
-	(void)obj_close;
+	//(void)obj_close;
+	diffuse_color = get_intensity(global.ambient->ratio, 
+		get_obj_color(obj_close), *global.ambient->color); // check colored ambient light without bonus
 	while (global.light)
 	{
+		// check if there is in other object in between the obj_close and the light
 		shadow_ray.origin = p_hit;
 		shadow_ray.v_norm = vec3_norm(vec3_get_dir(p_hit, *(global.light->point)));
-		//diffuse_color = diffuse_color +
-		//	render_light(obj_close, global.light, shadow_ray);
+		// check if first all intensities and RGB-colors of light should be summed up and at the end it's multiuplied with the obj_close color???
+		diffuse_color = add_color(diffuse_color, 
+			render_light(obj_close, *global.light, shadow_ray));
+		/* diffuse_color = diffuse_color +
+			render_light(obj_close, global.light, shadow_ray); */
 		global.light = global.light->next;
 	}
-	final_color = color_to_int(*(global.ambient->color));
+	final_color = color_to_int(diffuse_color);
+	//final_color = color_to_int(*(global.ambient->color));
 	//ambient_color = mul_color(*(global.ambient->color), global.ambient.ratio);
 	//final_color = add_color(ambient_color, diffuse_color);
 	mlx_put_pixel(&global.img, pixel.x, pixel.y, final_color);

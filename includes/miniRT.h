@@ -74,6 +74,11 @@ t_vector		compute_primary_ray (t_camera camera, t_pixel pixel);
 void			render_shadow_ray(t_global global, t_object obj_close, 
 					t_coordinates pHit, t_pixel pixel);
 
+// render_light.c
+t_color			get_obj_color(t_object obj);
+t_color			get_intensity(float intensity, t_color c_obj, t_color c_light);
+t_color			render_light(t_object obj, t_light light, t_vector shadow);
+
 // HELPER
 t_coordinates	vec3_get_dir(t_coordinates p1, t_coordinates p2);
 t_coordinates	vec3_norm(t_coordinates v);

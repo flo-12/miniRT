@@ -85,7 +85,7 @@ t_color	get_obj_color(t_object obj)
 		return (*obj.u_obj.plane.color);
 	else if (obj.identifier == SPHERE)
 		return (*obj.u_obj.sphere.color);
-	else if (obj.identifier == CYLINDER)
+	else
 		return (*obj.u_obj.cylinder.color);
 }
 
@@ -117,13 +117,13 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow)
 		norm_obj = *obj.u_obj.plane.v_norm;
 	else if (obj.identifier == SPHERE)
 		norm_obj = vec3_norm(vec3_sub(shadow.origin, *obj.u_obj.sphere.center));
-	else if (obj.identifier == CYLINDER)
-		norm_obj =  get_norm_cyl(obj.u_obj.cylinder, shadow);
+	else// if (obj.identifier == CYLINDER)
+		norm_obj =  get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
 	n_dot_L = vec3_dot(norm_obj, shadow.v_norm);
 	if (n_dot_L > 0)
 		return (get_intensity(n_dot_L / (vec3_dist_pts(norm_obj, norm_obj) 
 				* vec3_dist_pts(shadow.v_norm, shadow.v_norm)), 
-				color_obj, light.color));
+				color_obj, *light.color));
 	else
-		return (get_intensity(0, color_obj, light.color));
+		return (get_intensity(0, color_obj, *light.color));
 }

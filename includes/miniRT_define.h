@@ -20,7 +20,7 @@
 **************************************************************************/
 
 # ifndef BONUS
-# define BONUS = 0
+# define BONUS 0
 # endif
 
 # define THRESH_FLOAT 1e-6
