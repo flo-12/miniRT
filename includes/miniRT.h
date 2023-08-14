@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/14 11:19:42 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 12:43:10 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,11 @@ void		mlx_put_pixel(t_img *img, int x, int y, int color);
 t_exit_code create_mlx(t_global *d);
 void    	free_mlx(t_global *global);
 
-
-// BIG
+// render_routine.c
 t_exit_code 	render_routine (t_global global);
-t_vector	compute_primary_ray (t_camera camera, t_pixel pixel);
-
-// SHADOW RAY (not mandatory)
-void			render_shadow_ray(t_global global, t_object obj_close, t_coordinates pHit, t_pixel pixel);
+t_vector		compute_primary_ray (t_camera camera, t_pixel pixel);
+void			render_shadow_ray(t_global global, t_object obj_close, 
+					t_coordinates pHit, t_pixel pixel);
 
 // HELPER
 t_coordinates	vec3_get_dir(t_coordinates p1, t_coordinates p2);
@@ -93,6 +91,10 @@ float   vec3_angle_deg(t_coordinates v1, t_coordinates v2);
 
 // color_utils.c
 int color_to_int(t_color color);
+
+// render_utils.c
+t_color color(int r, int g, int b);
+t_coordinates   point(float x, float y, float z);
 
 bool			equal(float nbr, float comp);
 
