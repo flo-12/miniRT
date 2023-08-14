@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/11 13:21:52 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/14 11:20:13 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,26 @@ primary_ray function
 */
 
 bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates 
-		*closest_intersect)
+		*closest_intersect, float *min_distance)
 {
-	static float	min_distance;
 	float			distance_p1;
 	float			distance_p2;
 
 	distance_p1 = vec3_dist_pts(vp, p_hit.p1);
 	distance_p2 = vec3_dist_pts(vp, p_hit.p2);
-	if (min_distance == 0 || distance_p1 < min_distance || distance_p2 
-		< min_distance)
+	if (*min_distance == 0 || distance_p1 < *min_distance || distance_p2 
+		< *min_distance)
 	{
 		if (distance_p1 <= distance_p2)
+		{
+			*min_distance = distance_p1;
 			*closest_intersect = p_hit.p1;
-		else	
+		}
+		else
+		{
+			*min_distance = distance_p2;
 			*closest_intersect = p_hit.p2;
+		}
 		return (true);
 	}
 	else
@@ -57,15 +62,18 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 	t_hit			p_hit;
 	t_coordinates	closest_intersect;
 	t_object		*closest_object;
+	float			min_distance;
+	int				color;
 
 	object = global.objects;
 	closest_object = NULL;
+	min_distance = 0;
 	while (object)
 	{
 		if (render_intersect(*object, primary_ray, &p_hit) == true)
 		{
 			if (check_p_hit(*global.camera->point, p_hit, 
-				&closest_intersect))
+									&closest_intersect, &min_distance))
 				closest_object = object;
 		}
 		object = object->next;
@@ -73,12 +81,12 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 	if (closest_object)
 	{
 		if (closest_object->identifier == SPHERE)
-			mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_BLUE);
+			color = color_to_int(*closest_object->u_obj.sphere.color);
 		if (closest_object->identifier == CYLINDER)
-			mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_RED);
-		//if (closest_object->identifier == PLANE)
-		//	mlx_put_pixel(&global.img, pixel.x, pixel.y, COLOR_WHITE);
-
+			color = color_to_int(*closest_object->u_obj.cylinder.color);
+		if (closest_object->identifier == PLANE)
+			color = color_to_int(*closest_object->u_obj.plane.color);
+		mlx_put_pixel(&global.img, pixel.x, pixel.y, color);
 	}
 }
 
