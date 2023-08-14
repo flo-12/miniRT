@@ -20,13 +20,13 @@
 **************************************************************************/
 
 # ifndef BONUS
-# define BONUS 0
+# define BONUS 1
 # endif
 
 # define THRESH_FLOAT 1e-6
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 512
+# define WIN_HEIGHT 384
 
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000

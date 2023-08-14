@@ -63,7 +63,8 @@ t_coordinates	get_surface_norm_cyl(t_cylinder cyl, t_vector shadow)
 	float			l;
 	t_coordinates	p;
 
-	l = sqrtf(powf(vec3_dist_pts(shadow.origin, *cyl.center),2) - powf(cyl.d / 2, 2));
+	l = sqrtf(powf(vec3_dist_pts(shadow.origin, *cyl.center), 2) 
+			- powf(cyl.d / 2, 2));
 	if (equal(l, 0) || equal(l, cyl.h))
 		norm_obj = *cyl.v_norm;
 	else
@@ -121,12 +122,6 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow)
 		norm_obj =  get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
 	alpha = vec3_dot(norm_obj, shadow.v_norm);
 	if (alpha > 0)
-		/* return (get_intensity(alpha / (vec3_dist_pts(norm_obj, norm_obj) 
-				* vec3_dist_pts(shadow.v_norm, shadow.v_norm)), 
-				color_obj, *light.color)); */
-		/* return (get_intensity(alpha / (vec3_dist_pts(shadow.origin, *obj.u_obj.cylinder.center) 
-				* vec3_dist_pts(shadow.origin, *light.point)), 
-				color_obj, *light.color)); */
 		return (get_intensity(alpha, 
 				color_obj, *light.color));
 	else

@@ -70,14 +70,8 @@ void	render_shadow_ray(t_global global, t_object obj_close,
 			render_light(obj_close, global.light, shadow_ray); */
 		global.light = global.light->next;
 	}
-	/* if (diffuse_color.b > 255)
-		diffuse_color.b = 255;
-	if (diffuse_color.g > 255)
-		diffuse_color.g = 255;
-	if (diffuse_color.r > 255)
-		diffuse_color.r = 255; */
 	diffuse_color = color_range(diffuse_color);
-	if (pixel.x < 1024 / 2 + 35 && pixel.x > 1024 / 2 + 25 && pixel.y == WIN_HEIGHT / 2)
+	if (pixel.x < WIN_WIDTH / 2 + 35 && pixel.x > WIN_WIDTH / 2 + 25 && pixel.y == WIN_HEIGHT / 2)
 			printf("color=(%d,%d,%d), v_norm=(%f,%f,%f)\n", 
 				diffuse_color.r, diffuse_color.g, diffuse_color.b,
 				shadow_ray.v_norm.x, shadow_ray.v_norm.y, shadow_ray.v_norm.z);
