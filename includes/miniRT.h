@@ -93,6 +93,7 @@ float			vec3_angle_deg(t_coordinates v1, t_coordinates v2);
 
 // math_utils.c
 bool			equal(float nbr, float comp);
+float			minf(float n1, float n2);
 
 // mlx_utils.c
 void			mlx_put_pixel(t_img *img, int x, int y, int color);

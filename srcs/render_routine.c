@@ -54,19 +54,24 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 	t_color		diffuse_color;
 	int			final_color;
 	t_object	*object;
-	t_hit		dummy;
+	t_light		*light;
+	t_hit		hit;
+	float		dist;
 
 	bool	debug = false;
 	diffuse_color = get_intensity(global.ambient->ratio, 
 		get_obj_color(*obj_close), *global.ambient->color, debug); // check colored ambient light without bonus
-	while (global.light)
+	light = global.light;
+	while (light)
 	{
 		shadow_ray.origin = p_hit;
-		shadow_ray.v_norm = vec3_norm(vec3_get_dir(p_hit, *(global.light->point)));
+		shadow_ray.v_norm = vec3_norm(vec3_get_dir(p_hit, *(light->point)));
 		object = global.objects;
 		while (object)
 		{
-			if (object != obj_close && render_intersect(*object, shadow_ray, &dummy) == true)
+			dist = vec3_dist_pts(shadow_ray.origin, *light->point);
+			if (object != obj_close && render_intersect(*object, shadow_ray, &hit) == true 
+				&& dist > minf(vec3_dist_pts(shadow_ray.origin, hit.p1), vec3_dist_pts(shadow_ray.origin, hit.p2)))
 				break;
 			object = object->next;
 		}
@@ -80,10 +85,10 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 			debug = false;
 		if (!object)
 			diffuse_color = add_color(diffuse_color, 
-				 render_light(*obj_close, *global.light, shadow_ray, debug));
+				 render_light(*obj_close, *light, shadow_ray, debug));
 		/* diffuse_color = diffuse_color +
-			render_light(obj_close, global.light, shadow_ray); */
-		global.light = global.light->next;
+			render_light(obj_close, light, shadow_ray); */
+		light = light->next;
 	}
 	diffuse_color = color_range(diffuse_color);
 	/* if (pixel.x > WIN_WIDTH / 2 - 5 && pixel.x < WIN_WIDTH / 2 + 20 && pixel.y == WIN_HEIGHT / 2 - 10)
