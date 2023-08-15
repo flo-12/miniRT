@@ -58,9 +58,8 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 	t_hit		hit;
 	float		dist;
 
-	bool	debug = false;
 	diffuse_color = get_intensity(global.ambient->ratio, 
-		get_obj_color(*obj_close), *global.ambient->color, debug); // check colored ambient light without bonus
+		get_obj_color(*obj_close), *global.ambient->color); // check colored ambient light without bonus
 	light = global.light;
 	while (light)
 	{
@@ -76,16 +75,9 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 			object = object->next;
 		}
 		// check if first all intensities and RGB-colors of light should be summed up and at the end it's multiuplied with the obj_close color???
-		if (pixel.x == 246 && pixel.y == 262)
-		{
-			printf("Results for Pixel(246, 262): \n");
-			debug = true;
-		}
-		else
-			debug = false;
 		if (!object)
 			diffuse_color = add_color(diffuse_color, 
-				 render_light(*obj_close, *light, shadow_ray, debug));
+				 render_light(*obj_close, *light, shadow_ray));
 		/* diffuse_color = diffuse_color +
 			render_light(obj_close, light, shadow_ray); */
 		light = light->next;
@@ -191,8 +183,8 @@ void	calc_camera_matrix(t_camera *camera)
 	camera->m[2][0] = forward.x;
 	camera->m[2][1] = forward.y;
 	camera->m[2][2] = forward.z;
-	printf("dot_product %f\n", vec3_dot(forward, right));
-	printf("dot_product %f\n", vec3_dot(forward, up));
+	//printf("dot_product %f\n", vec3_dot(forward, right));
+	//printf("dot_product %f\n", vec3_dot(forward, up));
 }
 
 t_exit_code	render_routine(t_global global)

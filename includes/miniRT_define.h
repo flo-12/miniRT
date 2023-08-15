@@ -22,11 +22,11 @@
 # endif
 
 # ifndef DEBUG_RENDER
-#  define DEBUG_RENDER 1
+#  define DEBUG_RENDER 0
 # endif
 
 # ifndef DEBUG_PARSER
-#  define DEBUG_PARSER 1
+#  define DEBUG_PARSER 0
 # endif
 
 # define THRESH_FLOAT 1e-6

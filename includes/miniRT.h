@@ -59,9 +59,9 @@ bool			render_intersect(t_object obj, t_vector ray, t_hit *hit);
 int				tube_check_valid_points(t_vector ray, 
 					float (*t)[2], t_cylinder cyl);
 // render_light.c
-t_color			render_light(t_object obj, t_light light, t_vector shadow, bool debug);
+t_color			render_light(t_object obj, t_light light, t_vector shadow);
 t_color			get_obj_color(t_object obj);
-t_color			get_intensity(float intensity, t_color c_obj, t_color c_light, bool debug);
+t_color			get_intensity(float intensity, t_color c_obj, t_color c_light);
 
 // exit_free.c
 t_exit_code		exit_free(t_global *global, t_exit_code e);

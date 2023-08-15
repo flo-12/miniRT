@@ -28,6 +28,8 @@ void	free_if(void *ptr)
 void	free_ambient_camera_light(t_ambient *ambient, 
 	t_camera *camera, t_light *light)
 {
+	t_light	*light_tmp;
+
 	if (ambient)
 	{
 		free_if((void *)ambient->color);
@@ -39,11 +41,13 @@ void	free_ambient_camera_light(t_ambient *ambient,
 		free_if((void *)camera->v_norm);
 		free(camera);
 	}
-	if (light)
+	while (light)
 	{
 		free_if((void *)light->point);
 		free_if((void *)light->color);
-		free(light);
+		light_tmp = light;
+		light = light->next;
+		free(light_tmp);
 	}
 }
 

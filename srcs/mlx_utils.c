@@ -51,31 +51,32 @@ void	free_mlx(t_global *global)
 		if (global->img.ptr)
 			mlx_destroy_image(global->mlx, global->img.ptr);
 		mlx_destroy_display(global->mlx);
+		free(global->mlx);
 	}
 }
 
-t_exit_code	create_mlx(t_global *data)
+t_exit_code	create_mlx(t_global *global)
 {
 	t_exit_code	e;
 
 	e = SUCCESS;
-	data->mlx = mlx_init();
-	if (!data->mlx)
+	global->mlx = mlx_init();
+	if (!global->mlx)
 		e = MLX_ERROR;
 	if (e == SUCCESS)
-		data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "miniRT");
-	if (!data->win)
+		global->win = mlx_new_window(global->mlx, WIN_WIDTH, WIN_HEIGHT, "miniRT");
+	if (!global->win)
 		e = MLX_ERROR;
 	if (e == SUCCESS)
-		data->img.ptr = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (!data->img.ptr)
+		global->img.ptr = mlx_new_image(global->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!global->img.ptr)
 		e = MLX_ERROR;
 	if (e == SUCCESS)
-		data->img.addr = mlx_get_data_addr(data->img.ptr, &data->img.bpp, \
-			&data->img.size_line, &data->img.endian);
-	if (!data->img.addr)
+		global->img.addr = mlx_get_data_addr(global->img.ptr, &global->img.bpp, \
+			&global->img.size_line, &global->img.endian);
+	if (!global->img.addr)
 		e = MLX_ERROR;
-	mlx_hook(data->win, 2, 1L << 0, keypress_handler, data);
-	mlx_hook(data->win, 17, 1L << 2, cross_handler, data);
+	mlx_hook(global->win, 2, 1L << 0, keypress_handler, global);
+	mlx_hook(global->win, 17, 1L << 2, cross_handler, global);
 	return (e);
 }

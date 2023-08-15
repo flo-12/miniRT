@@ -21,7 +21,7 @@
 *	Return: calculated RGB values with the considered
 *		intensity and color of the light and object.
 */
-t_color	get_intensity(float intensity, t_color c_obj, t_color c_light, bool debug)
+t_color	get_intensity(float intensity, t_color c_obj, t_color c_light)
 {
 	t_color	color;
 
@@ -37,9 +37,6 @@ t_color	get_intensity(float intensity, t_color c_obj, t_color c_light, bool debu
 		color.g = (int)((float)c_obj.g * (intensity * 1));
 		color.b = (int)((float)c_obj.b * (intensity * 1));
 	}
-	if (debug)
-		printf("color_obj(%d,%d,%d) | intensity=%f | color_light(%d,%d,%d) | color(%d,%d,%d)\n",
-			c_obj.r, c_obj.g, c_obj.b, intensity, c_light.r, c_light.g, c_light.b, color.r, color.g, color.b);
 	return (color);
 }
 
@@ -110,7 +107,7 @@ t_color	get_obj_color(t_object obj)
 *
 *	Return: the light as t_color (RGB values).
 */
-t_color	render_light(t_object obj, t_light light, t_vector shadow, bool debug)
+t_color	render_light(t_object obj, t_light light, t_vector shadow)
 {
 	t_color			color_obj;
 	t_coordinates	norm_obj;
@@ -126,7 +123,7 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow, bool debug)
 	alpha = vec3_dot(norm_obj, shadow.v_norm);
 	if (alpha > 0)
 		return (get_intensity(alpha, 
-				color_obj, *light.color, debug));
+				color_obj, *light.color));
 	else
-		return (get_intensity(0, color_obj, *light.color, debug));
+		return (get_intensity(0, color_obj, *light.color));
 }
