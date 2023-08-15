@@ -21,15 +21,15 @@
 *	Return: calculated RGB values with the considered
 *		intensity and color of the light and object.
 */
-t_color	get_intensity(float intensity, t_color c_obj, t_color c_light)
+t_color	get_intensity(float intensity, t_color c_obj, t_color c_light, bool debug)
 {
 	t_color	color;
 
 	if (BONUS)
 	{
-		color.r = c_obj.r * (intensity * (c_light.r / 255));
-		color.g = c_obj.g * (intensity * (c_light.g / 255));
-		color.b = c_obj.b * (intensity * (c_light.b / 255));
+		color.r = c_obj.r * (intensity * ((float)c_light.r / 255));
+		color.g = c_obj.g * (intensity * ((float)c_light.g / 255));
+		color.b = c_obj.b * (intensity * ((float)c_light.b / 255));
 	}
 	else
 	{
@@ -37,6 +37,9 @@ t_color	get_intensity(float intensity, t_color c_obj, t_color c_light)
 		color.g = (int)((float)c_obj.g * (intensity * 1));
 		color.b = (int)((float)c_obj.b * (intensity * 1));
 	}
+	if (debug)
+		printf("color_obj(%d,%d,%d) | intensity=%f | color_light(%d,%d,%d) | color(%d,%d,%d)\n",
+			c_obj.r, c_obj.g, c_obj.b, intensity, c_light.r, c_light.g, c_light.b, color.r, color.g, color.b);
 	return (color);
 }
 
@@ -72,7 +75,7 @@ t_coordinates	get_surface_norm_cyl(t_cylinder cyl, t_vector shadow)
 		p = vec3_add(*cyl.center, vec3_multiply_const(*cyl.v_norm, l));
 		norm_obj = vec3_norm(vec3_sub(shadow.origin, p));
 	}
-	return (norm_obj);	
+	return (norm_obj);
 }
 
 /* get_obj_color:
@@ -107,7 +110,7 @@ t_color	get_obj_color(t_object obj)
 *
 *	Return: the light as t_color (RGB values).
 */
-t_color	render_light(t_object obj, t_light light, t_vector shadow)
+t_color	render_light(t_object obj, t_light light, t_vector shadow, bool debug)
 {
 	t_color			color_obj;
 	t_coordinates	norm_obj;
@@ -119,11 +122,11 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow)
 	else if (obj.identifier == SPHERE)
 		norm_obj = vec3_norm(vec3_sub(shadow.origin, *obj.u_obj.sphere.center));
 	else// if (obj.identifier == CYLINDER)
-		norm_obj =  get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
+		norm_obj = get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
 	alpha = vec3_dot(norm_obj, shadow.v_norm);
 	if (alpha > 0)
 		return (get_intensity(alpha, 
-				color_obj, *light.color));
+				color_obj, *light.color, debug));
 	else
-		return (get_intensity(0, color_obj, *light.color));
+		return (get_intensity(0, color_obj, *light.color, debug));
 }

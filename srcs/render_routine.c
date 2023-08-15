@@ -56,8 +56,9 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 	t_object	*object;
 	t_hit		dummy;
 
+	bool	debug = false;
 	diffuse_color = get_intensity(global.ambient->ratio, 
-		get_obj_color(*obj_close), *global.ambient->color); // check colored ambient light without bonus
+		get_obj_color(*obj_close), *global.ambient->color, debug); // check colored ambient light without bonus
 	while (global.light)
 	{
 		shadow_ray.origin = p_hit;
@@ -70,18 +71,29 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 			object = object->next;
 		}
 		// check if first all intensities and RGB-colors of light should be summed up and at the end it's multiuplied with the obj_close color???
+		if (pixel.x == 246 && pixel.y == 262)
+		{
+			printf("Results for Pixel(246, 262): \n");
+			debug = true;
+		}
+		else
+			debug = false;
 		if (!object)
 			diffuse_color = add_color(diffuse_color, 
-				 render_light(*obj_close, *global.light, shadow_ray));
+				 render_light(*obj_close, *global.light, shadow_ray, debug));
 		/* diffuse_color = diffuse_color +
 			render_light(obj_close, global.light, shadow_ray); */
 		global.light = global.light->next;
 	}
 	diffuse_color = color_range(diffuse_color);
-	if (pixel.x < WIN_WIDTH / 2 + 35 && pixel.x > WIN_WIDTH / 2 + 25 && pixel.y == WIN_HEIGHT / 2)
+	/* if (pixel.x > WIN_WIDTH / 2 - 5 && pixel.x < WIN_WIDTH / 2 + 20 && pixel.y == WIN_HEIGHT / 2 - 10)
 			printf("color=(%d,%d,%d), v_norm=(%f,%f,%f)\n", 
 				diffuse_color.r, diffuse_color.g, diffuse_color.b,
-				shadow_ray.v_norm.x, shadow_ray.v_norm.y, shadow_ray.v_norm.z);
+				shadow_ray.v_norm.x, shadow_ray.v_norm.y, shadow_ray.v_norm.z); */
+	/* if (diffuse_color.r > 0)
+		printf("color=(%d,%d,%d), pixel=(%d,%d)\n", 
+				diffuse_color.r, diffuse_color.g, diffuse_color.b,
+				pixel.x, pixel.y); */
 	final_color = color_to_int(diffuse_color);
 	//final_color = color_to_int(*(global.ambient->color));
 	//ambient_color = mul_color(*(global.ambient->color), global.ambient.ratio);
@@ -202,5 +214,4 @@ t_exit_code	render_routine(t_global global)
 	}
 	printf("finished rendering primary rays\n");
 	return (SUCCESS);
-
 }
