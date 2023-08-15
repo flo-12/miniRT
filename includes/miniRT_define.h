@@ -13,14 +13,20 @@
 #ifndef MINIRT_DEFINE_H
 # define MINIRT_DEFINE_H
 
-
-
 /**************************************************************************
 *                                MACROS                                   *
 **************************************************************************/
 
 # ifndef BONUS
-# define BONUS 1
+#  define BONUS 1
+# endif
+
+# ifndef DEBUG_RENDER
+#  define DEBUG_RENDER 1
+# endif
+
+# ifndef DEBUG_PARSER
+#  define DEBUG_PARSER 1
 # endif
 
 # define THRESH_FLOAT 1e-6
@@ -33,23 +39,16 @@
 # define COLOR_GREEN 0x0000FF00
 # define COLOR_BLUE 0x000000FF
 
-
 # define MSG_OPENFILE_ERROR "Cannot open file\n"
 # define MSG_MLX_ERROR "MLX usage...\n"
 # define MSG_MALLOC_ERROR "Malloc failed\n"
 # define MSG_INPUT_ERROR "Syntax in file wrong - a line is missing information\n"
-# define MSG_ARG_ERROR "Incorrect number of arguments - usage: \"./miniRT <inputFile>\"\n"
-# define MSG_INPUT_INCOMPLETE "Input in file incomplete - ambient light, camera & light are required\n"
+# define MSG_ARG_ERROR "Incorrect number of arguments - \
+	usage: \"./miniRT <inputFile>\"\n"
+# define MSG_INPUT_INCOMPLETE "Input in file incomplete - ambient light, \
+	camera & light are required\n"
 # define MSG_FILETYPE_ERROR "Wrong filetype - \"*.rt\" file required\n"
 
-
-# ifndef DEBUG_RENDER
-#  define DEBUG_RENDER 1
-# endif
-
-# ifndef DEBUG_PARSER
-#  define DEBUG_PARSER 1
-# endif
 /**************************************************************************
 *                                 ENUMS                                   *
 **************************************************************************/
@@ -143,7 +142,7 @@ typedef struct s_camera
 	t_coordinates	*point;
 	t_coordinates	*v_norm;
 	float			fov;
-	float 			focal_len;
+	float			focal_len;
 	float			m[3][3];
 }	t_camera;
 

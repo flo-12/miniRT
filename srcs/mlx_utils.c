@@ -23,8 +23,8 @@ int	keypress_handler(int keycode, t_global *vars)
 	if (keycode == 65307)
 		mlx_loop_end(vars->mlx);
 	return (0);
-
 }
+
 void	mlx_put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
@@ -54,10 +54,10 @@ void	free_mlx(t_global *global)
 	}
 }
 
-t_exit_code create_mlx(t_global *data)
+t_exit_code	create_mlx(t_global *data)
 {
-	t_exit_code e;
-	
+	t_exit_code	e;
+
 	e = SUCCESS;
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -79,5 +79,3 @@ t_exit_code create_mlx(t_global *data)
 	mlx_hook(data->win, 17, 1L << 2, cross_handler, data);
 	return (e);
 }
-
-

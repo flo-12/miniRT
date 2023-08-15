@@ -83,31 +83,3 @@ void	print_parse(t_global *global, t_exit_code e)
 	if (global->objects)	
 		print_objects(global->objects, e);
 }
-
-/*
-int	main(int argc, char **argv)
-{
-	int			e;
-	t_global	*global;
-
-	(void)argc;
-	global = malloc(sizeof(t_global));
-	global->light = NULL;
-	global->camera = NULL;
-	global->ambient = NULL;
-	global->objects = NULL;
-
-	e = parse(argv[1], global);
-	if (e != SUCCESS)
-		printf("ERROR -> exit-code %d\n", e);
-	else
-	{
-		print_light(*global->light, e);
-		print_camera(*global->camera, e);
-		print_ambient(*global->ambient, e);
-		print_objects(global->objects, e);
-	}
-	
-	return (0);
-}
-*/

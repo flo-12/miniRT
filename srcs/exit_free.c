@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_free.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/15 11:53:57 by fbecht            #+#    #+#             */
+/*   Updated: 2023/08/15 11:53:59 by fbecht           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 /* free_if:
@@ -13,7 +25,8 @@ void	free_if(void *ptr)
 *	Frees all heap allocated memory in the structs
 *	t_ambient, t_camera and t_light.
 */
-void	free_ambient_camera_light(t_ambient *ambient, t_camera *camera, t_light *light)
+void	free_ambient_camera_light(t_ambient *ambient, 
+	t_camera *camera, t_light *light)
 {
 	if (ambient)
 	{
@@ -101,7 +114,6 @@ t_exit_code	exit_free(t_global *global, t_exit_code e)
 	free_ambient_camera_light(global->ambient, global->camera, global->light);
 	free_objects(global->objects);
 	free_mlx(global);
-
 	free_if(global);
 	print_exit(e);
 	return (e);

@@ -36,4 +36,3 @@ void	print_nbr(float p)
 {
 	printf("[NBR] p=%f\n", p);
 }
-

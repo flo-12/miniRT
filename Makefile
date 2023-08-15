@@ -7,7 +7,6 @@
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
 #    Updated: 2023/08/14 12:44:09 by lwidmer          ###   ########.fr        #
-#    Updated: 2023/08/14 11:20:03 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +60,9 @@ SRC			=	main.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \
 				render_light.c \
-				vec3_utils.c \
+				vec3_utils1.c \
+				vec3_utils2.c \
+				vec3_utils3.c \
 				math_utils.c \
 				render_test.c \
 				exit_free.c
