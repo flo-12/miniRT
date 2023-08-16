@@ -65,6 +65,9 @@ t_color			get_intensity(float intensity, t_color c_obj, t_color c_light);
 
 // exit_free.c
 t_exit_code		exit_free(t_global *global, t_exit_code e);
+t_object*		free_sphere(t_object *obj);
+t_object*		free_plane(t_object *obj);
+t_object*		free_cylinder(t_object *obj);
 
 // render_utils.c
 t_coordinates	point(float x, float y, float z);
@@ -103,6 +106,7 @@ void			free_mlx(t_global *global);
 // utils.c
 int				ptr_len(char **ptr);
 void			free_ptr(char **ptr);
+float			rad_to_deg(float degree);
 
 // parser_test.c
 void			print_parse(t_global *data, t_exit_code e);

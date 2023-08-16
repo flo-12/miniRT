@@ -45,3 +45,8 @@ int	ptr_len(char **ptr)
 		i++;
 	return (i);
 }
+
+float	rad_to_deg(float degree)
+{
+	return (degree * M_PI / 180);
+}

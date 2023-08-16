@@ -161,11 +161,20 @@ t_exit_code	parse_object(char **split, t_object **objects, int id)
 	obj->next = NULL;
 	e = 0;
 	if (id == SPHERE)
+	{
 		e = parse_sphere(split, &(obj->u_obj.sphere));
+		obj->fct_free = &free_sphere;
+	}
 	else if (id == PLANE)
+	{
 		e = parse_plane(split, &(obj->u_obj.plane));
+		obj->fct_free = &free_plane;
+	}
 	else if (id == CYLINDER)
+	{
 		e = parse_cylinder(split, &(obj->u_obj.cylinder));
+		obj->fct_free = &free_cylinder;
+	}
 	ft_lstadd_back_obj(objects, obj);
 	return (e);
 }

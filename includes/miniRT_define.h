@@ -161,6 +161,7 @@ typedef struct s_object
 		t_plane		plane;
 		t_sphere	sphere;
 	} u_obj;
+	struct s_object	*(*fct_free)(struct s_object*);
 	struct s_object	*next;
 }	t_object;
 

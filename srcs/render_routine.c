@@ -75,13 +75,16 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 			object = object->next;
 		}
 		// check if first all intensities and RGB-colors of light should be summed up and at the end it's multiuplied with the obj_close color???
+		
 		if (!object)
 			diffuse_color = add_color(diffuse_color, 
 				 render_light(*obj_close, *light, shadow_ray));
 		/* diffuse_color = diffuse_color +
 			render_light(obj_close, light, shadow_ray); */
+		
 		light = light->next;
 	}
+	
 	diffuse_color = color_range(diffuse_color);
 	/* if (pixel.x > WIN_WIDTH / 2 - 5 && pixel.x < WIN_WIDTH / 2 + 20 && pixel.y == WIN_HEIGHT / 2 - 10)
 			printf("color=(%d,%d,%d), v_norm=(%f,%f,%f)\n", 
@@ -95,6 +98,7 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 	//final_color = color_to_int(*(global.ambient->color));
 	//ambient_color = mul_color(*(global.ambient->color), global.ambient.ratio);
 	//final_color = add_color(ambient_color, diffuse_color);
+	
 	mlx_put_pixel(&global.img, pixel.x, pixel.y, final_color);
 }
 
@@ -114,7 +118,7 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 	t_object		*closest_object;
 	float			min_distance;
 	//int				color;
-
+	
 	object = global.objects;
 	closest_object = NULL;
 	min_distance = 0;
@@ -151,7 +155,8 @@ t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 	float			camera_z;
 	float			scale;
 
-	scale = tanf(((camera.fov / 2) * M_PI) / 180);
+	scale = tanf(rad_to_deg(camera.fov / 2));
+	printf("[CAMERA] scale=%f | fov=%f | focal=%f\n", scale, camera.fov, camera.focal_len);
 	camera_x = (2 * (pixel.x + 0.5) / WIN_WIDTH - 1) * scale;
 	camera_y = (1 - 2 * (pixel.y + 0.5) / WIN_HEIGHT) * scale;
 	camera_z = 1;
@@ -159,7 +164,7 @@ t_vector compute_primary_ray(t_camera camera, t_pixel pixel)
 	primary_ray.origin = *camera.point;
 	//primary_ray.v_norm = vec3_norm(point(camera_x, camera_y, camera_z));
 	primary_ray.v_norm = vec3_norm(camera_to_world(camera.m, 
-							point(camera_x, camera_y, camera_z)));
+							point(camera_x, camera_y, camera_z)));;
 	return (primary_ray);
 }
 

@@ -51,36 +51,60 @@ void	free_ambient_camera_light(t_ambient *ambient,
 	}
 }
 
-/* free_objects:
-*	Frees all the data in the linked-list t_object.
+/* free_sphere:
+*	Frees the content of t_sphere and the object
+*	itself.
+*
+*	Return: next object in the linked-list.
 */
-void	free_objects(t_object *obj)
+t_object	*free_sphere(t_object *obj)
 {
 	t_object	*tmp;
 
-	while (obj)
-	{
-		if (obj->identifier == SPHERE)
-		{
-			free_if((void *)obj->u_obj.sphere.center);
-			free_if((void *)obj->u_obj.sphere.color);
-		}
-		else if (obj->identifier == PLANE)
-		{
-			free_if((void *)obj->u_obj.plane.point);
-			free_if((void *)obj->u_obj.plane.v_norm);
-			free_if((void *)obj->u_obj.plane.color);
-		}
-		if (obj->identifier == CYLINDER)
-		{
-			free_if((void *)obj->u_obj.cylinder.center);
-			free_if((void *)obj->u_obj.cylinder.v_norm);
-			free_if((void *)obj->u_obj.cylinder.color);
-		}
-		tmp = obj;
-		obj = obj->next;
-		free(tmp);
-	}
+	free_if((void *)obj->u_obj.sphere.center);
+	free_if((void *)obj->u_obj.sphere.color);
+	tmp = obj;
+	obj = obj->next;
+	free(tmp);
+	return (obj);
+}
+
+/* free_plane:
+*	Frees the content of t_plane and the object
+*	itself.
+*
+*	Return: next object in the linked-list.
+*/
+t_object	*free_plane(t_object *obj)
+{
+	t_object	*tmp;
+
+	free_if((void *)obj->u_obj.plane.point);
+	free_if((void *)obj->u_obj.plane.v_norm);
+	free_if((void *)obj->u_obj.plane.color);
+	tmp = obj;
+	obj = obj->next;
+	free(tmp);
+	return (obj);
+}
+
+/* free_cylinder:
+*	Frees the content of t_cylinder and the object
+*	itself.
+*
+*	Return: next object in the linked-list.
+*/
+t_object	*free_cylinder(t_object *obj)
+{
+	t_object	*tmp;
+
+	free_if((void *)obj->u_obj.cylinder.center);
+	free_if((void *)obj->u_obj.cylinder.v_norm);
+	free_if((void *)obj->u_obj.cylinder.color);
+	tmp = obj;
+	obj = obj->next;
+	free(tmp);
+	return (obj);
 }
 
 /* print_exit:
@@ -116,7 +140,8 @@ void	print_exit(t_exit_code e)
 t_exit_code	exit_free(t_global *global, t_exit_code e)
 {
 	free_ambient_camera_light(global->ambient, global->camera, global->light);
-	free_objects(global->objects);
+	while (global->objects)
+		global->objects = (*global->objects->fct_free)(global->objects);
 	free_mlx(global);
 	free_if(global);
 	print_exit(e);
