@@ -27,8 +27,9 @@ bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 
 	distance_p1 = vec3_dist_pts(vp, p_hit.p1);
 	distance_p2 = vec3_dist_pts(vp, p_hit.p2);
-	if (*min_distance == 0 || distance_p1 < *min_distance || distance_p2 
-		< *min_distance)
+	/* if (*min_distance == 0 || distance_p1 < *min_distance || distance_p2 
+		< *min_distance) */
+	if (equal(*min_distance, 0) || minf(distance_p1, distance_p2) + THRESH_FLOAT < *min_distance)
 	{
 		if (distance_p1 <= distance_p2)
 		{
@@ -66,7 +67,8 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 		{
 			dist = vec3_dist_pts(shadow_ray.origin, *global.light->point);
 			if (object != obj_close && render_intersect(*object, shadow_ray, &hit) == true 
-				&& dist > minf(vec3_dist_pts(shadow_ray.origin, hit.p1), vec3_dist_pts(shadow_ray.origin, hit.p2)))
+				&& dist > minf(vec3_dist_pts(shadow_ray.origin, hit.p1), vec3_dist_pts(shadow_ray.origin, hit.p2))
+				&& minf(fabs(vec3_dist_pts(shadow_ray.origin, hit.p1)), fabs(vec3_dist_pts(shadow_ray.origin, hit.p2))) > THRESH_FLOAT)
 				break ;
 			object = object->next;
 		}

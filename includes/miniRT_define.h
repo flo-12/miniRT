@@ -29,10 +29,10 @@
 #  define DEBUG_PARSER 1
 # endif
 
-# define THRESH_FLOAT 1e-6
+# define THRESH_FLOAT 5*1e-5
 
 # define WIN_WIDTH 400
-# define WIN_HEIGHT 800
+# define WIN_HEIGHT 400
 
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000

@@ -123,7 +123,7 @@ int	intersect_tube(t_cylinder cyl, t_vector ray, t_hit *hit)
 	abc[1] = 2 * vec3_dot(vec3_cross(ray.v_norm, *cyl.v_norm), v);
 	abc[2] = vec3_dot(v, v) - powf(cyl.d / 2, 2);
 	d = abc[1] * abc[1] - 4 * abc[0] * abc[2];
-	if (d < 0 || abc[0] < THRESH_FLOAT)
+	if (d < THRESH_FLOAT || abc[0] < THRESH_FLOAT)
 		return (nbr_inter);
 	d = sqrtf(d);
 	t[0] = (-abc[1] + d) / (2 * abc[0]);
