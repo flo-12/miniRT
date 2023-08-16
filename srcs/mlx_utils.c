@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:42:40 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/11 11:44:45 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/16 16:31:44 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_exit_code	create_mlx(t_global *global)
 	if (!global->mlx)
 		e = MLX_ERROR;
 	if (e == SUCCESS)
-		global->win = mlx_new_window(global->mlx, WIN_WIDTH, WIN_HEIGHT, "miniRT");
+		global->win = mlx_new_window(global->mlx, WIN_WIDTH, 
+				WIN_HEIGHT, "miniRT");
 	if (!global->win)
 		e = MLX_ERROR;
 	if (e == SUCCESS)

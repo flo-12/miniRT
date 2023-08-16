@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/16 13:20:37 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/16 16:28:40 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define THRESH_FLOAT 1e-6
 
 # define WIN_WIDTH 400
-# define WIN_HEIGHT 800
+# define WIN_HEIGHT 400
 
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000
