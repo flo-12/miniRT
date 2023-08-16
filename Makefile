@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/14 12:44:09 by lwidmer          ###   ########.fr        #
+#    Updated: 2023/08/16 12:36:51 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC			=	main.c \
 				mlx_utils.c \
 				color_utils.c \
 				render_utils.c \
+				camera_utils.c \
 				render_routine.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \

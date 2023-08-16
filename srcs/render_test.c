@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:34:27 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/11 12:52:15 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/16 11:20:47 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,39 +23,25 @@ void    print_image_plane_corners(t_global global)
 {
     t_vector    left_upper;
     t_vector    right_upper;
-    t_vector    left_lower;
-    t_vector    right_lower;
     t_pixel     pixel;
 
     pixel.x = 0;
-    pixel.y = 0;
+    pixel.y = WIN_HEIGHT /2;
     left_upper = compute_primary_ray(*(global.camera), pixel);
     printf("\033[31mleft upper\033[0m corner vector is:\n");
     print_vector(left_upper);
-    printf("\n");
+	printf("\n");
 
-    pixel.x = 899;
-    pixel.y = 0;
+    pixel.x = WIN_WIDTH;
+    pixel.y = WIN_HEIGHT /2;
     right_upper = compute_primary_ray(*(global.camera), pixel);
     printf("\033[31mright upper\033[0m corner vector is:\n");
     print_vector(right_upper);
     printf("\n");
 
-    pixel.x = 0;
-    pixel.y = 899;
-    left_lower = compute_primary_ray(*(global.camera), pixel);
-    printf("\033[31mleft lower\033[0m corner vector is:\n");
-    print_vector(left_lower);
-    printf("\n");
-
-    pixel.x = 899;
-    pixel.y = 899;
-    right_lower = compute_primary_ray(*(global.camera), pixel);
-    printf("\033[31mright lower\033[0m corner vector is:\n");
-    print_vector(right_lower);
-    printf("\n");
-
+	
     printf("angle between left and right upper: rad[%f]	deg[%f] \n",
         vec3_angle_rad(left_upper.v_norm, right_upper.v_norm),
         vec3_angle_deg(left_upper.v_norm, right_upper.v_norm));
+	
 }
