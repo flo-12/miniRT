@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/14 18:19:39 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/16 12:49:34 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ int				store_color(char *str, t_color *color);
 t_exit_code		render_routine(t_global global);
 t_vector		compute_primary_ray(t_camera camera, t_pixel pixel);
 void			calc_camera_matrix(t_camera *camera);
+
+// camera_utils.c
+t_coordinates	camera_to_world(float m[3][3], t_coordinates v);
+void			calc_camera_matrix(t_camera *camera);
+void			calc_camera_scale(t_camera *camera);
+void			calc_aspect_ratio(t_camera *camera);
+
 // render_intersect.c
 bool			render_intersect(t_object obj, t_vector ray, t_hit *hit);
 // render_inter_cyl_utils.c

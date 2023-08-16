@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/14 19:24:47 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/16 13:20:37 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 # endif
 
 # ifndef DEBUG_RENDER
-#  define DEBUG_RENDER 0
+#  define DEBUG_RENDER 1
 # endif
 
 # ifndef DEBUG_PARSER
-#  define DEBUG_PARSER 0
+#  define DEBUG_PARSER 1
 # endif
 
 # define THRESH_FLOAT 1e-6
 
-# define WIN_WIDTH 512
-# define WIN_HEIGHT 384
+# define WIN_WIDTH 400
+# define WIN_HEIGHT 800
 
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000
@@ -142,6 +142,8 @@ typedef struct s_camera
 	t_coordinates	*point;
 	t_coordinates	*v_norm;
 	float			fov;
+	float			scale;
+	float			aspect_ratio;
 	float			focal_len;
 	float			m[3][3];
 }	t_camera;
