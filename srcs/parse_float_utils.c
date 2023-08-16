@@ -40,7 +40,7 @@ static bool	valid_float(char *str)
 	bool	dec;
 
 	dec = false;
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 	{
 		str++;
 		if (!(*str))

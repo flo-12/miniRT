@@ -36,7 +36,7 @@ static bool	in_range_int(int nbr, int min, int max)
 */
 static bool	valid_int(char *str)
 {
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 	{
 		str++;
 		if (!(*str))
