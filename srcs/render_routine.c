@@ -57,7 +57,7 @@ void	render_shadow_ray(t_global global, t_object *obj_close,
 	float		dist;
 
 	diffuse_color = get_intensity(global.ambient->ratio, 
-			get_obj_color(*obj_close), *global.ambient->color);
+			get_obj_color(*obj_close), *global.ambient->color, true);
 	while (global.light)
 	{
 		shadow_ray.origin = p_hit;
