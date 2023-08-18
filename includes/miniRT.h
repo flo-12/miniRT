@@ -68,7 +68,7 @@ int				tube_check_valid_points(t_vector ray,
 // render_light.c
 t_color			render_light(t_object obj, t_light light, t_vector shadow);
 t_color			get_obj_color(t_object obj);
-t_color			get_intensity(float intensity, t_color c_obj, t_color c_light);
+t_color			get_intensity(float intensity, t_color c_obj, t_color c_light, bool ambient);
 
 // exit_free.c
 t_exit_code		exit_free(t_global *global, t_exit_code e);

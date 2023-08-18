@@ -21,11 +21,11 @@
 *	Return: calculated RGB values with the considered
 *		intensity and color of the light and object.
 */
-t_color	get_intensity(float intensity, t_color c_obj, t_color c_light)
+t_color	get_intensity(float intensity, t_color c_obj, t_color c_light, bool ambient)
 {
 	t_color	color;
 
-	if (BONUS)
+	if (BONUS || ambient)
 	{
 		color.r = c_obj.r * (intensity * ((float)c_light.r / 255));
 		color.g = c_obj.g * (intensity * ((float)c_light.g / 255));
@@ -123,7 +123,7 @@ t_color	render_light(t_object obj, t_light light, t_vector shadow)
 	alpha = vec3_dot(norm_obj, shadow.v_norm);
 	if (alpha > 0)
 		return (get_intensity(alpha, 
-				color_obj, *light.color));
+				color_obj, *light.color, false));
 	else
-		return (get_intensity(0, color_obj, *light.color));
+		return (get_intensity(0, color_obj, *light.color, false));
 }
