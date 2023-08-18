@@ -6,79 +6,48 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/16 13:35:53 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/18 12:28:20 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 /*
-to know whther or not the min distance should be updated we have to check 
-whether the distance from this intersection for the current primary ray to the
-camera viewpoint (vp) is closer than a prior one (if there has been any)
-if so it returns true and updates the closest intersection for our render
-primary_ray function
+	old check shadow ray occlusion conditions, to be safe
+	if (object != obj_close && render_intersect(*object, shadow_ray, &hit) 
+	== true 
+	&& dist > minf(vec3_dist_pts(shadow_ray.origin, hit.p1), 
+	vec3_dist_pts(shadow_ray.origin, hit.p2))
+	&& minf(fabs(vec3_dist_pts(shadow_ray.origin, hit.p1)), 
+	fabs(vec3_dist_pts(shadow_ray.origin, hit.p2))) > THRESH_FLOAT)
 */
-bool	check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates 
-		*closest_intersect, float *min_distance)
+void	render_shadow_ray(t_global g, t_object *obj_close, 
+							t_coordinates hit, t_pixel p)
 {
-	float			distance_p1;
-	float			distance_p2;
-
-	distance_p1 = vec3_dist_pts(vp, p_hit.p1);
-	distance_p2 = vec3_dist_pts(vp, p_hit.p2);
-	/* if (*min_distance == 0 || distance_p1 < *min_distance || distance_p2 
-		< *min_distance) */
-	if (equal(*min_distance, 0) || minf(distance_p1, distance_p2) + THRESH_FLOAT < *min_distance)
-	{
-		if (distance_p1 <= distance_p2)
-		{
-			*min_distance = distance_p1;
-			*closest_intersect = p_hit.p1;
-		}
-		else
-		{
-			*min_distance = distance_p2;
-			*closest_intersect = p_hit.p2;
-		}
-		return (true);
-	}
-	else
-		return (false);
-}
-
-void	render_shadow_ray(t_global global, t_object *obj_close, 
-							t_coordinates p_hit, t_pixel pixel)
-{
-	t_vector	shadow_ray;
-	t_color		diffuse_color;
+	t_vector	shadow;
+	t_color		color;
 	t_object	*object;
-	t_hit		hit;
 	float		dist;
 
-	diffuse_color = get_intensity(global.ambient->ratio, 
-			get_obj_color(*obj_close), *global.ambient->color, true);
-	while (global.light)
+	color = get_intensity(g.ambient->ratio, 
+			get_obj_color(*obj_close), *g.ambient->color, true);
+	while (g.light)
 	{
-		shadow_ray.origin = p_hit;
-		shadow_ray.v_norm = vec3_norm(vec3_get_dir(p_hit, *(global.light->point)));
-		object = global.objects;
+		shadow.origin = hit;
+		shadow.v_norm = vec3_norm(vec3_get_dir(hit, *(g.light->point)));
+		object = g.objects;
 		while (object)
 		{
-			dist = vec3_dist_pts(shadow_ray.origin, *global.light->point);
-			if (object != obj_close && render_intersect(*object, shadow_ray, &hit) == true 
-				&& dist > minf(vec3_dist_pts(shadow_ray.origin, hit.p1), vec3_dist_pts(shadow_ray.origin, hit.p2))
-				&& minf(fabs(vec3_dist_pts(shadow_ray.origin, hit.p1)), fabs(vec3_dist_pts(shadow_ray.origin, hit.p2))) > THRESH_FLOAT)
+			dist = vec3_dist_pts(shadow.origin, *g.light->point);
+			if (object != obj_close && !check_occlusion(*object, shadow, dist))
 				break ;
 			object = object->next;
 		}
 		if (!object)
-			diffuse_color = add_color(diffuse_color, 
-					render_light(*obj_close, *global.light, shadow_ray));
-		global.light = global.light->next;
+			color = add_color(color, render_light(*obj_close, g, shadow, hit));
+		g.light = g.light->next;
 	}
-	mlx_put_pixel(&global.img, pixel.x, pixel.y, 
-		color_to_int(color_range(diffuse_color)));
+	mlx_put_pixel(&g.img, p.x, p.y, color_to_int(color_range(color)));
 }
 
 /*
@@ -122,11 +91,12 @@ t_vector	compute_primary_ray(t_camera camera, t_pixel pixel)
 	float			camera_z;
 
 	camera_x = (2 * (pixel.x + 0.5) / WIN_WIDTH - 1) * camera.scale;
-	camera_y = (1 - 2 * (pixel.y + 0.5) / WIN_HEIGHT) * camera.scale / camera.aspect_ratio;
+	camera_y = (1 - 2 * (pixel.y + 0.5) / WIN_HEIGHT) * 
+		camera.scale / camera.aspect_ratio;
 	camera_z = 1;
 	primary_ray.origin = *camera.point;
 	primary_ray.v_norm = vec3_norm(camera_to_world(camera.m, 
-							point(camera_x, camera_y, camera_z)));
+				point(camera_x, camera_y, camera_z)));
 	return (primary_ray);
 }
 

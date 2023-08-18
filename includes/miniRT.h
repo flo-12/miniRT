@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/16 12:49:34 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/18 12:35:43 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ bool			render_intersect(t_object obj, t_vector ray, t_hit *hit);
 int				tube_check_valid_points(t_vector ray, 
 					float (*t)[2], t_cylinder cyl);
 // render_light.c
-t_color			render_light(t_object obj, t_light light, t_vector shadow);
-t_color			get_obj_color(t_object obj);
+t_color			render_light(t_object obj, t_global global, t_vector shadow, t_coordinates p_hit);
 t_color			get_intensity(float intensity, t_color c_obj, t_color c_light, bool ambient);
+t_coordinates   get_surface_norm_cyl(t_cylinder cyl, t_vector shadow);
 
 // exit_free.c
 t_exit_code		exit_free(t_global *global, t_exit_code e);
@@ -76,14 +76,22 @@ t_object*		free_sphere(t_object *obj);
 t_object*		free_plane(t_object *obj);
 t_object*		free_cylinder(t_object *obj);
 
+// exit_free_utils.c
+void    free_if(void *ptr);
+void    print_exit(t_exit_code e);
+
 // render_utils.c
 t_coordinates	point(float x, float y, float z);
+bool    check_occlusion(t_object obj, t_vector shadow, float dist);
+bool    check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates 
+			*closest_intersect, float *min_distance);
 
 // color_utils.c
 int				color_to_int(t_color color);
 t_color			add_color(t_color c1, t_color c2);
 t_color			color(int r, int g, int b);
 t_color			color_range(t_color color);
+t_color			get_obj_color(t_object obj);
 
 // vec3_utils1.c
 t_coordinates	vec3_get_dir(t_coordinates p1, t_coordinates p2);

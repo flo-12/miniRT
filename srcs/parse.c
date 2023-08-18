@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:30 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/03 17:01:27 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/18 12:39:40 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_exit_code	parse(char *filename, t_global *global)
 	char		*line;
 	char		**split;
 	t_exit_code	e;
-	int			i = 1;
 
 	if (!ft_strrchr(filename, '.') || ft_strncmp(ft_strrchr(filename, '.'), 
 			".rt", 4) != 0)
@@ -111,7 +110,6 @@ t_exit_code	parse(char *filename, t_global *global)
 	if (fd < 0)
 		return (OPENFILE_ERROR);
 	line = get_next_line(fd);
-	printf("line = %d\n", i++);
 	while (line)
 	{
 		split = split_line(line);
@@ -129,7 +127,6 @@ t_exit_code	parse(char *filename, t_global *global)
 			return (e);
 		}
 		line = get_next_line(fd);
-		printf("line = %d\n", i++);
 	}
 	close(fd);
 	if (!check_input_complete(global))
