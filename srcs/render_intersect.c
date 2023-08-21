@@ -106,7 +106,15 @@ bool	intersect_plane(t_plane plane, t_vector ray, t_hit *hit)
 }
 
 /* intersect_tube:
+*	Calculates the inersections between a ray and
+*	the tube of a cylinder.
+*	Valid intersections must lie in the range of 
+*	the height of the cylinder.
+*	Stores the hit points in the argument hit. In
+*	case of only one intersection the two hit points
+*	are equal.
 *
+*	Return: number of valid intersections.
 */
 int	intersect_tube(t_cylinder cyl, t_vector ray, t_hit *hit)
 {
@@ -134,53 +142,78 @@ int	intersect_tube(t_cylinder cyl, t_vector ray, t_hit *hit)
 	return (nbr_inter);
 }
 
+/* intersect_cyl_plane:
+*	Checks if there are valid intersections between
+*	a ray and the two planes of a cylinder.
+*	Valid intersections lie in the radius of the cylinder
+*	around the center of each plane.
+*	Stores the hit points in the argument hit. In
+*	case of only one intersection the two hit points
+*	are equal.
+*
+*	Return: number of valid intersections.
+*/
+int	intersect_cyl_plane(t_cylinder cyl, t_vector ray, t_hit *hit)
+{
+	int				nbr_inter;
+	t_hit			hit_2;
+	t_coordinates	p;
+
+	nbr_inter = 0;
+	if (intersect_plane((t_plane){cyl.center, cyl.v_norm, cyl.color}, ray, hit) 
+		&& vec3_dist_pts(hit->p1, *cyl.center) <= cyl.d / 2)
+		nbr_inter++;
+	p = vec3_add(vec3_multiply_const(*cyl.v_norm, cyl.h), *cyl.center);
+	if (intersect_plane((t_plane){&p, cyl.v_norm, cyl.color}, ray, &hit_2) 
+		&& vec3_dist_pts(hit_2.p1, p) <= cyl.d / 2)
+	{
+		nbr_inter++;
+		if (nbr_inter == 1)
+		{
+			hit->p1 = hit_2.p1;
+			hit->p2 = hit_2.p1;
+		}
+		else
+			hit->p2 = hit_2.p1;
+	}
+	return (nbr_inter);
+}
+
 /* intersect_cylinder:
 *	Calculates the intersection point between a ray
 *	and a cylinder. The result of the equation is
 *	stored in the argument hit (with hit.p1 = hit.p2).
 *
-*	Special cases:
+*	First gets the number of intersections between the
+*	ray and the tube and between the ray and planes of 
+*	the cylinder.
+*	Then checks which hit-points (tube or plane) should
+*	be taken. E.g. if there is 1 intersection with the
+*	plane and 1 intersection with a tube, it takes p1
+*	of the tubes' calculation and p2 of the planes' 
+*	calculation.
+*	For the return, checks if there is at least one 
+*	intersection or not.
 *
 *	Return: TRUE if a valid intersection is found and
 *		FALSE otherwise.
 */
 bool	intersect_cylinder(t_cylinder cyl, t_vector ray, t_hit *hit)
 {
-	int		nbr_inter;
-	t_hit	hit_tmp;
+	int		nbr_inter_plane;
+	int		nbr_inter_tube;
+	t_hit	hit_plane;
 
-	nbr_inter = intersect_tube(cyl, ray, hit);
-	if (nbr_inter == 2)
-		return (true);
-
-	if (intersect_plane((t_plane){cyl.center, cyl.v_norm, cyl.color}, ray, &hit_tmp) 
-		&& vec3_dist_pts(hit_tmp.p1, *cyl.center) <= cyl.d / 2)
+	nbr_inter_tube = intersect_tube(cyl, ray, hit);
+	nbr_inter_plane = intersect_cyl_plane(cyl, ray, &hit_plane);
+	if (nbr_inter_plane == 2 || (nbr_inter_plane == 1 && nbr_inter_tube == 0))
 	{
-		nbr_inter++;
-		if (nbr_inter == 2)
-		{
-			hit->p1 = hit_tmp.p1;
-			return (true);
-		}
-		else
-			hit->p1 = hit_tmp.p1;
+		hit->p1 = hit_plane.p1;
+		hit->p2 = hit_plane.p2;
 	}
-
-	t_coordinates	p = vec3_add(vec3_multiply_const(*cyl.v_norm, cyl.h), *cyl.center);
-	if (intersect_plane((t_plane){&p, cyl.v_norm, cyl.color}, ray, &hit_tmp) 
-		&& vec3_dist_pts(hit_tmp.p1, p) <= cyl.d / 2)
-	{
-		nbr_inter++;
-		if (nbr_inter == 1)
-		{
-			hit->p1 = hit_tmp.p1;
-			hit->p2 = hit_tmp.p1;
-		}
-		else if (nbr_inter == 2)
-			hit->p2 = hit_tmp.p1;
-	}
-
-	if (nbr_inter > 0)
+	else if (nbr_inter_plane == 1 && nbr_inter_tube == 1)
+		hit->p2 = hit_plane.p1;
+	if (nbr_inter_plane + nbr_inter_tube > 0)
 		return (true);
 	else
 		return (false);

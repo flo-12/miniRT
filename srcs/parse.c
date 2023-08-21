@@ -34,6 +34,17 @@ char	**split_line(char *line)
 	return (split);
 }
 
+/* exit_parse:
+*	Closes the file, pointed to by fd and returns e.
+*
+*	Return: the exit-code e passed as argument.
+*/
+int	exit_parse(int fd, t_exit_code e)
+{
+	close (fd);
+	return (e);
+}
+
 /* check_input_complete:
 *	Checks if all the necessary elements/object
 *	were given in the input file.
@@ -41,13 +52,13 @@ char	**split_line(char *line)
 *	Return: true if all elements/objects are
 *		present and false otherwise.
 */
-bool	check_input_complete(t_global *global)
+t_exit_code	check_input_complete(t_global *global, int fd)
 {
 	if (!global->light || !global->camera
 		|| !global->ambient)
-		return (false);
+		return (exit_parse(fd, INPUT_INCOMPLETE));
 	else
-		return (true);
+		return (exit_parse(fd, SUCCESS));
 }
 
 /* add_element:
@@ -102,7 +113,6 @@ t_exit_code	parse(char *filename, t_global *global)
 	char		*line;
 	char		**split;
 	t_exit_code	e;
-	int			i = 1;
 
 	if (!ft_strrchr(filename, '.') || ft_strncmp(ft_strrchr(filename, '.'), 
 			".rt", 4) != 0)
@@ -111,28 +121,17 @@ t_exit_code	parse(char *filename, t_global *global)
 	if (fd < 0)
 		return (OPENFILE_ERROR);
 	line = get_next_line(fd);
-	printf("line = %d\n", i++);
 	while (line)
 	{
 		split = split_line(line);
 		free(line);
 		if (!split)
-		{
-			close(fd);
-			return (MALLOC_ERROR);
-		}
+			return (exit_parse(fd, MALLOC_ERROR));
 		e = add_element(split, global);
 		free_ptr(split);
 		if (e)
-		{
-			close(fd);
-			return (e);
-		}
+			return (exit_parse(fd, e));
 		line = get_next_line(fd);
-		printf("line = %d\n", i++);
 	}
-	close(fd);
-	if (!check_input_complete(global))
-		return (INPUT_INCOMPLETE);
-	return (SUCCESS);
+	return (check_input_complete(global, fd));
 }
