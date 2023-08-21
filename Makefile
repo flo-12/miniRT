@@ -66,7 +66,8 @@ SRC			=	main.c \
 				vec3_utils3.c \
 				math_utils.c \
 				render_test.c \
-				exit_free.c
+				exit_free.c \
+				exit_free_objects.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
 # Objects

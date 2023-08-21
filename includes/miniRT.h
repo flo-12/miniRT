@@ -72,6 +72,7 @@ t_color			get_intensity(float intensity, t_color c_obj, t_color c_light, bool am
 
 // exit_free.c
 t_exit_code		exit_free(t_global *global, t_exit_code e);
+void			free_if(void *ptr);
 t_object*		free_sphere(t_object *obj);
 t_object*		free_plane(t_object *obj);
 t_object*		free_cylinder(t_object *obj);
