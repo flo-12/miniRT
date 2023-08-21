@@ -29,7 +29,7 @@
 #  define DEBUG_PARSER 1
 # endif
 
-# define THRESH_FLOAT 5*1e-5
+# define THRESH_FLOAT 5e-5
 
 # define WIN_WIDTH 400
 # define WIN_HEIGHT 400
