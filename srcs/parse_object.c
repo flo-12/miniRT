@@ -118,27 +118,31 @@ t_exit_code	parse_cylinder(char **split, t_cylinder *cylinder)
 	return (SUCCESS);
 }
 
-/* ft_lstadd_back_obj:
-*	Add the new t_object "new" at the end of the
-*	linked-list "objects".
+/* init_fct_ptr:
+*	Initializes the function pointers.
 *
-*	Return: nothing.
+*	Return: -
 */
-void	ft_lstadd_back_obj(t_object **objects, t_object *new)
+void	init_fct_ptr(int id, t_object *obj)
 {
-	t_object	*tmp;
-
-	if (!objects || !new)
-		return ;
-	if (*objects)
+	if (id == SPHERE)
 	{
-		tmp = *objects;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		obj->fct_free = &free_sphere;
+		obj->fct_intersect = &intersect_sphere;
+		obj->fct_color = &color_sphere;
 	}
-	else
-		*objects = new;
+	else if (id == PLANE)
+	{
+		obj->fct_free = &free_plane;
+		obj->fct_intersect = &intersect_plane;
+		obj->fct_color = &color_plane;
+	}
+	else if (id == CYLINDER)
+	{
+		obj->fct_free = &free_cylinder;
+		obj->fct_intersect = &intersect_cylinder;
+		obj->fct_color = &color_cylinder;
+	}
 }
 
 /* parse_object:
@@ -161,20 +165,12 @@ t_exit_code	parse_object(char **split, t_object **objects, int id)
 	obj->next = NULL;
 	e = 0;
 	if (id == SPHERE)
-	{
 		e = parse_sphere(split, &(obj->u_obj.sphere));
-		obj->fct_free = &free_sphere;
-	}
 	else if (id == PLANE)
-	{
 		e = parse_plane(split, &(obj->u_obj.plane));
-		obj->fct_free = &free_plane;
-	}
 	else if (id == CYLINDER)
-	{
 		e = parse_cylinder(split, &(obj->u_obj.cylinder));
-		obj->fct_free = &free_cylinder;
-	}
+	init_fct_ptr(id, obj);
 	ft_lstadd_back_obj(objects, obj);
 	return (e);
 }

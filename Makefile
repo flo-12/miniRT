@@ -55,6 +55,7 @@ SRC			=	main.c \
 				utils.c \
 				mlx_utils.c \
 				color_utils.c \
+				color_utils2.c \
 				render_utils.c \
 				camera_utils.c \
 				render_routine.c \

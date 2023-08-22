@@ -55,18 +55,3 @@ t_color	color_range(t_color color)
 		color.r = 255;
 	return (color);
 }
-
-/* get_obj_color:
-*	Get the color of the object.
-*
-*	Return: color of the object.
-*/
-t_color	get_obj_color(t_object obj)
-{
-	if (obj.identifier == PLANE)
-		return (*obj.u_obj.plane.color);
-	else if (obj.identifier == SPHERE)
-		return (*obj.u_obj.sphere.color);
-	else
-		return (*obj.u_obj.cylinder.color);
-}

@@ -58,7 +58,7 @@ bool	check_occlusion(t_object obj, t_vector shadow, float dist)
 	float	dist_hits;
 	float	dist_hits_abs;
 
-	if (render_intersect(obj, shadow, &hit) == true)
+	if ((obj.fct_intersect)(obj, shadow, &hit) == true)
 	{
 		dist_hits = minf(vec3_dist_pts(shadow.origin, hit.p1), 
 				vec3_dist_pts(shadow.origin, hit.p2));

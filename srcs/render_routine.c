@@ -30,7 +30,7 @@ void	render_shadow_ray(t_global g, t_object *obj_close,
 	float		dist;
 
 	color = get_intensity(g.ambient->ratio, 
-			get_obj_color(*obj_close), *g.ambient->color, true);
+			obj_close->fct_color(*obj_close), *g.ambient->color, true);
 	while (g.light)
 	{
 		shadow.origin = hit;
@@ -71,7 +71,7 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 	min_distance = 0;
 	while (object)
 	{
-		if (render_intersect(*object, primary_ray, &p_hit) == true)
+		if ((object->fct_intersect)(*object, primary_ray, &p_hit) == true)
 		{
 			if (check_p_hit(*global.camera->point, p_hit, 
 					&closest_intersect, &min_distance))

@@ -22,11 +22,11 @@
 # endif
 
 # ifndef DEBUG_RENDER
-#  define DEBUG_RENDER 1
+#  define DEBUG_RENDER 0
 # endif
 
 # ifndef DEBUG_PARSER
-#  define DEBUG_PARSER 1
+#  define DEBUG_PARSER 0
 # endif
 
 # define THRESH_FLOAT 5e-5
@@ -164,6 +164,8 @@ typedef struct s_object
 		t_sphere	sphere;
 	} u_obj;
 	struct s_object	*(*fct_free)(struct s_object*);
+	bool			(*fct_intersect)(struct s_object, t_vector, t_hit *);
+	t_color			(*fct_color)(struct s_object);
 	struct s_object	*next;
 }	t_object;
 

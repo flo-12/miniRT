@@ -50,3 +50,41 @@ float	rad_to_deg(float degree)
 {
 	return (degree * M_PI / 180);
 }
+
+/* init_obj_plane:
+*	Initializes a t_object with a u_obj of a sphere,
+*	which has the values passed as arguments.
+*
+*	Return: the new t_object.
+*/
+t_object	init_obj_plane(t_coordinates *point, 
+	t_coordinates *v_norm, t_color *color)
+{
+	t_object	obj;
+
+	obj.u_obj.plane = (t_plane){point, v_norm, color};
+	return (obj);
+}
+
+/* ft_lstadd_back_obj:
+*	Add the new t_object "new" at the end of the
+*	linked-list "objects".
+*
+*	Return: nothing.
+*/
+void	ft_lstadd_back_obj(t_object **objects, t_object *new)
+{
+	t_object	*tmp;
+
+	if (!objects || !new)
+		return ;
+	if (*objects)
+	{
+		tmp = *objects;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+		*objects = new;
+}

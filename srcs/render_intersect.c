@@ -39,18 +39,19 @@
 *	Return: TRUE if a valid intersection is found and
 *		FALSE otherwise.
 */
-bool	intersect_sphere(t_sphere sphere, t_vector ray, t_hit *hit)
+bool	intersect_sphere(t_object obj, t_vector ray, t_hit *hit)
 {
-	float	abc[3];
-	float	t[2];
+	t_sphere	sphere;
+	float		abc[3];
+	float		t[2];
 
+	sphere = obj.u_obj.sphere;
 	abc[0] = powf(ray.v_norm.x, 2) + powf(ray.v_norm.y, 2) 
 		+ powf(ray.v_norm.z, 2);
 	abc[1] = 2 * vec3_dot(ray.v_norm, vec3_sub(ray.origin, *sphere.center));
 	abc[2] = powf((ray.origin.x - sphere.center->x), 2) 
 		+ powf((ray.origin.y - sphere.center->y), 2) 
-		+ powf((ray.origin.z - sphere.center->z), 2) 
-		- powf((sphere.d / 2), 2);
+		+ powf((ray.origin.z - sphere.center->z), 2) - powf((sphere.d / 2), 2);
 	t[0] = (-abc[1] + sqrtf(powf(abc[1], 2) - 4 * abc[0] * abc[2])) 
 		/ (2 * abc[0]);
 	t[1] = (-abc[1] - sqrtf(powf(abc[1], 2) - 4 * abc[0] * abc[2])) 
@@ -83,13 +84,15 @@ bool	intersect_sphere(t_sphere sphere, t_vector ray, t_hit *hit)
 *	Return: TRUE if a valid intersection is found and
 *		FALSE otherwise.
 */
-bool	intersect_plane(t_plane plane, t_vector ray, t_hit *hit)
+bool	intersect_plane(t_object obj, t_vector ray, t_hit *hit)
 {
+	t_plane			plane;
 	float			numer;
 	float			denom;
 	float			d;
 	t_coordinates	tmp;
 
+	plane = obj.u_obj.plane;
 	tmp.x = plane.point->x - ray.origin.x;
 	tmp.y = plane.point->y - ray.origin.y;
 	tmp.z = plane.point->z - ray.origin.z;
@@ -160,11 +163,11 @@ int	intersect_cyl_plane(t_cylinder cyl, t_vector ray, t_hit *hit)
 	t_coordinates	p;
 
 	nbr_inter = 0;
-	if (intersect_plane((t_plane){cyl.center, cyl.v_norm, cyl.color}, ray, hit) 
-		&& vec3_dist_pts(hit->p1, *cyl.center) <= cyl.d / 2)
+	if (intersect_plane(init_obj_plane(cyl.center, cyl.v_norm, cyl.color), ray, 
+			hit) && vec3_dist_pts(hit->p1, *cyl.center) <= cyl.d / 2)
 		nbr_inter++;
 	p = vec3_add(vec3_multiply_const(*cyl.v_norm, cyl.h), *cyl.center);
-	if (intersect_plane((t_plane){&p, cyl.v_norm, cyl.color}, ray, &hit_2) 
+	if (intersect_plane(init_obj_plane(&p, cyl.v_norm, cyl.color), ray, &hit_2)
 		&& vec3_dist_pts(hit_2.p1, p) <= cyl.d / 2)
 	{
 		nbr_inter++;
@@ -198,12 +201,14 @@ int	intersect_cyl_plane(t_cylinder cyl, t_vector ray, t_hit *hit)
 *	Return: TRUE if a valid intersection is found and
 *		FALSE otherwise.
 */
-bool	intersect_cylinder(t_cylinder cyl, t_vector ray, t_hit *hit)
+bool	intersect_cylinder(t_object obj, t_vector ray, t_hit *hit)
 {
-	int		nbr_inter_plane;
-	int		nbr_inter_tube;
-	t_hit	hit_plane;
+	t_cylinder	cyl;
+	int			nbr_inter_plane;
+	int			nbr_inter_tube;
+	t_hit		hit_plane;
 
+	cyl = obj.u_obj.cylinder;
 	nbr_inter_tube = intersect_tube(cyl, ray, hit);
 	nbr_inter_plane = intersect_cyl_plane(cyl, ray, &hit_plane);
 	if (nbr_inter_plane == 2 || (nbr_inter_plane == 1 && nbr_inter_tube == 0))
@@ -215,29 +220,6 @@ bool	intersect_cylinder(t_cylinder cyl, t_vector ray, t_hit *hit)
 		hit->p2 = hit_plane.p1;
 	if (nbr_inter_plane + nbr_inter_tube > 0)
 		return (true);
-	else
-		return (false);
-}
-
-/* intersect:
-*	Calculates the intersection points (2 points)
-*	between an object and a ray and stores the result
-*	in the argument hit.
-*	Differentiates between different types of
-*	objects.
-*
-*	Return: TRUE if there is an intersection point
-*		between the ray and the object and FALSE
-*		otherwise.
-*/
-bool	render_intersect(t_object obj, t_vector ray, t_hit *hit)
-{
-	if (obj.identifier == SPHERE)
-		return (intersect_sphere(obj.u_obj.sphere, ray, hit));
-	else if (obj.identifier == PLANE)
-		return (intersect_plane(obj.u_obj.plane, ray, hit));
-	else if (obj.identifier == CYLINDER)
-		return (intersect_cylinder(obj.u_obj.cylinder, ray, hit));
 	else
 		return (false);
 }

@@ -61,7 +61,10 @@ void			calc_camera_scale(t_camera *camera);
 void			calc_aspect_ratio(t_camera *camera);
 
 // render_intersect.c
-bool			render_intersect(t_object obj, t_vector ray, t_hit *hit);
+bool			intersect_sphere(t_object obj, t_vector ray, t_hit *hit);
+bool			intersect_plane(t_object obj, t_vector ray, t_hit *hit);
+bool			intersect_cylinder(t_object obj, t_vector ray, t_hit *hit);
+
 // render_inter_cyl_utils.c
 int				tube_check_valid_points(t_vector ray, 
 					float (*t)[2], t_cylinder cyl);
@@ -91,8 +94,11 @@ bool			check_p_hit(t_coordinates vp, t_hit p_hit, t_coordinates
 int				color_to_int(t_color color);
 t_color			add_color(t_color c1, t_color c2);
 t_color			color(int r, int g, int b);
+// color_utils2.c
 t_color			color_range(t_color color);
-t_color			get_obj_color(t_object obj);
+t_color			color_sphere(t_object obj);
+t_color			color_plane(t_object obj);
+t_color			color_cylinder(t_object obj);
 
 // vec3_utils1.c
 t_coordinates	vec3_get_dir(t_coordinates p1, t_coordinates p2);
@@ -123,6 +129,9 @@ void			free_mlx(t_global *global);
 int				ptr_len(char **ptr);
 void			free_ptr(char **ptr);
 float			rad_to_deg(float degree);
+t_object		init_obj_plane(t_coordinates *point, t_coordinates *v_norm, 
+					t_color *color);
+void			ft_lstadd_back_obj(t_object **objects, t_object *new);
 
 // parser_test.c
 void			print_parse(t_global *data, t_exit_code e);

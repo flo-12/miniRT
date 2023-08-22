@@ -76,24 +76,6 @@ t_coordinates	get_surface_norm_cyl(t_cylinder cyl, t_vector shadow)
 	return (norm_obj);
 }
 
-/* render_light:
-*	Calculates the light (RGB) for an object and it's shadow
-*	ray to the light. The origin of the shadow ray equals
-*	the intersection point with the object.
-*	The following steps are executed:
-*		1) get the normalized vector for the surface (dependened)
-*			on the object identifier)
-*		2) Calculate the angle alpha between the surface vector
-*			and the shadow ray
-*		3) If alpha is smaller or equal to 0, no light is
-*			absorbed (color=[0,0,0])
-*		4) If alpha is greater than 0, the intensity in
-*			dependency of the color of the object and the light
-*			(bonus) are calculated
-*
-*	Return: the light as t_color (RGB values).
-*/
-
 /*
 renders the pecular light component based on the blinn-phong model.
 this model computes the halfway vector between primary ray (Intersection
@@ -128,6 +110,23 @@ float	get_diffuse_intensity(t_coordinates norm_obj, t_coordinates shadow_ray)
 	return (alpha);
 }
 
+/* render_light:
+*	Calculates the light (RGB) for an object and it's shadow
+*	ray to the light. The origin of the shadow ray equals
+*	the intersection point with the object.
+*	The following steps are executed:
+*		1) get the normalized vector for the surface (dependened)
+*			on the object identifier)
+*		2) Calculate the angle alpha between the surface vector
+*			and the shadow ray
+*		3) If alpha is smaller or equal to 0, no light is
+*			absorbed (color=[0,0,0])
+*		4) If alpha is greater than 0, the intensity in
+*			dependency of the color of the object and the light
+*			(bonus) are calculated
+*
+*	Return: the light as t_color (RGB values).
+*/
 t_color	render_light(t_object obj, t_global global, t_vector shadow, 
 						t_coordinates p_hit)
 {
@@ -135,7 +134,7 @@ t_color	render_light(t_object obj, t_global global, t_vector shadow,
 	t_coordinates	norm_obj;
 	float			intensity;
 
-	color_obj = get_obj_color(obj);
+	color_obj = obj.fct_color(obj);
 	if (obj.identifier == PLANE)
 		norm_obj = *obj.u_obj.plane.v_norm;
 	else if (obj.identifier == SPHERE)
