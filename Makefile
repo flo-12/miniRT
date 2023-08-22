@@ -57,7 +57,6 @@ SRC			=	main.c \
 				color_utils.c \
 				render_utils.c \
 				camera_utils.c \
-				exit_free_utils.c \
 				render_routine.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \
