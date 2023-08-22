@@ -110,9 +110,13 @@ float	get_specular_intensity(t_global global, t_coordinates shadow_ray,
 	t_coordinates	primary_ray;
 	float			alpha;
 
-	primary_ray = vec3_norm(vec3_get_dir(p_hit, *global.camera->point));
-	halfway_vector = vec3_norm(vec3_add(primary_ray, shadow_ray));
-	alpha = powf(vec3_dot(norm_obj, halfway_vector), 30);
+	alpha = 0;
+	if (BONUS)
+	{
+		primary_ray = vec3_norm(vec3_get_dir(p_hit, *global.camera->point));
+		halfway_vector = vec3_norm(vec3_add(primary_ray, shadow_ray));
+		alpha = powf(vec3_dot(norm_obj, halfway_vector), 30);
+	}
 	return (alpha);
 }
 
