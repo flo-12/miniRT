@@ -73,9 +73,10 @@ t_exit_code	parse_plane(char **split, t_plane *plane)
 	if (!plane->color)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, plane->point) != SUCCESS
-		|| store_coordinates(split[2], -1, 1, plane->v_norm) != SUCCESS
+		|| store_coordinates(split[2], -99, -99, plane->v_norm) != SUCCESS
 		|| store_color(split[3], plane->color) != SUCCESS)
 		return (INPUT_ERROR);
+	*plane->v_norm = vec3_norm(*plane->v_norm);
 	return (SUCCESS);
 }
 
@@ -110,11 +111,12 @@ t_exit_code	parse_cylinder(char **split, t_cylinder *cylinder)
 	if (!cylinder->color)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, cylinder->center) != SUCCESS
-		|| store_coordinates(split[2], -1, 1, cylinder->v_norm) != SUCCESS
+		|| store_coordinates(split[2], -99, -99, cylinder->v_norm) != SUCCESS
 		|| store_nbr_float(split[3], -99, -99, &cylinder->d) != SUCCESS
 		|| store_nbr_float(split[4], -99, -99, &cylinder->h) != SUCCESS
 		|| store_color(split[5], cylinder->color) != SUCCESS)
 		return (INPUT_ERROR);
+	*cylinder->v_norm = vec3_norm(*cylinder->v_norm);
 	return (SUCCESS);
 }
 

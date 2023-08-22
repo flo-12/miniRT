@@ -130,9 +130,10 @@ t_exit_code	parse_camera(char **split, t_camera **camera)
 	if (!(*camera)->v_norm)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, (*camera)->point) != SUCCESS
-		|| store_coordinates(split[2], -1, 1, (*camera)->v_norm) != SUCCESS
+		|| store_coordinates(split[2], -99, -99, (*camera)->v_norm) != SUCCESS
 		|| store_nbr_float(split[3], 1, 179, &(*camera)->fov) != SUCCESS)
 		return (INPUT_ERROR);
 	(*camera)->focal_len = (0.5 * WIN_WIDTH) / tanf((*camera)->fov / 2);
+	*(*camera)->v_norm = vec3_norm(*(*camera)->v_norm);
 	return (SUCCESS);
 }
