@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:12 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/16 16:28:40 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/22 20:14:46 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@
 enum e_types {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	CONE
 };
 
 typedef enum e_exit_code {
@@ -115,6 +116,14 @@ typedef struct s_cylinder
 	t_color			*color;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	t_coordinates	*vertex;
+	t_coordinates	*v_norm;
+	float			angle;
+	t_color			*color;
+}	t_cone;
+
 typedef struct s_plane
 {
 	t_coordinates	*point;
@@ -162,6 +171,7 @@ typedef struct s_object
 		t_cylinder	cylinder;
 		t_plane		plane;
 		t_sphere	sphere;
+		t_cone		cone;
 	} u_obj;
 	struct s_object	*(*fct_free)(struct s_object*);
 	bool			(*fct_intersect)(struct s_object, t_vector, t_hit *);

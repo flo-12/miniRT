@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:30 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/18 12:39:40 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/22 20:12:26 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ t_exit_code	add_element(char **split, t_global *global)
 		e = parse_object(split, &global->objects, PLANE);
 	else if (ft_strncmp(split[0], "cy", 3) == 0)
 		e = parse_object(split, &global->objects, CYLINDER);
+	else if (ft_strncmp(split[0], "co", 3) == 0)
+		e = parse_object(split, &global->objects, CONE);
 	else
 		e = INPUT_ERROR;
 	return (e);

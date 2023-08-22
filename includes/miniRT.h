@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/18 12:35:43 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/22 20:14:27 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_exit_code		parse_camera(char **split, t_camera **camera);
 t_exit_code		parse_ambient_ligthing(char **split, t_ambient **ambient);
 // parse_object.c
 t_exit_code		parse_object(char **split, t_object **objects, int id);
+t_exit_code		parse_cone(char **split, t_cone *cone);
+
 // parse_float_utils.c
 int				store_coordinates(char *str, float min, float max, 
 					t_coordinates *coordinates);

@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:13:02 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/03 11:13:04 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:04:44 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,12 @@ void	init_fct_ptr(int id, t_object *obj)
 		obj->fct_intersect = &intersect_cylinder;
 		obj->fct_color = &color_cylinder;
 	}
+	else if (id == CONE)
+	{
+		obj->fct_free = NULL; //&free_cylinder;
+		obj->fct_intersect = NULL; //&intersect_cylinder;
+		obj->fct_color = NULL; //&color_cylinder;
+	}
 }
 
 /* parse_object:
@@ -172,6 +178,8 @@ t_exit_code	parse_object(char **split, t_object **objects, int id)
 		e = parse_plane(split, &(obj->u_obj.plane));
 	else if (id == CYLINDER)
 		e = parse_cylinder(split, &(obj->u_obj.cylinder));
+	else if (id == CONE)
+		e = parse_cone(split, &(obj->u_obj.cone));
 	init_fct_ptr(id, obj);
 	ft_lstadd_back_obj(objects, obj);
 	return (e);

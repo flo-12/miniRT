@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/18 12:36:12 by lwidmer          ###   ########.fr        #
+#    Updated: 2023/08/22 20:10:19 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC			=	main.c \
 				parse.c \
 				parse_light_ambient_camera.c \
 				parse_object.c \
+				parse_cone.c \
 				parse_int_utils.c \
 				parse_float_utils.c \
 				test_utils.c \

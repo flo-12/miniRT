@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:36 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/18 12:37:25 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/22 20:21:21 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv)
 		print_parse(global, e);
 	if (e != SUCCESS)
 		return (exit_free(global, e));
+	/*
 	e = create_mlx(global);
 	if (!e)
 	{
@@ -56,5 +57,6 @@ int	main(int argc, char **argv)
 			0, 0);
 		mlx_loop(global->mlx);
 	}
+	*/
 	return (exit_free(global, e));
 }
