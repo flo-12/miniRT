@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 11:18:36 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/14 12:01:42 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/18 12:31:53 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,19 @@ t_color	color_range(t_color color)
 	if (color.r > 255)
 		color.r = 255;
 	return (color);
+}
+
+/* get_obj_color:
+*	Get the color of the object.
+*
+*	Return: color of the object.
+*/
+t_color	get_obj_color(t_object obj)
+{
+	if (obj.identifier == PLANE)
+		return (*obj.u_obj.plane.color);
+	else if (obj.identifier == SPHERE)
+		return (*obj.u_obj.sphere.color);
+	else
+		return (*obj.u_obj.cylinder.color);
 }

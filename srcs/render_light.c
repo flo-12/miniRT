@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 12:03:56 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/14 12:03:58 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/18 12:33:09 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 *	Return: calculated RGB values with the considered
 *		intensity and color of the light and object.
 */
-t_color	get_intensity(float intensity, t_color c_obj, t_color c_light, bool ambient)
+t_color	get_intensity(float intensity, t_color c_obj, t_color c_light,
+	bool ambient)
 {
 	t_color	color;
 
@@ -75,21 +76,6 @@ t_coordinates	get_surface_norm_cyl(t_cylinder cyl, t_vector shadow)
 	return (norm_obj);
 }
 
-/* get_obj_color:
-*	Get the color of the object.
-*
-*	Return: color of the object.
-*/
-t_color	get_obj_color(t_object obj)
-{
-	if (obj.identifier == PLANE)
-		return (*obj.u_obj.plane.color);
-	else if (obj.identifier == SPHERE)
-		return (*obj.u_obj.sphere.color);
-	else
-		return (*obj.u_obj.cylinder.color);
-}
-
 /* render_light:
 *	Calculates the light (RGB) for an object and it's shadow
 *	ray to the light. The origin of the shadow ray equals
@@ -107,23 +93,61 @@ t_color	get_obj_color(t_object obj)
 *
 *	Return: the light as t_color (RGB values).
 */
-t_color	render_light(t_object obj, t_light light, t_vector shadow)
+
+/*
+renders the pecular light component based on the blinn-phong model.
+this model computes the halfway vector between primary ray (Intersection
+to camera) and shadow ray (Intersection to Light).
+and then computes the specular component based on the angle between halfway
+vector and surface normal.
+
+return: t_color
+*/
+float	get_specular_intensity(t_global global, t_coordinates shadow_ray,
+		t_coordinates p_hit, t_coordinates norm_obj)
+{
+	t_coordinates	halfway_vector;
+	t_coordinates	primary_ray;
+	float			alpha;
+
+	alpha = 0;
+	if (BONUS)
+	{
+		primary_ray = vec3_norm(vec3_get_dir(p_hit, *global.camera->point));
+		halfway_vector = vec3_norm(vec3_add(primary_ray, shadow_ray));
+		alpha = powf(vec3_dot(norm_obj, halfway_vector), 30);
+	}
+	return (alpha);
+}
+
+float	get_diffuse_intensity(t_coordinates norm_obj, t_coordinates shadow_ray)
+{
+	float	alpha;
+
+	alpha = vec3_dot(norm_obj, shadow_ray);
+	return (alpha);
+}
+
+t_color	render_light(t_object obj, t_global global, t_vector shadow, 
+						t_coordinates p_hit)
 {
 	t_color			color_obj;
 	t_coordinates	norm_obj;
-	float			alpha;
+	float			intensity;
 
 	color_obj = get_obj_color(obj);
 	if (obj.identifier == PLANE)
 		norm_obj = *obj.u_obj.plane.v_norm;
 	else if (obj.identifier == SPHERE)
 		norm_obj = vec3_norm(vec3_sub(shadow.origin, *obj.u_obj.sphere.center));
-	else// if (obj.identifier == CYLINDER)
-		norm_obj = get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
-	alpha = vec3_dot(norm_obj, shadow.v_norm);
-	if (alpha > 0)
-		return (get_intensity(alpha, 
-				color_obj, *light.color, false));
 	else
-		return (get_intensity(0, color_obj, *light.color, false));
+		norm_obj = get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
+	intensity = get_diffuse_intensity(norm_obj, shadow.v_norm)
+		+ get_specular_intensity(global, shadow.v_norm,
+			p_hit, norm_obj);
+	if (intensity > 0)
+		return (get_intensity(intensity, color_obj, *global.light->color,
+				false));
+	else
+		return (get_intensity(0, color_obj, *global.light->color, false));
 }

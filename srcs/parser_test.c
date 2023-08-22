@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_test.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/18 12:38:05 by lwidmer           #+#    #+#             */
+/*   Updated: 2023/08/18 12:38:59 by lwidmer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT.h"
 
@@ -76,10 +87,10 @@ void	print_parse(t_global *global, t_exit_code e)
 		return ;
 	if (global->light)
 		print_light(global->light, e);
-	if (global->camera)	
+	if (global->camera)
 		print_camera(*global->camera, e);
-	if (global->ambient)	
+	if (global->ambient)
 		print_ambient(*global->ambient, e);
-	if (global->objects)	
+	if (global->objects)
 		print_objects(global->objects, e);
 }
