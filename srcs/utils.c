@@ -48,12 +48,12 @@ int	ptr_len(char **ptr)
 
 float	rad_to_deg(float degree)
 {
-	return (degree * M_PI / 180);
+	return (degree / M_PI * 180);
 }
 
 float	deg_to_rad(float rad)
 {
-	return (rad / M_PI * 180);
+	return (rad * M_PI / 180);
 }
 
 /* init_obj_plane:

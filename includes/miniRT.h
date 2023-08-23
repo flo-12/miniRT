@@ -78,7 +78,11 @@ t_color			render_light(t_object obj, t_global global, t_vector shadow,
 					t_coordinates p_hit);
 t_color			get_intensity(float intensity, t_color c_obj, t_color c_light, 
 					bool ambient);
-t_coordinates	get_surface_norm_cyl(t_cylinder cyl, t_vector shadow);
+// fct_surface_norm.c
+t_coordinates	surface_norm_plane(t_object obj, t_vector shadow);
+t_coordinates	surface_norm_sphere(t_object obj, t_vector shadow);
+t_coordinates	surface_norm_cylinder(t_object obj, t_vector shadow);
+t_coordinates	surface_norm_cone(t_object obj, t_vector shadow);
 
 // exit_free.c
 t_exit_code		exit_free(t_global *global, t_exit_code e);

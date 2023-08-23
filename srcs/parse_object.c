@@ -132,24 +132,28 @@ void	init_fct_ptr(int id, t_object *obj)
 		obj->fct_free = &free_sphere;
 		obj->fct_intersect = &intersect_sphere;
 		obj->fct_color = &color_sphere;
+		obj->fct_surface_norm = &surface_norm_sphere;
 	}
 	else if (id == PLANE)
 	{
 		obj->fct_free = &free_plane;
 		obj->fct_intersect = &intersect_plane;
 		obj->fct_color = &color_plane;
+		obj->fct_surface_norm = &surface_norm_plane;
 	}
 	else if (id == CYLINDER)
 	{
 		obj->fct_free = &free_cylinder;
 		obj->fct_intersect = &intersect_cylinder;
 		obj->fct_color = &color_cylinder;
+		obj->fct_surface_norm = &surface_norm_cylinder;
 	}
 	else if (id == CONE)
 	{
 		obj->fct_free = &free_cone;
-		obj->fct_intersect = &render_cone; //&intersect_cylinder;
-		obj->fct_color = &color_cone; //&color_cylinder;
+		obj->fct_intersect = &render_cone;
+		obj->fct_color = &color_cone;
+		obj->fct_surface_norm = &surface_norm_cone;
 	}
 }
 

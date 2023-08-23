@@ -176,6 +176,7 @@ typedef struct s_object
 	struct s_object	*(*fct_free)(struct s_object*);
 	bool			(*fct_intersect)(struct s_object, t_vector, t_hit *);
 	t_color			(*fct_color)(struct s_object);
+	t_coordinates	(*fct_surface_norm)(struct s_object, t_vector);
 	struct s_object	*next;
 }	t_object;
 

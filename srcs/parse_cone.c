@@ -27,7 +27,7 @@ t_exit_code	parse_cone(char **split, t_cone *cone)
 		return (MALLOC_ERROR);
 	if (store_coordinates(split[1], -99, -99, cone->vertex) != SUCCESS
 		|| store_coordinates(split[2], -99, -99, cone->v_norm) != SUCCESS
-		|| store_nbr_float(split[3], -99, -99, &cone->angle) != SUCCESS
+		|| store_nbr_float(split[3], 1, 179, &cone->angle) != SUCCESS
 		|| store_color(split[4], cone->color) != SUCCESS)
 		return (INPUT_ERROR);
 	*cone->v_norm = vec3_norm(*cone->v_norm);

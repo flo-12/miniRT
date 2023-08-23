@@ -26,6 +26,8 @@ t_color	get_intensity(float intensity, t_color c_obj, t_color c_light,
 {
 	t_color	color;
 
+	if (intensity > 1)
+		intensity = 1;
 	if (BONUS || ambient)
 	{
 		color.r = c_obj.r * (intensity * ((float)c_light.r / 255));
@@ -39,41 +41,6 @@ t_color	get_intensity(float intensity, t_color c_obj, t_color c_light,
 		color.b = (int)((float)c_obj.b * (intensity * 1));
 	}
 	return (color);
-}
-
-/* get_norm_cyl:
-*	Calculates the normalized vector for the surface normal
-*	of a cylinder by differentiating between the cap and the
-*	tube of the cylinder with the following steps:
-*		1) calculate the distance l (in direction of v_norm of
-*			cylinder) of the hit point to the cylinder's
-*			center
-*		2) If cap: l is equal to 0 or the height of the cylinder
-*		3) If tube: otherwise
-*			- get the point p which is l away from the cylinder's
-*				center in the direction of v_norm
-*			- calculate the normalized vector of the surface
-*				(identical to sphere with p being the center of
-*				the sphere)
-*
-*	Return: the normalized surface vector.
-*/
-t_coordinates	get_surface_norm_cyl(t_cylinder cyl, t_vector shadow)
-{
-	t_coordinates	norm_obj;
-	float			l;
-	t_coordinates	p;
-
-	l = sqrtf(powf(vec3_dist_pts(shadow.origin, *cyl.center), 2) 
-			- powf(cyl.d / 2, 2));
-	if (equal(l, 0) || equal(l, cyl.h))
-		norm_obj = *cyl.v_norm;
-	else
-	{
-		p = vec3_add(*cyl.center, vec3_multiply_const(*cyl.v_norm, l));
-		norm_obj = vec3_norm(vec3_sub(shadow.origin, p));
-	}
-	return (norm_obj);
 }
 
 /*
@@ -135,12 +102,7 @@ t_color	render_light(t_object obj, t_global global, t_vector shadow,
 	float			intensity;
 
 	color_obj = obj.fct_color(obj);
-	if (obj.identifier == PLANE)
-		norm_obj = *obj.u_obj.plane.v_norm;
-	else if (obj.identifier == SPHERE)
-		norm_obj = vec3_norm(vec3_sub(shadow.origin, *obj.u_obj.sphere.center));
-	else
-		norm_obj = get_surface_norm_cyl(obj.u_obj.cylinder, shadow);
+	norm_obj = (*obj.fct_surface_norm)(obj, shadow);
 	intensity = get_diffuse_intensity(norm_obj, shadow.v_norm)
 		+ get_specular_intensity(global, shadow.v_norm,
 			p_hit, norm_obj);
