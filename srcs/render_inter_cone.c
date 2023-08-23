@@ -49,5 +49,9 @@ bool	render_cone(t_object obj, t_vector ray, t_hit *hit)
 	}
 	hit->p1 = vec3_get_pt(ray, t[0]);
 	hit->p2 = vec3_get_pt(ray, t[1]);
+	if (!vec3_pt_on_line(ray, hit->p1))
+		hit->p1 = hit->p2;
+	if ((!vec3_pt_on_line(ray, hit->p2)))
+		return (false);
 	return (true);
 }
