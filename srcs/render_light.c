@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 12:03:56 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/18 12:33:09 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/23 18:10:07 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_color	render_light(t_object obj, t_global global, t_vector shadow,
 	intensity = get_diffuse_intensity(norm_obj, shadow.v_norm)
 		+ get_specular_intensity(global, shadow.v_norm,
 			p_hit, norm_obj);
+	intensity = intensity * global.light->brightness;
 	if (intensity > 0)
 		return (get_intensity(intensity, color_obj, *global.light->color,
 				false));
