@@ -62,6 +62,7 @@ SRC			=	main.c \
 				render_routine.c \
 				render_intersect.c \
 				render_inter_cyl_utils.c \
+				render_inter_cone.c \
 				render_light.c \
 				vec3_utils1.c \
 				vec3_utils2.c \

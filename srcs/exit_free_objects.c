@@ -67,3 +67,22 @@ t_object	*free_cylinder(t_object *obj)
 	free(tmp);
 	return (obj);
 }
+
+/* free_cone:
+*	Frees the content of t_cone and the object
+*	itself.
+*
+*	Return: next object in the linked-list.
+*/
+t_object	*free_cone(t_object *obj)
+{
+	t_object	*tmp;
+
+	free_if((void *)obj->u_obj.cone.vertex);
+	free_if((void *)obj->u_obj.cone.v_norm);
+	free_if((void *)obj->u_obj.cone.color);
+	tmp = obj;
+	obj = obj->next;
+	free(tmp);
+	return (obj);
+}

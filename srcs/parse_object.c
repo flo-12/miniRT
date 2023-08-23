@@ -147,9 +147,9 @@ void	init_fct_ptr(int id, t_object *obj)
 	}
 	else if (id == CONE)
 	{
-		obj->fct_free = NULL; //&free_cylinder;
-		obj->fct_intersect = NULL; //&intersect_cylinder;
-		obj->fct_color = NULL; //&color_cylinder;
+		obj->fct_free = &free_cone;
+		obj->fct_intersect = &render_cone; //&intersect_cylinder;
+		obj->fct_color = &color_cone; //&color_cylinder;
 	}
 }
 

@@ -51,6 +51,11 @@ float	rad_to_deg(float degree)
 	return (degree * M_PI / 180);
 }
 
+float	deg_to_rad(float rad)
+{
+	return (rad / M_PI * 180);
+}
+
 /* init_obj_plane:
 *	Initializes a t_object with a u_obj of a sphere,
 *	which has the values passed as arguments.

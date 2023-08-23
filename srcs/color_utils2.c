@@ -41,3 +41,13 @@ t_color	color_cylinder(t_object obj)
 {
 	return (*obj.u_obj.cylinder.color);
 }
+
+/* color_cone:
+*	Get the color of the cone.
+*
+*	Return: color of the cone.
+*/
+t_color	color_cone(t_object obj)
+{
+	return (*obj.u_obj.cone.color);
+}

@@ -48,7 +48,6 @@ int	main(int argc, char **argv)
 		print_parse(global, e);
 	if (e != SUCCESS)
 		return (exit_free(global, e));
-	/*
 	e = create_mlx(global);
 	if (!e)
 	{
@@ -57,6 +56,5 @@ int	main(int argc, char **argv)
 			0, 0);
 		mlx_loop(global->mlx);
 	}
-	*/
 	return (exit_free(global, e));
 }
