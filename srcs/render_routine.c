@@ -103,11 +103,60 @@ t_vector	compute_primary_ray(t_camera camera, t_pixel pixel)
 	return (primary_ray);
 }
 
+
+bool	fct_inside_sphere(t_object obj, t_coordinates p)
+{
+	t_sphere	sphere;
+
+	sphere = obj.u_obj.sphere;
+	if (vec3_dist_pts(p, *sphere.center) < sphere.d / 2)
+			return (true);
+}
+
+bool	fct_inside_cylinder(t_object obj, t_coordinates p)
+{
+	t_cylinder	cyl;
+
+	cyl = obj.u_obj.cylinder;
+	// ...
+}
+
+bool	inside_object(t_global global)
+{
+	t_object	*obj;
+	int			color;
+	int			x;
+	int			y;
+
+	obj = global.objects;
+	while (obj)
+	{
+		if ((obj->fct_in_object)(obj, *global.camera->point))
+			break ;
+		object = object->next;
+	}
+	if (!obj)
+		return (false);
+	color = color_to_int(color_range(get_intensity(g.ambient->ratio, 
+			obj_close->fct_color(*obj_close), *g.ambient->color, true))); // only with ambient light (change object or light struct?)
+	pixel.y = 0;
+	while (pixel.y < WIN_HEIGHT)
+	{
+		pixel.x = 0;
+		while (pixel.x < WIN_WIDTH)
+			mlx_put_pixel(&g.img, p.x, p.y, );
+		pixel.y++;
+	}
+	return (true);
+}
+
 t_exit_code	render_routine(t_global global)
 {
 	t_vector	primary_ray;
 	t_pixel		pixel;
 
+	if (inside_object(global))
+		return (SUCCESS);
 	calc_camera_scale(global.camera);
 	calc_camera_matrix(global.camera);
 	calc_aspect_ratio(global.camera);

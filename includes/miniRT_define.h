@@ -177,6 +177,7 @@ typedef struct s_object
 	bool			(*fct_intersect)(struct s_object, t_vector, t_hit *);
 	t_color			(*fct_color)(struct s_object);
 	t_coordinates	(*fct_surface_norm)(struct s_object, t_vector);
+	bool			(*fct_in_object)(struct s_object, t_coordinates);
 	struct s_object	*next;
 }	t_object;
 
