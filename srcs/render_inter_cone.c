@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:11:36 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/22 19:58:27 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/24 09:33:21 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,50 @@
 
 theta is half the cones opening angle
 */
+
+typedef struct s_solve {
+	float	t1;
+	float	t2;
+	float	a;
+	float	b;
+	float	c;
+	float	d1;
+	float	d2;
+	float	det;
+}	t_solve;
+
+bool	render_cone(t_object obj, t_vector ray, t_hit *hit)
+{
+	t_solve			s;
+	t_coordinates	theta;
+	t_coordinates	w;
+	float			m;
+	t_cone			cone;
+
+	cone = obj.u_obj.cone;
+	theta = vec3_norm(*cone.v_norm);
+	m = powf(4 / 2, 2) / powf(10, 2);
+	w = vec3_sub(ray.origin, *cone.vertex);
+	s.d1 = vec3_dot(ray.v_norm, theta);
+	s.d2 = vec3_dot(w, theta);
+	s.a = powf(s.d1, 2);
+	s.a = vec3_dot(ray.v_norm, ray.v_norm) - m * s.a - s.a;
+	s.b = 2 * (vec3_dot(ray.v_norm, w) - m * s.d1 * s.d2 - s.d1 * s.d2);
+	s.c = vec3_dot(w, w) - m * powf(s.d2, 2) - powf(s.d2, 2);
+	s.det = powf(s.b, 2) - (4 * s.a * s.c);
+	if (s.det < 0)
+		return (false);
+	s.det = sqrtf(s.det);
+	s.t1 = (-s.b - s.det) / (2 * s.a);
+	s.t2 = (-s.b + s.det) / (2 * s.a);
+    hit->p1 = vec3_get_pt(ray, s.t1);
+    hit->p2 = vec3_get_pt(ray, s.t2);
+    return (true);
+}
+
+
+
+/*
 bool	render_cone(t_object obj, t_vector ray, t_hit *hit)
 {
 	float			abc[3];
@@ -51,3 +95,4 @@ bool	render_cone(t_object obj, t_vector ray, t_hit *hit)
 	hit->p2 = vec3_get_pt(ray, t[1]);
 	return (true);
 }
+*/
