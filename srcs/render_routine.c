@@ -6,7 +6,7 @@
 /*   By: lwidmer <lwidmer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:31:39 by lwidmer           #+#    #+#             */
-/*   Updated: 2023/08/18 12:28:20 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/24 13:30:25 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 		}
 		object = object->next;
 	}
+	if (pixel.x == WIN_WIDTH / 2 && pixel.y == WIN_HEIGHT / 2)
+		printf("hit at: hit1(%f %f %f) hit2 (%f %f %f)", 
+		p_hit.p1.x, p_hit.p1.y, p_hit.p1.z, p_hit.p1.x, p_hit.p1.y, p_hit.p1.z);
 	if (closest_object)
 		render_shadow_ray(global, closest_object, closest_intersect, pixel);
 }

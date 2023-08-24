@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:56:08 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/23 14:56:11 by fbecht           ###   ########.fr       */
+/*   Updated: 2023/08/24 13:39:21 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_coordinates	surface_norm_cylinder(t_object obj, t_vector shadow)
 
 t_coordinates	surface_norm_cone(t_object obj, t_vector shadow)
 {
+	/*
 	t_cone			cone;
 	t_coordinates	ip;
 	t_coordinates	ax_proj;
@@ -82,4 +83,13 @@ t_coordinates	surface_norm_cone(t_object obj, t_vector shadow)
 	ax_perp = vec3_sub(shadow.origin, ax_proj);
 	t = vec3_cross(ip, ax_perp);
 	return (vec3_cross(t, ip));
+	*/
+	t_coordinates	ip;
+	t_coordinates	normal;
+	t_cone			cone;
+
+	cone = obj.u_obj.cone;
+	ip = vec3_sub(*cone.vertex, shadow.origin);
+	normal = vec3_cross(vec3_cross(*cone.v_norm, ip), ip);
+	return (vec3_norm(normal));;
 }
