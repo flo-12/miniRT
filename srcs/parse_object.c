@@ -151,7 +151,7 @@ void	init_fct_ptr(int id, t_object *obj)
 	else if (id == CONE)
 	{
 		obj->fct_free = &free_cone;
-		obj->fct_intersect = &render_cone;
+		obj->fct_intersect = &intersect_cone;
 		obj->fct_color = &color_cone;
 		obj->fct_surface_norm = &surface_norm_cone;
 	}
