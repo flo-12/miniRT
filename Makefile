@@ -54,6 +54,7 @@ SRC			=	main.c \
 				test_utils.c \
 				parse_init_fct_ptr.c \
 				parser_test.c \
+				parser_test_obj.c \
 				utils.c \
 				mlx_utils.c \
 				color_utils.c \
