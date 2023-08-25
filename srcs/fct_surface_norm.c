@@ -29,7 +29,7 @@ t_coordinates	surface_norm_sphere(t_object obj, t_vector shadow)
 	return (vec3_norm(vec3_sub(shadow.origin, *sphere.center)));
 }
 
-/* get_norm_cyl:
+/* surface_norm_cylinder:
 *	Calculates the normalized vector for the surface normal
 *	of a cylinder by differentiating between the cap and the
 *	tube of the cylinder with the following steps:

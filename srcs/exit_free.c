@@ -12,7 +12,6 @@
 
 #include "miniRT.h"
 
-
 /* free_ptr:
 *	Frees all strings ptr is pointing at and ptr otself.
 *	ptr ends on a NULL-pointer.
