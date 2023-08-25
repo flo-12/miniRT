@@ -63,7 +63,7 @@ co 3,7,0         0,-1,0  23   255,0,0
 
 ```
 which renders to
-![scene with cone sphere and cylinder]("/images/cyliner_cone_sphere.png")
+![scene with cone sphere and cylinder](images/cyliner_cone_sphere.png)
 
 // not necessary maybe ?
 To enable colored diffuse light sources add .. to the environment variables
