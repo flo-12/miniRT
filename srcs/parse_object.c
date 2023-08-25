@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:13:02 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/22 20:04:44 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/25 09:52:20 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,11 @@ t_exit_code	parse_object(char **split, t_object **objects, int id)
 	else if (id == CYLINDER)
 		e = parse_cylinder(split, &(obj->u_obj.cylinder));
 	else if (id == CONE)
+	{
+		if (!BONUS)
+			return (free(obj), e);
 		e = parse_cone(split, &(obj->u_obj.cone));
+	}
 	init_fct_ptr(id, obj);
 	ft_lstadd_back_obj(objects, obj);
 	return (e);
