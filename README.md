@@ -32,8 +32,40 @@ Core features of this raytracer are:
 
 ## Execution
 The proram will read the input for the scene from a file in .rt format. The scenes/valid/ folder contains some example scenes.
-* Example: ```./miniRT J ./scenes/valid/...rt```
+* Example: ```./miniRT ./scenes/valid/...rt```
 
+## Scene Format
+Rules for scene Format
+Every scene must contain at least a **Viewpoint**:
+- Identifier (C\); Coordinates (x,y,z) ; Orientation vector (x,y,z) ; Field of view (deg)
+
+One ambient (A) and one or more diffuse (L) **Light sources**:
+- Identifier (A); Intensity (0 to 1) Colors (r,g,b)
+- Identifier (L); Coordinates (x,y,z) ; Intensity (0 to 1) Colors (r,g,b)
+
+Additionally the Scene can contain **Objects** Sphere (sp), Plane (pl), Cylinder (cy) and Cone (co)
+- Identifier (sp); Coordinates (x,y,z), Diameter (), Color (r,g,b)
+- Identifier (pl); Coordinates (x,y,z -> any point on the plane); Orientation Vector (x,y,z -> orhtogonal to plane) Coolor (r,g,b)
+- Identifier (cy); Coordinates (x,y,z -> on the center, bottom), Orientation Vector (x,y,z), Diameter, Height, Color (r,g,b)
+- Identifier (co); Coordinates (x,y,z -> of the vertex), Orientation Vector (x,y,z), Opening angle (deg), Color (r,g,b)
+
+Given the above rules we can define a Scene:
+``` 
+C   0,5,-15   0,0,1   80
+A   0.2              90,90,255
+L   0,6,-10     1     255,255,255
+
+
+pl 1,-1.5,10        0,1,0 255,255,255
+sp    9,0.0,0.0      3.6     0,255,0
+cy    -7,1.5,0   1,0,0  4  6    0,255,255
+co 3,7,0         0,-1,0  23   255,0,0
+
+```
+which renders to
+![scene with cone sphere and cylinder]("/images/cyliner_cone_sphere.png")
+
+// not necessary maybe ?
 To enable colored diffuse light sources add .. to the environment variables
 ``` export ... ```
 
@@ -45,3 +77,8 @@ Realizing this project requires a deeper understanding of the raytracing algorit
 | Raytracing technique				| [Scratchapixel](https://www.scratchapixel.com/index.html)	|
 | Raytracing technique				| [Computer Graphics From Scratch](https://www.gabrielgambetta.com/computer-graphics-from-scratch/)]	|
 | | |
+
+Trash:
+| Identifier | Position(x,y,z) |Orientation vector | field of view
+|  --------  |  -------  | --------  |  -------  |
+| C | 0.0,0.0,10 |0.0,0.0,-1|
