@@ -69,12 +69,16 @@ static bool	valid_float(char *str)
 static float	str_to_float(char *str)
 {
 	float	nbr;
+	bool	pos;
 
+	pos = true;
+	if (*str == '-')
+		pos = false;
 	nbr = ft_atoi(str);
 	str = ft_strchr(str, '.');
 	if (str && *(str + 1))
 	{
-		if (nbr >= 0)
+		if (pos)
 			nbr += (float)ft_atoi(str + 1) / (float)pow(10, ft_strlen(str + 1));
 		else
 			nbr -= (float)ft_atoi(str + 1) / (float)pow(10, ft_strlen(str + 1));
