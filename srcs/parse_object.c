@@ -133,6 +133,7 @@ void	init_fct_ptr(int id, t_object *obj)
 		obj->fct_intersect = &intersect_sphere;
 		obj->fct_color = &color_sphere;
 		obj->fct_surface_norm = &surface_norm_sphere;
+		obj->fct_in_object = &fct_inside_sphere;
 	}
 	else if (id == PLANE)
 	{
@@ -140,6 +141,7 @@ void	init_fct_ptr(int id, t_object *obj)
 		obj->fct_intersect = &intersect_plane;
 		obj->fct_color = &color_plane;
 		obj->fct_surface_norm = &surface_norm_plane;
+		obj->fct_in_object = &fct_inside_plane;
 	}
 	else if (id == CYLINDER)
 	{
@@ -147,6 +149,7 @@ void	init_fct_ptr(int id, t_object *obj)
 		obj->fct_intersect = &intersect_cylinder;
 		obj->fct_color = &color_cylinder;
 		obj->fct_surface_norm = &surface_norm_cylinder;
+		obj->fct_in_object = &fct_inside_cylinder;
 	}
 	else if (id == CONE)
 	{
@@ -154,6 +157,7 @@ void	init_fct_ptr(int id, t_object *obj)
 		obj->fct_intersect = &render_cone;
 		obj->fct_color = &color_cone;
 		obj->fct_surface_norm = &surface_norm_cone;
+		obj->fct_in_object = &fct_inside_cone;
 	}
 }
 

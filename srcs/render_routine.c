@@ -79,9 +79,6 @@ void	render_primary_ray(t_global global, t_vector primary_ray, t_pixel pixel)
 		}
 		object = object->next;
 	}
-	if (pixel.x == WIN_WIDTH / 2 && pixel.y == WIN_HEIGHT / 2)
-		printf("hit at: hit1(%f %f %f) hit2 (%f %f %f)", 
-		p_hit.p1.x, p_hit.p1.y, p_hit.p1.z, p_hit.p1.x, p_hit.p1.y, p_hit.p1.z);
 	if (closest_object)
 		render_shadow_ray(global, closest_object, closest_intersect, pixel);
 }
@@ -104,47 +101,34 @@ t_vector	compute_primary_ray(t_camera camera, t_pixel pixel)
 }
 
 
-bool	fct_inside_sphere(t_object obj, t_coordinates p)
-{
-	t_sphere	sphere;
-
-	sphere = obj.u_obj.sphere;
-	if (vec3_dist_pts(p, *sphere.center) < sphere.d / 2)
-			return (true);
-}
-
-bool	fct_inside_cylinder(t_object obj, t_coordinates p)
-{
-	t_cylinder	cyl;
-
-	cyl = obj.u_obj.cylinder;
-	// ...
-}
-
 bool	inside_object(t_global global)
 {
 	t_object	*obj;
 	int			color;
-	int			x;
-	int			y;
+	t_pixel		pixel;
+	/* int			x;
+	int			y; */
 
 	obj = global.objects;
 	while (obj)
 	{
-		if ((obj->fct_in_object)(obj, *global.camera->point))
+		if ((obj->fct_in_object)(*obj, *global.camera->point))
 			break ;
-		object = object->next;
+		obj = obj->next;
 	}
 	if (!obj)
 		return (false);
-	color = color_to_int(color_range(get_intensity(g.ambient->ratio, 
-			obj_close->fct_color(*obj_close), *g.ambient->color, true))); // only with ambient light (change object or light struct?)
+	color = color_to_int(color_range(get_intensity(global.ambient->ratio, 
+			obj->fct_color(*obj), *global.ambient->color, true)));
 	pixel.y = 0;
 	while (pixel.y < WIN_HEIGHT)
 	{
 		pixel.x = 0;
 		while (pixel.x < WIN_WIDTH)
-			mlx_put_pixel(&g.img, p.x, p.y, );
+		{
+			mlx_put_pixel(&global.img, pixel.x, pixel.y, color);
+			pixel.x++;
+		}
 		pixel.y++;
 	}
 	return (true);
@@ -156,7 +140,10 @@ t_exit_code	render_routine(t_global global)
 	t_pixel		pixel;
 
 	if (inside_object(global))
+	{
+		printf("finished rendering primary rays\n");
 		return (SUCCESS);
+	}
 	calc_camera_scale(global.camera);
 	calc_camera_matrix(global.camera);
 	calc_aspect_ratio(global.camera);

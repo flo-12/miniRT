@@ -65,6 +65,7 @@ SRC			=	main.c \
 				render_inter_cone.c \
 				render_light.c \
 				fct_surface_norm.c \
+				fct_in_object.c \
 				vec3_utils1.c \
 				vec3_utils2.c \
 				vec3_utils3.c \
