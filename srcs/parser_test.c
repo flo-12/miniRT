@@ -44,43 +44,6 @@ void	print_ambient(t_ambient amb, int e)
 	printf("exit code = %d\n", e);
 }
 
-void	print_objects(t_object *objs, int e)
-{
-	printf("\n****** PRINT_OBJECTS ******\n");
-	if (!objs)
-		printf("No object initialized\n");
-	while (objs)
-	{
-		if (objs->identifier == SPHERE)
-		{
-			printf("Object Type: SPHERE\n");
-			print_coord(*objs->u_obj.sphere.center);
-			print_nbr(objs->u_obj.sphere.d);
-			print_color(*objs->u_obj.sphere.color);
-		}
-		else if (objs->identifier == PLANE)
-		{
-			printf("Object Type: PLANE\n");
-			print_coord(*objs->u_obj.plane.point);
-			print_coord(*objs->u_obj.plane.v_norm);
-			print_color(*objs->u_obj.plane.color);
-		}
-		else if (objs->identifier == CYLINDER)
-		{
-			printf("Object Type: CYLINDER\n");
-			print_coord(*objs->u_obj.cylinder.center);
-			print_coord(*objs->u_obj.cylinder.v_norm);
-			print_nbr(objs->u_obj.cylinder.d);
-			print_nbr(objs->u_obj.cylinder.h);
-			print_color(*objs->u_obj.cylinder.color);
-		}
-		else
-			printf("Wrong identifier (id=%d)\n", objs->identifier);
-		objs = objs->next;
-	}
-	printf("exit code = %d\n", e);
-}
-
 void	print_parse(t_global *global, t_exit_code e)
 {
 	if (e)
