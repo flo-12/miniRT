@@ -44,7 +44,7 @@ void	free_if(void *ptr)
 *	Print the error message corresponding to the exit
 *	codes in t_exit_code.
 */
-void	print_exit(t_exit_code e)
+t_exit_code	print_exit(t_exit_code e)
 {
 	if (e)
 	{
@@ -55,15 +55,16 @@ void	print_exit(t_exit_code e)
 			printf(MSG_MLX_ERROR);
 		else if (e == MALLOC_ERROR)
 			printf(MSG_MALLOC_ERROR);
-		if (e == INPUT_ERROR)
+		else if (e == INPUT_ERROR)
 			printf(MSG_INPUT_ERROR);
-		if (e == ARG_ERROR)
+		else if (e == ARG_ERROR)
 			printf(MSG_ARG_ERROR);
-		if (e == INPUT_INCOMPLETE)
+		else if (e == INPUT_INCOMPLETE)
 			printf(MSG_INPUT_INCOMPLETE);
-		if (e == FILETYPE_ERROR)
+		else if (e == FILETYPE_ERROR)
 			printf(MSG_FILETYPE_ERROR);
 	}
+	return (e);
 }
 
 /* free_ambient_camera_light:
@@ -103,11 +104,11 @@ void	free_ambient_camera_light(t_ambient *ambient,
 t_exit_code	exit_free(t_global *global, t_exit_code e)
 {
 	if (!global)
-		return (e);
+		return (print_exit(e));
 	free_ambient_camera_light(global->ambient, global->camera, global->light);
 	while (global->objects)
 		global->objects = (*global->objects->fct_free)(global->objects);
 	free_mlx(global);
 	free_if(global);
-	return (e);
+	return (print_exit(e));
 }
