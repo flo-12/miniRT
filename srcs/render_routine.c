@@ -141,7 +141,7 @@ t_exit_code	render_routine(t_global global)
 
 	if (inside_object(global))
 	{
-		printf("finished rendering primary rays\n");
+		printf("[inside_object] finished rendering primary rays\n");
 		return (SUCCESS);
 	}
 	calc_camera_scale(global.camera);
