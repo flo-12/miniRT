@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:41:05 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/22 20:14:27 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/25 09:28:30 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ bool			intersect_sphere(t_object obj, t_vector ray, t_hit *hit);
 bool			intersect_plane(t_object obj, t_vector ray, t_hit *hit);
 bool			intersect_cylinder(t_object obj, t_vector ray, t_hit *hit);
 
-// 
-bool	render_cone(t_object obj, t_vector ray, t_hit *hit);
+// render_inter_cone.c
+bool	intersect_cone(t_object obj, t_vector ray, t_hit *hit);
 
 // render_inter_cyl_utils.c
 int				tube_check_valid_points(t_vector ray, 
