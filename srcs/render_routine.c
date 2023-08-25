@@ -100,6 +100,9 @@ t_vector	compute_primary_ray(t_camera camera, t_pixel pixel)
 	return (primary_ray);
 }
 
+/* inside_object:
+*
+*/
 bool	inside_object(t_global global)
 {
 	t_object	*obj;
@@ -122,10 +125,7 @@ bool	inside_object(t_global global)
 	{
 		pixel.x = 0;
 		while (pixel.x < WIN_WIDTH)
-		{
-			mlx_put_pixel(&global.img, pixel.x, pixel.y, color);
-			pixel.x++;
-		}
+			mlx_put_pixel(&global.img, pixel.x++, pixel.y, color);
 		pixel.y++;
 	}
 	return (true);
@@ -133,14 +133,10 @@ bool	inside_object(t_global global)
 
 t_exit_code	render_routine(t_global global)
 {
-	t_vector	primary_ray;
 	t_pixel		pixel;
 
 	if (inside_object(global))
-	{
-		printf("[inside_object] finished rendering primary rays\n");
-		return (SUCCESS);
-	}
+		return (printf(MSG_RENDER_SUCCESS), SUCCESS);
 	calc_camera_scale(global.camera);
 	calc_camera_matrix(global.camera);
 	calc_aspect_ratio(global.camera);
@@ -155,12 +151,11 @@ t_exit_code	render_routine(t_global global)
 		pixel.x = 0;
 		while (pixel.x < WIN_WIDTH)
 		{
-			primary_ray = compute_primary_ray(*(global.camera), pixel);
-			render_primary_ray(global, primary_ray, pixel);
+			render_primary_ray(global, 
+				compute_primary_ray(*(global.camera), pixel), pixel);
 			pixel.x++;
 		}
 		pixel.y++;
 	}
-	printf("finished rendering primary rays\n");
-	return (SUCCESS);
+	return (printf(MSG_RENDER_SUCCESS), SUCCESS);
 }

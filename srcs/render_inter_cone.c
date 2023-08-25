@@ -37,6 +37,7 @@ bool	cone_get_hitpoints(t_cone cone, t_vector ray, t_hit *hit, float t[2])
 		return (false);
 	return (true);
 }
+
 /*
 m is the ratio between the squared radius and height of the cone. Although our
 cone technically does not hav a height, the radius is calculated for a height

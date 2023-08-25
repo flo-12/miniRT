@@ -48,6 +48,7 @@
 # define MSG_INPUT_INCOMPLETE "Input in file incomplete - ambient light, \
 	camera & light are required\n"
 # define MSG_FILETYPE_ERROR "Wrong filetype - \"*.rt\" file required\n"
+# define MSG_RENDER_SUCCESS "Finished rendering\n"
 
 /**************************************************************************
 *                                 ENUMS                                   *

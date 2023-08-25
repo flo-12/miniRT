@@ -120,47 +120,6 @@ t_exit_code	parse_cylinder(char **split, t_cylinder *cylinder)
 	return (SUCCESS);
 }
 
-/* init_fct_ptr:
-*	Initializes the function pointers.
-*
-*	Return: -
-*/
-void	init_fct_ptr(int id, t_object *obj)
-{
-	if (id == SPHERE)
-	{
-		obj->fct_free = &free_sphere;
-		obj->fct_intersect = &intersect_sphere;
-		obj->fct_color = &color_sphere;
-		obj->fct_surface_norm = &surface_norm_sphere;
-		obj->fct_in_object = &fct_inside_sphere;
-	}
-	else if (id == PLANE)
-	{
-		obj->fct_free = &free_plane;
-		obj->fct_intersect = &intersect_plane;
-		obj->fct_color = &color_plane;
-		obj->fct_surface_norm = &surface_norm_plane;
-		obj->fct_in_object = &fct_inside_plane;
-	}
-	else if (id == CYLINDER)
-	{
-		obj->fct_free = &free_cylinder;
-		obj->fct_intersect = &intersect_cylinder;
-		obj->fct_color = &color_cylinder;
-		obj->fct_surface_norm = &surface_norm_cylinder;
-		obj->fct_in_object = &fct_inside_cylinder;
-	}
-	else if (id == CONE)
-	{
-		obj->fct_free = &free_cone;
-		obj->fct_intersect = &intersect_cone;
-		obj->fct_color = &color_cone;
-		obj->fct_surface_norm = &surface_norm_cone;
-		obj->fct_in_object = &fct_inside_cone;
-	}
-}
-
 /* parse_object:
 *	Create a new t_object of the right type (SPHERE, ...)
 *	in which the values of split are stored. Add the new

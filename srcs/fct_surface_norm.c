@@ -75,5 +75,5 @@ t_coordinates	surface_norm_cone(t_object obj, t_vector shadow)
 	cone = obj.u_obj.cone;
 	ip = vec3_sub(*cone.vertex, shadow.origin);
 	normal = vec3_cross(vec3_cross(*cone.v_norm, ip), ip);
-	return (vec3_norm(normal));;
+	return (vec3_norm(normal));
 }

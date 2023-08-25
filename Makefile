@@ -52,6 +52,7 @@ SRC			=	main.c \
 				parse_int_utils.c \
 				parse_float_utils.c \
 				test_utils.c \
+				parse_init_fct_ptr.c \
 				parser_test.c \
 				utils.c \
 				mlx_utils.c \

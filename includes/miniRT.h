@@ -43,6 +43,8 @@ t_exit_code		parse_ambient_ligthing(char **split, t_ambient **ambient);
 // parse_object.c
 t_exit_code		parse_object(char **split, t_object **objects, int id);
 t_exit_code		parse_cone(char **split, t_cone *cone);
+// parse_init_fct_ptr.c
+void			init_fct_ptr(int id, t_object *obj);
 
 // parse_float_utils.c
 int				store_coordinates(char *str, float min, float max, 
@@ -74,7 +76,7 @@ bool			intersect_plane(t_object obj, t_vector ray, t_hit *hit);
 bool			intersect_cylinder(t_object obj, t_vector ray, t_hit *hit);
 
 // render_inter_cone.c
-bool	intersect_cone(t_object obj, t_vector ray, t_hit *hit);
+bool			intersect_cone(t_object obj, t_vector ray, t_hit *hit);
 
 // render_inter_cyl_utils.c
 int				tube_check_valid_points(t_vector ray, 
