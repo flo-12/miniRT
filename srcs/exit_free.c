@@ -83,11 +83,12 @@ void	free_ambient_camera_light(t_ambient *ambient,
 */
 t_exit_code	exit_free(t_global *global, t_exit_code e)
 {
+	if (!global)
+		return (e);
 	free_ambient_camera_light(global->ambient, global->camera, global->light);
 	while (global->objects)
 		global->objects = (*global->objects->fct_free)(global->objects);
 	free_mlx(global);
 	free_if(global);
-	print_exit(e);
 	return (e);
 }
