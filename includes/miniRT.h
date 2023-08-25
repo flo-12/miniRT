@@ -74,7 +74,7 @@ bool			intersect_plane(t_object obj, t_vector ray, t_hit *hit);
 bool			intersect_cylinder(t_object obj, t_vector ray, t_hit *hit);
 
 // 
-bool	render_cone(t_object obj, t_vector ray, t_hit *hit);
+bool			render_cone(t_object obj, t_vector ray, t_hit *hit);
 
 // render_inter_cyl_utils.c
 int				tube_check_valid_points(t_vector ray, 
@@ -99,6 +99,7 @@ t_object		*free_sphere(t_object *obj);
 t_object		*free_plane(t_object *obj);
 t_object		*free_cylinder(t_object *obj);
 t_object		*free_cone(t_object *obj);
+void			free_ptr(char **ptr);
 
 // render_utils.c
 t_coordinates	point(float x, float y, float z);
@@ -144,9 +145,8 @@ void			free_mlx(t_global *global);
 
 // utils.c
 int				ptr_len(char **ptr);
-void			free_ptr(char **ptr);
 float			rad_to_deg(float degree);
-float	deg_to_rad(float rad);
+float			deg_to_rad(float rad);
 t_object		init_obj_plane(t_coordinates *point, t_coordinates *v_norm, 
 					t_color *color);
 void			ft_lstadd_back_obj(t_object **objects, t_object *new);

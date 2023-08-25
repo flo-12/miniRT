@@ -100,14 +100,11 @@ t_vector	compute_primary_ray(t_camera camera, t_pixel pixel)
 	return (primary_ray);
 }
 
-
 bool	inside_object(t_global global)
 {
 	t_object	*obj;
 	int			color;
 	t_pixel		pixel;
-	/* int			x;
-	int			y; */
 
 	obj = global.objects;
 	while (obj)
@@ -119,7 +116,7 @@ bool	inside_object(t_global global)
 	if (!obj)
 		return (false);
 	color = color_to_int(color_range(get_intensity(global.ambient->ratio, 
-			obj->fct_color(*obj), *global.ambient->color, true)));
+					obj->fct_color(*obj), *global.ambient->color, true)));
 	pixel.y = 0;
 	while (pixel.y < WIN_HEIGHT)
 	{

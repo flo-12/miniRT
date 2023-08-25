@@ -12,6 +12,26 @@
 
 #include "miniRT.h"
 
+
+/* free_ptr:
+*	Frees all strings ptr is pointing at and ptr otself.
+*	ptr ends on a NULL-pointer.
+*/
+void	free_ptr(char **ptr)
+{
+	char	**tmp;
+
+	tmp = ptr;
+	if (!ptr)
+		return ;
+	while (*ptr)
+	{
+		free(*ptr);
+		ptr++;
+	}
+	free(tmp);
+}
+
 /* free_if:
 *	Frees the pointer if it exists.
 */

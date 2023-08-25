@@ -12,25 +12,6 @@
 
 #include "miniRT.h"
 
-/* free_ptr:
-*	Frees all strings ptr is pointing at and ptr otself.
-*	ptr ends on a NULL-pointer.
-*/
-void	free_ptr(char **ptr)
-{
-	char	**tmp;
-
-	tmp = ptr;
-	if (!ptr)
-		return ;
-	while (*ptr)
-	{
-		free(*ptr);
-		ptr++;
-	}
-	free(tmp);
-}
-
 /* ptr_len:
 *	Calculates the length of the pointer.
 *
@@ -46,11 +27,17 @@ int	ptr_len(char **ptr)
 	return (i);
 }
 
+/* rad_to_deg:
+*	Conert angle from radians to degree.
+*/
 float	rad_to_deg(float degree)
 {
 	return (degree / M_PI * 180);
 }
 
+/* deg_to_rad:
+*	Conert angle from degree to radians.
+*/
 float	deg_to_rad(float rad)
 {
 	return (rad * M_PI / 180);

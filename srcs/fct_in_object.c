@@ -18,7 +18,7 @@ bool	fct_inside_sphere(t_object obj, t_coordinates p)
 
 	sphere = obj.u_obj.sphere;
 	if (vec3_dist_pts(p, *sphere.center) <= sphere.d / 2)
-			return (true);
+		return (true);
 	return (false);
 }
 
@@ -26,7 +26,6 @@ bool	fct_inside_plane(t_object obj, t_coordinates p)
 {
 	(void)obj;
 	(void)p;
-
 	return (false);
 }
 
@@ -46,7 +45,7 @@ bool	fct_inside_cylinder(t_object obj, t_coordinates p)
 
 bool	fct_inside_cone(t_object obj, t_coordinates p)
 {
-	t_cone	cone;
+	t_cone		cone;
 	float		h;
 	float		hypo_c;
 	float		hypo_p;
