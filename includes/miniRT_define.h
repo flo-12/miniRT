@@ -31,8 +31,8 @@
 
 # define THRESH_FLOAT 5e-5
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 800
+# define WIN_WIDTH 1400
+# define WIN_HEIGHT 1400
 
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000
