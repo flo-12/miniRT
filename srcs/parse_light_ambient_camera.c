@@ -6,7 +6,7 @@
 /*   By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:43:30 by fbecht            #+#    #+#             */
-/*   Updated: 2023/08/16 13:28:02 by lwidmer          ###   ########.fr       */
+/*   Updated: 2023/08/28 13:46:25 by lwidmer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_exit_code	parse_light(char **split, t_light **light)
 {
 	t_light	*tmp;
 
+	if (!BONUS && *light)
+		return (SUCCESS);
 	if (ptr_len(split) != 4)
 		return (INPUT_ERROR);
 	tmp = ft_calloc(1, sizeof(t_light));
