@@ -29,7 +29,10 @@ void	calc_camera_matrix(t_camera *camera)
 	t_coordinates	right;
 	t_coordinates	up;
 
-	tmp = point(0, 1, 0);
+	if (!equal(vec3_dot(point(0, 1, 0), *camera->v_norm), 1))
+		tmp = point(0, 1, 0);
+	else
+		tmp = point(1, 0, 0);
 	forward = vec3_norm(*camera->v_norm);
 	right = vec3_cross(tmp, forward);
 	up = vec3_cross(forward, right);
