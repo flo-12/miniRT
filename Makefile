@@ -6,7 +6,7 @@
 #    By: fbecht <fbecht@student.42berlin.de>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/01 15:51:49 by fbecht            #+#    #+#              #
-#    Updated: 2023/08/22 20:10:19 by lwidmer          ###   ########.fr        #
+#    Updated: 2023/08/28 12:54:31 by lwidmer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,11 @@ endif
 ifdef DPARSER
     DEFINE += -DDEBUG_PARSER=${DPARSER}
 endif
+
+ifdef DBONUS
+    DEFINE += -DBONUS=${DBONUS}
+endif
+
 
 # includes
 INC			=	-I ./includes/ \
@@ -118,7 +123,7 @@ fclean: clean
 	@make fclean -sC $(LIBFT_PATH)
 
 re: fclean all
-
+	
 norminette_check:
 	norminette ./src
 	norminette -R CheckForbiddenSourceHeader ./includes
