@@ -156,7 +156,7 @@ void			ft_lstadd_back_obj(t_object **objects, t_object *new);
 // parser_test.c
 void			print_parse(t_global *data, t_exit_code e);
 // parser_test_obj.c
-void	print_objects(t_object *objs, int e);
+void			print_objects(t_object *objs, int e);
 // render_test.c
 void			print_image_plane_corners(t_global global);
 void			print_camera_matrix(t_camera c);

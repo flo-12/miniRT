@@ -31,8 +31,8 @@
 
 # define THRESH_FLOAT 5e-5
 
-# define WIN_WIDTH 1400
-# define WIN_HEIGHT 1400
+# define WIN_WIDTH 400
+# define WIN_HEIGHT 400
 
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000
@@ -44,9 +44,9 @@
 # define MSG_MALLOC_ERROR "Malloc failed\n"
 # define MSG_INPUT_ERROR "Syntax in file wrong - a line is missing information\n"
 # define MSG_ARG_ERROR "Incorrect number of arguments - \
-	usage: \"./miniRT <inputFile>\"\n"
+usage: \"./miniRT <inputFile>\"\n"
 # define MSG_INPUT_INCOMPLETE "Input in file incomplete - ambient light, \
-	camera & light are required\n"
+camera & light are required\n"
 # define MSG_FILETYPE_ERROR "Wrong filetype - \"*.rt\" file required\n"
 # define MSG_RENDER_SUCCESS "Finished rendering\n"
 
