@@ -88,8 +88,3 @@ The following pictures were rendered with the program:
 |![basic_cy_sp rt](https://github.com/flo-12/miniRT/assets/119588327/c1a0925b-d74d-474b-b080-32b59991e245) | ![some_spheres](https://github.com/flo-12/miniRT/assets/119588327/21152c30-84f9-4bd2-8895-18e28e0d4396) |
 |![eval_sheet_pillars](https://github.com/flo-12/miniRT/assets/119588327/4fa2129b-55f5-4e06-bb10-03eb72375396) | ![double_cone_sphere](https://github.com/flo-12/miniRT/assets/119588327/481d99c9-9804-4196-ad72-9e48e971ad8b) |
 
-
-
-
-
-
