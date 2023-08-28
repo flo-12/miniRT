@@ -1,5 +1,5 @@
 # miniRT
-Thanks @Linuswidmer for the collaboration on this project!
+Thanks [Linuswidmer](https://github.com/linuswidmer) for the collaboration on this project!
 
 **Raytracing** is an old - yet still very common method - for rendering algorithms that generate digital images. 
 
@@ -30,6 +30,8 @@ Core features of this raytracer are:
 3) ```make``` (automatically compile the libft and MiniLibX)
 
 *Check the MiniLibX ReadMe in case of problems with the library.*
+
+*NOTE:* by default the program compiles without cones, multiple light sources, colored light and phong effect. To enable the bonuses, set DBONUS in the path variable (```export DBONUS=1```). Additional debug values will be printed in the prompt after setting ```export DPARSER=1``` and ```export DRENDER=1``` (don't forget to re-compile!!!)
 
 ## Execution
 The proram will read the input for the scene from a file in ```.rt``` format. The ```*/scenes/valid/``` folder contains some example scenes.
@@ -77,10 +79,17 @@ Realizing this project requires a deeper understanding of the raytracing algorit
 | Diffuse and Specular Light| [Diffuse Light](https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/) , [Blinn-Phong Model](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting)|
 |Cone |[What is a cone???](https://mathworld.wolfram.com/Cone.html), [Cone - Ray intersection](https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/) |
 |Sphere | [Sphere - Ray intersection](https://www.cl.cam.ac.uk/teaching/1718/AdvGraph/1.\ Ray\ Tracing\ -\ All\ the\ Maths.pdf) |
+
+# Fancy pictures
+The following pictures were rendered with the program:
 | | |
+|-----------------------------|--------------------------|
+|![snowscene](https://github.com/flo-12/miniRT/assets/119588327/e1d2fecc-a86b-4aa0-8c8b-c6bedfd80732) | ![cyliner_cone_sphere](https://github.com/flo-12/miniRT/assets/119588327/876e2b9f-caac-49f1-a094-1c952ebaa796) |
+|![basic_cy_sp rt](https://github.com/flo-12/miniRT/assets/119588327/c1a0925b-d74d-474b-b080-32b59991e245) | ![some_spheres](https://github.com/flo-12/miniRT/assets/119588327/21152c30-84f9-4bd2-8895-18e28e0d4396) |
+|![eval_sheet_pillars](https://github.com/flo-12/miniRT/assets/119588327/4fa2129b-55f5-4e06-bb10-03eb72375396) | ![double_cone_sphere](https://github.com/flo-12/miniRT/assets/119588327/481d99c9-9804-4196-ad72-9e48e971ad8b) |
 
 
-Old:
-| Identifier | Position(x,y,z) |Orientation vector | field of view
-|  --------  |  -------  | --------  |  -------  |
-| C | 0.0,0.0,10 |0.0,0.0,-1|
+
+
+
+
