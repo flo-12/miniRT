@@ -74,8 +74,8 @@ Realizing this project requires a deeper understanding of the raytracing algorit
 |----------------------------------:|:--------------------------------------------------------------|
 | Linear Algebra					| [3Blue1Browns Playlist on Linear Algebra](https://www.youtube.com/watch?v=kjBOesZCoqc&list=PL0-GT3co4r2y2YErbmuJw2L5tW4Ew2O5B) |
 | Raytracing technique				| [Scratchapixel](https://www.scratchapixel.com/index.html), [Computer Graphics From Scratch](https://www.gabrielgambetta.com/computer-graphics-from-scratch/)|
-| Diffuse and Specular Light| [Diffuse Light]([https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/) , [Blinn-Phong Model]([https://learnopengl.com/Advanced-Lighting/Advanced-Lighting)|
-|Cone |[What is a cone???]([https://mathworld.wolfram.com/Cone.html), [Cone - Ray intersection]([https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/](https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/)) |
+| Diffuse and Specular Light| [Diffuse Light](https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/) , [Blinn-Phong Model](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting)|
+|Cone |[What is a cone???](https://mathworld.wolfram.com/Cone.html), [Cone - Ray intersection](https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/) |
 |Sphere | [Sphere - Ray intersection](https://www.cl.cam.ac.uk/teaching/1718/AdvGraph/1.\ Ray\ Tracing\ -\ All\ the\ Maths.pdf) |
 | | |
 
