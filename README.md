@@ -27,6 +27,9 @@ Allowed external functions / libraries:
 - All functions of the MinilibX - graphical library provided from 42 (see submodule)
 - Libft - own library with basic functions such as calloc, strncpm, etc. (see submodule)
 
+_As usual: All heap allocated memory space must be properly freed. No leaks
+will be tolerated._
+
 # Usage
 *Note that the program is written with Linux. Other operating systems were not tested.*
 
