@@ -35,7 +35,7 @@ will be tolerated._
 
 ## Installing and Compiling
 1) Clone the repository and its submodule by ``` git clone --recursive <project SSH/URL> ```
-2) direct to the cloned folder ```<folder_name>```
+2) direct to the cloned folder ```cd <folder_name>```
 3) ```make``` (automatically compile the libft and MiniLibX)
 
 *Check the MiniLibX ReadMe in case of problems with the library.*
