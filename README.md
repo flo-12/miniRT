@@ -79,6 +79,16 @@ which renders to
 To enable colored diffuse light sources add .. to the environment variables
 ``` export ... ```
 
+
+# Fancy pictures
+The following pictures were rendered with the program:
+| | |
+|-----------------------------|--------------------------|
+| ![snowscene](https://github.com/flo-12/miniRT/blob/main/images/snowscene.png) | ![cyliner_cone_sphere](https://github.com/flo-12/miniRT/blob/main/images/cyliner_cone_sphere.png) |
+|![basic_cy_sp rt](https://github.com/flo-12/miniRT/blob/main/images/basic_cy_sp.rt.png) | ![some_spheres](https://github.com/flo-12/miniRT/blob/main/images/some_spheres.png) |
+|![eval_sheet_pillars](https://github.com/flo-12/miniRT/blob/main/images/eval_sheet_pillars.png) | ![double_cone_sphere](https://github.com/flo-12/miniRT/blob/main/images/double_cone_sphere.png) |
+
+
 # Sources
 Realizing this project requires a deeper understanding of the raytracing algorithm as well as some literacy in linear algebra. The following list is a recommendation of sources for anyone who wants to know more about the topic:
 | Topic								| Link                                                        	|
@@ -88,12 +98,4 @@ Realizing this project requires a deeper understanding of the raytracing algorit
 | Diffuse and Specular Light| [Diffuse Light](https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/) , [Blinn-Phong Model](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting)|
 |Cone |[What is a cone???](https://mathworld.wolfram.com/Cone.html), [Cone - Ray intersection](https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/) |
 |Sphere | [Sphere - Ray intersection](https://www.cl.cam.ac.uk/teaching/1718/AdvGraph/1.\ Ray\ Tracing\ -\ All\ the\ Maths.pdf) |
-
-# Fancy pictures
-The following pictures were rendered with the program:
-| | |
-|-----------------------------|--------------------------|
-| ![snowscene](https://github.com/flo-12/miniRT/blob/main/images/snowscene.png) | ![cyliner_cone_sphere](https://github.com/flo-12/miniRT/blob/main/images/cyliner_cone_sphere.png) |
-|![basic_cy_sp rt](https://github.com/flo-12/miniRT/blob/main/images/basic_cy_sp.rt.png) | ![some_spheres](https://github.com/flo-12/miniRT/blob/main/images/some_spheres.png) |
-|![eval_sheet_pillars](https://github.com/flo-12/miniRT/blob/main/images/eval_sheet_pillars.png) | ![double_cone_sphere](https://github.com/flo-12/miniRT/blob/main/images/double_cone_sphere.png) |
 
