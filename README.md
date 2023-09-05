@@ -94,5 +94,5 @@ Realizing this project requires a deeper understanding of the raytracing algorit
 | Raytracing technique				| [Scratchapixel](https://www.scratchapixel.com/index.html), [Computer Graphics From Scratch](https://www.gabrielgambetta.com/computer-graphics-from-scratch/)|
 | Diffuse and Specular Light| [Diffuse Light](https://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/) , [Blinn-Phong Model](https://learnopengl.com/Advanced-Lighting/Advanced-Lighting)|
 |Cone |[What is a cone???](https://mathworld.wolfram.com/Cone.html), [Cone - Ray intersection](https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/) |
-|Sphere | [Sphere - Ray intersection](https://www.cl.cam.ac.uk/teaching/1718/AdvGraph/1.\ Ray\ Tracing\ -\ All\ the\ Maths.pdf) |
+|Sphere | [Sphere - Ray intersection](https://www.cl.cam.ac.uk/teaching/1718/AdvGraph/1.%20Ray%20Tracing%20-%20All%20the%20Maths.pdf) |
 
