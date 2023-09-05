@@ -72,12 +72,9 @@ cy  -7,1.5,0    1,0,0   4     6   0,255,255
 co  3,7,0       0,-1,0  23        255,0,0
 
 ```
-which renders to
+which renders to:
 ![scene with cone sphere and cylinder](images/cyliner_cone_sphere.png)
 
-// not necessary maybe ?
-To enable colored diffuse light sources add .. to the environment variables
-``` export ... ```
 
 
 # Fancy pictures
